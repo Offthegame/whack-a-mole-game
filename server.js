@@ -93,22 +93,22 @@ initializeRegions();
 // ✅ 특정 지역 데이터를 가져오기 (프론트엔드에서 호출)
 app.get("/api/regions/:regionId", async (req, res) => {
   try {
-    console.log(`🔍 API 요청: ${req.params.regionId}`);
+    console.log(`📥 API 요청: ${req.params.regionId}`); // 🛠️ 요청이 들어오는지 확인
 
     const region = await Region.findOne({ id: req.params.regionId });
-
     if (!region) {
-      console.log(`❌ MongoDB에서 ${req.params.regionId} 데이터 없음.`);
-      return res.status(404).json({ error: "Region not found in MongoDB" });
+      console.log(`❌ ${req.params.regionId} 데이터 없음`); // 🛠️ 데이터 없는 경우 로그 추가
+      return res.status(404).json({ error: "Region not found" });
     }
 
-    console.log(`✅ MongoDB에서 ${req.params.regionId} 데이터 조회 성공!`, region);
+    console.log(`✅ 데이터 응답: ${region.id}`); // 🛠️ 데이터가 정상적으로 조회됨
     res.json(region);
   } catch (error) {
     console.error("🚨 지역 데이터 불러오기 실패:", error);
     res.status(500).json({ error: "Failed to fetch region data" });
   }
 });
+
 
 
 // ✅ 지역 데이터 저장 (프론트엔드에서 호출)
