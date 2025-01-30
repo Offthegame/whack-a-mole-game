@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>두더지 게임</title>
+  <link rel="stylesheet" href="styles/styles.css">  <!-- CSS 파일 -->
+</head>
+<body>
+  <!-- 홈 화면 -->
+  <div id="home-screen" style="display: block;">
+    <h1>두더지 게임</h1>
+    <p>이름을 입력하세요:</p>
+    <input type="text" id="player-name" placeholder="User 1">
+    <button id="start-button">Start Game</button>
+
+    <!-- 지역 선택 버튼 및 드롭다운 -->
+    <div id="region-selection">
+      <label for="region">Select Region:</label>
+      <select id="region">
+        <option value="">Choose a region</option>
+        <!-- 동적으로 추가될 옵션 -->
+      </select>
+    </div>
+
+    <!-- 설정 버튼 -->
+    <button id="settings-button">Settings</button>
+  </div>
+
+  <!-- 설정 화면 -->
+  <div id="settings-screen" style="display: none;">
+    <h1>Settings</h1>
+
+    <!-- 비밀번호 인증 섹션 -->
+    <div id="auth-section">
+      <label for="region-password">Enter Region Password:</label>
+      <input type="password" id="region-password" placeholder="Enter password">
+      <button id="auth-submit">Submit</button>
+      <p id="auth-error" style="color: red; display: none;">Invalid password. Try again.</p>
+    </div>
+
+    <!-- 설정 옵션 섹션 -->
+    <div id="settings-options" style="display: none;">
+      <label for="game-time">Set Game Time (seconds):</label>
+      <input type="number" id="game-time" min="30" max="600" value="120">
+      <br>
+      <label>
+        <input type="checkbox" id="random-toggle" checked>
+        Randomize Questions
+      </label>
+      <br>
+      <button id="save-settings">Save Settings</button>
+    </div>
+
+    <button id="back-to-home">Back to Home</button>
+  </div>
+
+  <!-- 게임 화면 -->
+  <div id="game-screen" style="display: none;">
+  <!-- ✅ 상단 홈 버튼 추가 -->
+  <button id="home-button" class="home-button">🏠 홈으로</button>
+  
+    <div class="game-header">
+      <p id="question">Question will appear here...</p>
+      <p id="lives">Lives: 3</p>
+      <p id="score">Score: 0</p>
+      <p id="timer">Time Left: 2:00</p>
+    </div>
+
+    <!-- 1단계에서는 2개, 2단계에서는 4개 구멍이 보임 -->
+    <div class="game-grid">
+      <!-- 구멍 1: 1단계부터 보이는 구멍 -->
+      <div class="hole" id="hole-1">
+        <img class="mole" src="assets/mole.svg" alt="Mole">
+        <span class="answer-label"></span>
+      </div>
+      <!-- 구멍 2: 1단계부터 보이는 구멍 -->
+      <div class="hole" id="hole-2">
+        <img class="mole" src="assets/mole.svg" alt="Mole">
+        <span class="answer-label"></span>
+      </div>
+      <!-- 구멍 3: 기본적으로 숨겨진 상태 (.hidden) -->
+      <div class="hole hidden" id="hole-3">
+        <img class="mole" src="assets/mole.svg" alt="Mole">
+        <span class="answer-label"></span>
+      </div>
+      <!-- 구멍 4: 기본적으로 숨겨진 상태 (.hidden) -->
+      <div class="hole hidden" id="hole-4">
+        <img class="mole" src="assets/mole.svg" alt="Mole">
+        <span class="answer-label"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 게임 종료 화면 -->
+  <div id="end-screen" style="display: none;">
+    <h1>Game Over!</h1>
+    <p id="final-score">Your Score: 0</p>
+    <button id="restart-button">Play Again</button>
+    <button id="view-ranking-button">View Ranking</button>
+    <button id="go-home-button">Go Home</button>
+  </div>
+
+    <!-- ✅ JS 파일 순서 중요: main.js가 가장 마지막 -->
+    <!-- index.html -->
+  <script type="module" src="/scripts/main.js"></script>
+  <script type="module" src="/scripts/ui.js"></script>
+  <script type="module" src="/scripts/sound.js"></script>
+
+</body>
+</html>
