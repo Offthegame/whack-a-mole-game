@@ -8,7 +8,7 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // ✅ Render에서 자동 할당된 포트 사용
 
 // ✅ ES 모듈에서 __dirname 설정
 const __filename = fileURLToPath(import.meta.url);
@@ -30,7 +30,7 @@ const regionSchema = new mongoose.Schema({
 
 const Region = mongoose.model("Region", regionSchema);
 
-app.use(cors());
+app.use(cors({ origin: "https://wincross-whackamole.netlify.app" }));
 app.use(express.json());
 
 // ✅ 기본 페이지 라우팅
