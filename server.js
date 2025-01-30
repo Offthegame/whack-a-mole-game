@@ -16,10 +16,9 @@ const __dirname = path.dirname(__filename);
 const regionsPath = path.join(__dirname, "regions");
 
 // ✅ MongoDB 연결
-mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/whack-a-mole");
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "❌ MongoDB 연결 실패:"));
-db.once("open", () => console.log("✅ MongoDB 연결 성공!"));
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB 연결 성공!"))
+  .catch(err => console.error("❌ MongoDB 연결 실패:", err));
 
 // ✅ 지역 데이터 Schema
 const regionSchema = new mongoose.Schema({

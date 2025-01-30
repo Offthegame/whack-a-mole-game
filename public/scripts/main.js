@@ -1,5 +1,53 @@
 // scripts/main.js
 
+// UI 관련 함수 가져오기
+import { 
+  updateScoreUI, 
+  updateLivesUI, 
+  updateTimerUI, 
+  updateQuestionUI 
+} from "/scripts/ui.js";
+
+// 사운드 관련 함수 가져오기
+import { playHitSound, playWrongSound, playBackgroundMusic } from "/scripts/sound.js";
+
+// 지역 초기화
+const regions = [];
+ // 필요한 경우 다른 지역 데이터를 추가
+
+// ---------------------
+// 게임 상태 변수
+// ---------------------
+let selectedRegion = localStorage.getItem("selectedRegion") || ""; // 선택된 지역
+let currentRegion = null; // 현재 지역 데이터
+let score = 0; // 현재 점수
+let timeLeft = 120; // 남은 시간
+let remainingLives = 3; // 남은 생명
+let usedQuestions = []; // 사용된 문제 목록
+let currentQuestion = null; // 현재 표시 중인 문제
+let isWaiting = false; // 대기 상태
+let activeHoles = []; // 활성화된 구멍
+let moleTimer; // 두더지 타이머
+let timerInterval = null; // ✅ 전역 변수로 선언
+let gameActive = false; // ✅ 게임 진행 상태 변수 추가
+
+// ---------------------
+// DOM 요소 가져오기
+// ---------------------
+const regionDropdown = document.getElementById("region");
+const homeScreen = document.getElementById("home-screen");
+const gameScreen = document.getElementById("game-screen");
+const endScreen = document.getElementById("end-screen");
+const settingsScreen = document.getElementById("settings-screen");
+const authSection = document.getElementById("auth-section");
+const settingsOptions = document.getElementById("settings-options");
+const questionElement = document.getElementById("question");
+const timerElement = document.getElementById("timer");
+const scoreElement = document.getElementById("score");
+const livesElement = document.getElementById("lives");
+const holes = document.querySelectorAll(".hole");
+const API_BASE = "https://whack-a-mole-server.onrender.com";
+
 // ---------------------
 // 지역 데이터 및 설정
 // ✅ region-001부터 region-050까지 선택 가능
@@ -77,7 +125,7 @@ async function loadRegionData(regionId) {
   console.log(`🔍 불러올 지역 데이터: ${regionId}`);
 
   try {
-    const response = await fetch(`/api/regions/${regionId}`);
+    const response = await fetch(API_BASE + `/api/regions/${regionId}`);
     if (!response.ok) throw new Error("Failed to load region data");
     return await response.json();
   } catch (error) {
@@ -87,52 +135,6 @@ async function loadRegionData(regionId) {
 }
 
 
-// UI 관련 함수 가져오기
-import { 
-  updateScoreUI, 
-  updateLivesUI, 
-  updateTimerUI, 
-  updateQuestionUI 
-} from "/scripts/ui.js";
-
-// 사운드 관련 함수 가져오기
-import { playHitSound, playWrongSound, playBackgroundMusic } from "/scripts/sound.js";
-
-// 지역 초기화
-const regions = [];
- // 필요한 경우 다른 지역 데이터를 추가
-
-// ---------------------
-// 게임 상태 변수
-// ---------------------
-let selectedRegion = localStorage.getItem("selectedRegion") || ""; // 선택된 지역
-let currentRegion = null; // 현재 지역 데이터
-let score = 0; // 현재 점수
-let timeLeft = 120; // 남은 시간
-let remainingLives = 3; // 남은 생명
-let usedQuestions = []; // 사용된 문제 목록
-let currentQuestion = null; // 현재 표시 중인 문제
-let isWaiting = false; // 대기 상태
-let activeHoles = []; // 활성화된 구멍
-let moleTimer; // 두더지 타이머
-let timerInterval = null; // ✅ 전역 변수로 선언
-let gameActive = false; // ✅ 게임 진행 상태 변수 추가
-
-// ---------------------
-// DOM 요소 가져오기
-// ---------------------
-const regionDropdown = document.getElementById("region");
-const homeScreen = document.getElementById("home-screen");
-const gameScreen = document.getElementById("game-screen");
-const endScreen = document.getElementById("end-screen");
-const settingsScreen = document.getElementById("settings-screen");
-const authSection = document.getElementById("auth-section");
-const settingsOptions = document.getElementById("settings-options");
-const questionElement = document.getElementById("question");
-const timerElement = document.getElementById("timer");
-const scoreElement = document.getElementById("score");
-const livesElement = document.getElementById("lives");
-const holes = document.querySelectorAll(".hole");
 
 // ---------------------
 // 지역 선택 드롭다운 초기화
