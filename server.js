@@ -93,16 +93,23 @@ initializeRegions();
 // ✅ 특정 지역 데이터를 가져오기 (프론트엔드에서 호출)
 app.get("/api/regions/:regionId", async (req, res) => {
   try {
+    console.log(`🔍 API 요청: ${req.params.regionId}`);
+
     const region = await Region.findOne({ id: req.params.regionId });
+
     if (!region) {
-      return res.status(404).json({ error: "Region not found" });
+      console.log(`❌ MongoDB에서 ${req.params.regionId} 데이터 없음.`);
+      return res.status(404).json({ error: "Region not found in MongoDB" });
     }
+
+    console.log(`✅ MongoDB에서 ${req.params.regionId} 데이터 조회 성공!`, region);
     res.json(region);
   } catch (error) {
     console.error("🚨 지역 데이터 불러오기 실패:", error);
     res.status(500).json({ error: "Failed to fetch region data" });
   }
 });
+
 
 // ✅ 지역 데이터 저장 (프론트엔드에서 호출)
 app.post("/save-region", async (req, res) => {
