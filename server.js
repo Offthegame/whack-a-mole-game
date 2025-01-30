@@ -10,6 +10,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000; // ✅ Render에서 자동 할당된 포트 사용
 
+// ✅ CORS 설정 추가
+const corsOptions = {
+  origin: ["https://wincross-whackamole.netlify.app"], // ✅ Netlify에서만 요청 허용
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"],
+};
+
+app.use(cors(corsOptions)); // ✅ CORS 정책 적용
+
 // ✅ ES 모듈에서 __dirname 설정
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
