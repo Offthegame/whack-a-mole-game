@@ -46,7 +46,7 @@ const timerElement = document.getElementById("timer");
 const scoreElement = document.getElementById("score");
 const livesElement = document.getElementById("lives");
 const holes = document.querySelectorAll(".hole");
-const API_BASE = "https://whack-a-mole-server.onrender.com";
+const API_BASE = "https://whack-a-mole-game-3bqy.onrender.com";
 
 // ---------------------
 // 지역 데이터 및 설정
