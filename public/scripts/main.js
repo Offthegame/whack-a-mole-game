@@ -47,6 +47,7 @@ const scoreElement = document.getElementById("score");
 const livesElement = document.getElementById("lives");
 
 const regionDropdown = document.getElementById("region");
+const settingsDropdown = document.getElementById("settings-region"); // Admin 화면의 드롭다운
 const holes = document.querySelectorAll(".hole");
 
 // ======================
@@ -58,6 +59,7 @@ const holes = document.querySelectorAll(".hole");
  */
 function populateRegionDropdown() {
   regionDropdown.innerHTML = "";
+  settingsDropdown.innerHTML = "";
 
   // 기본 안내 옵션 추가
   const defaultOption = document.createElement("option");
@@ -65,7 +67,9 @@ function populateRegionDropdown() {
   defaultOption.textContent = "지역을 선택하세요";
   defaultOption.disabled = true;
   defaultOption.selected = true;
-  regionDropdown.appendChild(defaultOption);
+  regionDropdown.appendChild(defaultOption.cloneNode(true));
+  settingsDropdown.appendChild(defaultOption.cloneNode(true));
+
 
   // Region 001 ~ Region 050 옵션 추가
   const validRegions = [];
@@ -74,7 +78,8 @@ function populateRegionDropdown() {
     const option = document.createElement("option");
     option.value = regionId;
     option.textContent = `Region ${String(i).padStart(3, "0")}`;
-    regionDropdown.appendChild(option);
+    regionDropdown.appendChild(option.cloneNode(true));
+    settingsDropdown.appendChild(option.cloneNode(true));
     validRegions.push(regionId);
   }
 
@@ -82,6 +87,7 @@ function populateRegionDropdown() {
   const savedRegion = localStorage.getItem("selectedRegion");
   if (savedRegion && validRegions.includes(savedRegion)) {
     regionDropdown.value = savedRegion;
+    settingsDropdown.value = savedRegion;
     console.log(`🎯 적용된 지역: ${savedRegion}`);
   } else if (savedRegion) {
     console.warn(`⚠️ ${savedRegion}는 유효하지 않으므로 초기화.`);

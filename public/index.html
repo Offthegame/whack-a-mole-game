@@ -31,8 +31,16 @@
   <div id="settings-screen" style="display: none;">
     <h1>Settings</h1>
 
-    <!-- 비밀번호 인증 섹션 -->
     <div id="auth-section">
+      <!-- 지역 선택 섹션 -->
+      <div id="region-selection">
+        <label for="region">Select Region:</label>
+        <select id="settings-region">
+          <option value="">Choose a region</option>
+          <!-- 동적으로 추가될 옵션 -->
+        </select>
+      </div>
+      <!-- 비밀번호 인증 섹션 -->
       <div class="password-container">
       <label for="region-password">Enter Region Password:</label>
       <input type="password" id="region-password" class="password-input" placeholder="Enter password">
