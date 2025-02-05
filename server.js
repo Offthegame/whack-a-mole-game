@@ -8,16 +8,22 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000; // ✅ Render에서 자동 할당된 포트 사용
+const PORT = process.env.PORT || 3000; // Render에서 자동 할당된 포트 사용
 
-// ✅ CORS 설정 추가
+// 환경에 따라 허용할 Origin 결정 (개발환경: localhost, 배포환경: 실제 도메인)
+const allowedOrigin =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://wincross-whackamole.netlify.app";
+
+// CORS 옵션 설정
 const corsOptions = {
-  origin: "*", // ✅ 문자열로 수정
+  origin: allowedOrigin,
   methods: "GET,POST,PUT,DELETE",
-  allowedHeaders: "Content-Type",
+  allowedHeaders: "Content-Type, Authorization",
 };
 
-app.use(cors(corsOptions)); // ✅ CORS 정책 적용
+app.use(cors(corsOptions)); // 하나의 CORS 미들웨어만 적용
 
 // ✅ ES 모듈에서 __dirname 설정
 const __filename = fileURLToPath(import.meta.url);
@@ -39,7 +45,6 @@ const regionSchema = new mongoose.Schema({
 
 const Region = mongoose.model("Region", regionSchema);
 
-app.use(cors({ origin: "https://wincross-whackamole.netlify.app" }));
 app.use(express.json());
 
 // ✅ 기본 페이지 라우팅
@@ -48,7 +53,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// ✅ **서버 시작 시 기존 `regions/` 폴더 내 파일을 MongoDB로 자동 업로드**
+// ✅ 서버 시작 시 기존 `regions/` 폴더 내 파일을 MongoDB로 자동 업로드
 const initializeRegions = async () => {
   console.log("🔍 `regions/` 폴더 내 기존 파일을 MongoDB로 업로드 중...");
 
@@ -86,30 +91,24 @@ const initializeRegions = async () => {
   }
 };
 
-
-// ✅ 서버 시작 시 `initializeRegions()` 실행
 initializeRegions();
 
 // ✅ 특정 지역 데이터를 가져오기 (프론트엔드에서 호출)
 app.get("/api/regions/:regionId", async (req, res) => {
   try {
-    console.log(`📥 API 요청: ${req.params.regionId}`); // 🛠️ 요청이 들어오는지 확인
-
+    console.log(`📥 API 요청: ${req.params.regionId}`);
     const region = await Region.findOne({ id: req.params.regionId });
     if (!region) {
-      console.log(`❌ ${req.params.regionId} 데이터 없음`); // 🛠️ 데이터 없는 경우 로그 추가
+      console.log(`❌ ${req.params.regionId} 데이터 없음`);
       return res.status(404).json({ error: "Region not found" });
     }
-
-    console.log(`✅ 데이터 응답: ${region.id}`); // 🛠️ 데이터가 정상적으로 조회됨
+    console.log(`✅ 데이터 응답: ${region.id}`);
     res.json(region);
   } catch (error) {
     console.error("🚨 지역 데이터 불러오기 실패:", error);
     res.status(500).json({ error: "Failed to fetch region data" });
   }
 });
-
-
 
 // ✅ 지역 데이터 저장 (프론트엔드에서 호출)
 app.post("/save-region", async (req, res) => {
@@ -132,7 +131,6 @@ app.get("/default-region", async (req, res) => {
   try {
     const defaultRegion = await Region.findOne({ id: "region-001" });
     if (!defaultRegion) return res.status(404).json({ error: "Default region data not found" });
-
     res.json(defaultRegion);
   } catch (error) {
     console.error("❌ 기본 지역 데이터 로드 실패:", error);
