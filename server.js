@@ -10,11 +10,17 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000; // ✅ Render에서 자동 할당된 포트 사용
 
-// ✅ CORS 설정 추가
+// 환경에 따라 허용할 Origin 결정 (개발환경: localhost, 배포환경: 실제 도메인)
+const allowedOrigin =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://wincross-whackamole.netlify.app";
+
+// CORS 옵션 설정
 const corsOptions = {
-  origin: "*", // ✅ 문자열로 수정
+  origin: allowedOrigin,
   methods: "GET,POST,PUT,DELETE",
-  allowedHeaders: "Content-Type",
+  allowedHeaders: "Content-Type, Authorization",
 };
 
 app.use(cors(corsOptions)); // ✅ CORS 정책 적용
