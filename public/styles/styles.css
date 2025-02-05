@@ -150,3 +150,26 @@ button:hover {
 .home-button:hover {
   background-color: #4a6bff;
 }
+
+/* setting.js 설정 인증창 */
+.password-container {
+  position: relative;
+  display: inline-block;
+}
+
+.password-input {
+  padding-right: 30px; /* 아이콘과 간격 확보 */
+  width: 200px;
+  height: 30px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none;
+  z-index: 10; /* 입력창보다 높은 값 */
+}

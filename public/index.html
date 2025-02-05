@@ -33,8 +33,11 @@
 
     <!-- 비밀번호 인증 섹션 -->
     <div id="auth-section">
+      <div class="password-container">
       <label for="region-password">Enter Region Password:</label>
-      <input type="password" id="region-password" placeholder="Enter password">
+      <input type="password" id="region-password" class="password-input" placeholder="Enter password">
+      <span class="toggle-password" onclick="togglePassword()">👁️</span>
+      </div>
       <button id="auth-submit">Submit</button>
       <p id="auth-error" style="color: red; display: none;">Invalid password. Try again.</p>
     </div>
