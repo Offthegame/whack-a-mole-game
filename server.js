@@ -10,6 +10,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000; // Render에서 자동 할당된 포트 사용
 
+console.log(process.env.NODE_ENV); // Render(서버관리)에서 "development"으로 설정하는 게 중요!
+
 // 환경에 따라 허용할 Origin 결정 (개발환경: localhost, 배포환경: 실제 도메인)
 const allowedOrigin =
   process.env.NODE_ENV === "development"
