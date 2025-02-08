@@ -315,6 +315,19 @@ function showMoles() {
     activeHoles.push(randomHole);
   }
 
+  // 두더지 클릭 이벤트 재설정 (이중 등록 방지)
+  document.querySelectorAll(".mole").forEach((mole) => {
+    mole.removeEventListener("click", handleMoleClick);
+    mole.addEventListener("click", handleMoleClick);
+  });
+
+  console.log("🟢 showMoles: 활성 두더지 개수:", activeHoles.length);
+
+  moleTimer = setTimeout(() => {
+    scheduleNextMoles(500);
+  }, 5000);
+}
+
 /**
  * 모든 구멍을 초기 상태로 복원
  */
