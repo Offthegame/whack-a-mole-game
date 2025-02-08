@@ -303,23 +303,22 @@ function showMoles() {
 
   resetAllMoles();
 
-  // 구멍의 수는 totalAnswers에 따라 결정 (예: 2개 또는 4개)
+  // 구멍의 수는 totalAnswers에 따라 결정
   const numMoles = totalAnswers;
-  // DOM에 정의된 구멍이 순서대로 배치되어 있다고 가정하고, 
-  // 필요한 개수만큼 slice()로 선택 (예: 질문에 따라 처음 2개 또는 4개 사용)
+  // DOM에 정의된 구멍들을 순서대로 사용
   const availableHoles = Array.from(holes).slice(0, numMoles);
 
-  for (let i = 0; i < numMoles; i++) {
-    const randomHole = availableHoles.splice(Math.floor(Math.random() * availableHoles.length), 1)[0];
-    const moleImg = randomHole.querySelector(".mole");
-    const answerLabel = randomHole.querySelector(".answer-label");
+  // 순서대로 각 구멍에 두더지와 답안 할당
+  availableHoles.forEach((hole, index) => {
+    const moleImg = hole.querySelector(".mole");
+    const answerLabel = hole.querySelector(".answer-label");
 
     moleImg.src = "assets/mole.svg";
-    moleImg.dataset.answer = shuffledAnswers[i] || "";
-    answerLabel.textContent = shuffledAnswers[i] || "";
-    randomHole.classList.add("active");
-    activeHoles.push(randomHole);
-  }
+    moleImg.dataset.answer = shuffledAnswers[index] || "";
+    answerLabel.textContent = shuffledAnswers[index] || "";
+    hole.classList.add("active");
+    activeHoles.push(hole);
+  });
 
   // 두더지 클릭 이벤트 재설정 (이중 등록 방지)
   document.querySelectorAll(".mole").forEach((mole) => {
