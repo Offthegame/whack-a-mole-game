@@ -70,14 +70,20 @@ function populateRegionDropdown() {
   regionDropdown.appendChild(defaultOption.cloneNode(true));
   settingsDropdown.appendChild(defaultOption.cloneNode(true));
 
-
   // Region 001 ~ Region 050 옵션 추가
   const validRegions = [];
   for (let i = 1; i <= 50; i++) {
     const regionId = `region-${String(i).padStart(3, "0")}`;
+    const regionName = `Region ${String(i).padStart(3, "0")}`;
+    const regionPassword = `pass${String(i).padStart(3, "0")}`; // 새로운 번호에 맞는 비밀번호
+
+    // 옵션 생성
     const option = document.createElement("option");
     option.value = regionId;
-    option.textContent = `Region ${String(i).padStart(3, "0")}`;
+    option.textContent = regionName;
+    // 필요에 따라 비밀번호도 data-attribute로 저장 (설정 화면에서 인증할 때 사용 가능)
+    option.setAttribute("data-password", regionPassword);
+
     regionDropdown.appendChild(option.cloneNode(true));
     settingsDropdown.appendChild(option.cloneNode(true));
     validRegions.push(regionId);
