@@ -249,19 +249,18 @@ function startTimer() {
 }
 
 /**
- * 점수에 따라 문제 난이도에 맞는 질문을 반환
+ * 기존 level 기반 선택 함수를 새로운 질문 배열을 사용하는 함수로 변경
+ * 각 질문은 고유 id를 가지고 있다고 가정 (데이터 수정 참고)
  */
-function getQuestionByLevel() {
-  const level = score < 1000 ? "level1" : "level2";
-  const questions = currentRegion ? currentRegion.levels[level] : [];
-  const available = questions.filter((q) => !usedQuestions.includes(q));
-
+function getQuestion() {
+  const questions = currentRegion ? currentRegion.questions : [];
+  const available = questions.filter(q => !usedQuestions.includes(q.id));
   if (available.length === 0) {
     usedQuestions = [];
-    return getQuestionByLevel();
+    return getQuestion();
   }
   const selected = available[Math.floor(Math.random() * available.length)];
-  usedQuestions.push(selected);
+  usedQuestions.push(selected.id);
   return selected;
 }
 
@@ -278,29 +277,31 @@ function scheduleNextMoles(delayMs) {
 
 /**
  * 두더지를 화면에 표시하고 문제(정답/오답)를 할당
+ * 구멍의 개수는 현재 문제의 오답 개수에 따라 결정된다.
+ * (정답 1개 + 오답 배열 길이 만큼 총 답안 개수)
  */
 function showMoles() {
   if (!gameActive) return;
   clearTimeout(moleTimer);
 
-  // 아직 문제가 없다면 새 질문 생성
+  // 아직 문제가 없다면 새 질문 생성 (getQuestion() 사용)
   if (!currentQuestion) {
-    currentQuestion = getQuestionByLevel();
+    currentQuestion = getQuestion();
     updateQuestionUI(currentQuestion.question, currentQuestion.emptySlot);
   }
 
-  // 난이도에 따른 오답 개수 및 두더지 수
-  const numOfWrongs = score < 1000 ? 1 : 3;
-  const allAnswers = [currentQuestion.correct, ...currentQuestion.wrong.slice(0, numOfWrongs)];
+  // 총 답안 개수: 정답 1개 + 오답 배열 길이
+  const totalAnswers = 1 + currentQuestion.wrong.length;
+  const allAnswers = [currentQuestion.correct, ...currentQuestion.wrong];
   const shuffledAnswers = allAnswers.sort(() => Math.random() - 0.5);
 
   resetAllMoles();
 
-  const numMoles = score < 1000 ? 2 : 4;
-  // 1단계는 앞의 두 구멍, 2단계는 네 구멍 사용
-  const availableHoles = score < 1000
-    ? [holes[0], holes[1]]
-    : [holes[0], holes[1], holes[2], holes[3]];
+  // 구멍의 수는 totalAnswers에 따라 결정 (예: 2개 또는 4개)
+  const numMoles = totalAnswers;
+  // DOM에 정의된 구멍이 순서대로 배치되어 있다고 가정하고, 
+  // 필요한 개수만큼 slice()로 선택 (예: 질문에 따라 처음 2개 또는 4개 사용)
+  const availableHoles = Array.from(holes).slice(0, numMoles);
 
   for (let i = 0; i < numMoles; i++) {
     const randomHole = availableHoles.splice(Math.floor(Math.random() * availableHoles.length), 1)[0];
@@ -313,19 +314,6 @@ function showMoles() {
     randomHole.classList.add("active");
     activeHoles.push(randomHole);
   }
-
-  // 두더지 클릭 이벤트 재설정
-  document.querySelectorAll(".mole").forEach((mole) => {
-    mole.removeEventListener("click", handleMoleClick);
-    mole.addEventListener("click", handleMoleClick);
-  });
-
-  console.log("🟢 showMoles: 활성 두더지 개수:", activeHoles.length);
-
-  moleTimer = setTimeout(() => {
-    scheduleNextMoles(500);
-  }, 5000);
-}
 
 /**
  * 모든 구멍을 초기 상태로 복원
