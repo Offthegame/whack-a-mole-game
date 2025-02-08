@@ -75,12 +75,13 @@ const initializeRegions = async () => {
         const filePath = `file://${path.join(regionsPath, file)}`;
         const module = await import(filePath);
         const regionData = module.default || module[regionId];
-
+      
         if (regionData) {
+          // 기존 데이터를 완전히 덮어쓰도록 overwrite: true 옵션 추가
           await Region.findOneAndUpdate(
             { id: regionId },
             regionData,
-            { upsert: true, new: true }
+            { upsert: true, new: true, overwrite: true }
           );
           console.log(`✅ ${regionId} 데이터 MongoDB에 저장 완료.`);
         } else {
@@ -88,7 +89,7 @@ const initializeRegions = async () => {
         }
       } catch (error) {
         console.error(`❌ ${regionId} 데이터 변환 실패:`, error);
-      }
+      }      
     }
   }
 };
