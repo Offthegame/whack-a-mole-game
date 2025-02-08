@@ -40,9 +40,11 @@ mongoose.connect(process.env.MONGO_URI)
 // ✅ 지역 데이터 Schema
 const regionSchema = new mongoose.Schema({
   id: String,
+  name: String,               // 지역 이름
+  password: String,           // 지역 비밀번호
   gameTime: Number,
   randomizeQuestions: Boolean,
-  levels: Object,
+  questions: Array            // 질문 배열 추가
 });
 
 const Region = mongoose.model("Region", regionSchema);
