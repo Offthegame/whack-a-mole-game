@@ -543,10 +543,11 @@ document.addEventListener("touchend", () => {
 // ======================
 // 10. Linktree Page
 // ======================
-// 🔙 뒤로가기 버튼 클릭 시 홈 화면으로 이동
-document.getElementById("back-to-home").addEventListener("click", () => {
-  document.getElementById("linktree-screen").style.display = "none";
-  document.getElementById("home-screen").style.display = "block";
+// ✅ 링크트리 → 게임 종료 화면(end-screen)으로 이동
+document.getElementById("back-to-end").addEventListener("click", () => {
+  document.getElementById("linktree-screen").style.display = "none"; // 링크트리 숨기기
+  document.getElementById("end-screen").style.display = "block"; // 게임 종료 화면 보이기
+  console.log("뒤로가기 버튼 클릭됨"); // 콘솔에서 확인
 });
 
 // ✅ 홈으로 돌아가는 버튼

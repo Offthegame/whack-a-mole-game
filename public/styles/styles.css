@@ -17,17 +17,19 @@ body {
   ★ 게임 전체 컨테이너 ★
   가운데 정렬된 패널 형식 
 */
-#game-container {
+#game-screen {
   width: 80vw;
   height: 90vh;
-  background: white;
+  background: url("/public/assets/game-bg.png") no-repeat center center;
+  background-size: contain; /* 컨테이너 안에서 비율 유지 */
   border-radius: 10px;
-  overflow: hidden;
+  overflow: hidden; /* 내용이 넘치지 않도록 */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 
 /* 
   ★ 버튼 공통 스타일 ★ 
