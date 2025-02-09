@@ -415,6 +415,13 @@ function stopVideo() {
   }
 }
 
+function pauseVideo() {
+  const iframe = document.querySelector("#end-screen iframe");
+  if (iframe) {
+    const player = new Vimeo.Player(iframe); // Vimeo API로 플레이어 컨트롤
+    player.pause(); // 비디오 일시정지
+  }
+}
 
 /**
  * Play Again 버튼 클릭 시 게임 초기화 및 재시작
@@ -482,6 +489,7 @@ document.addEventListener("click", (event) => {
     handleGoHome();
   } else if (id === "linktree-button") { 
     showScreen("linktree-screen"); // ✅ 링크트리 화면 보이기
+    pauseVideo(); // ✅ 영상 일시정지
   } else if (id === "back-to-home") { 
     showScreen("home-screen"); // ✅ 홈 화면으로 전환
   }
