@@ -178,7 +178,7 @@ button:hover {
 .video-container {
   position: relative;
   width: 100%; /* 화면 가로폭에 맞춤 */
-  max-width: 640px; /* 최대 크기 제한 */
+  max-width: 1920px; /* 최대 크기 제한 */
   aspect-ratio: 16 / 9; /* 비율 유지 */
 }
 

@@ -39,6 +39,7 @@ let endX = 0;
 const homeScreen = document.getElementById("home-screen");
 const gameScreen = document.getElementById("game-screen");
 const endScreen = document.getElementById("end-screen");
+const linktreeScreen = document.getElementById("linktree-screen");
 const settingsScreen = document.getElementById("settings-screen");
 const authSection = document.getElementById("auth-section");
 const settingsOptions = document.getElementById("settings-options");
@@ -454,6 +455,7 @@ function handleGoHome() {
 
   endScreen.style.display = "none";
   gameScreen.style.display = "none";
+  linktreeScreen.style.display = "none";
   homeScreen.style.display = "block";
 
   score = 0;
@@ -480,6 +482,8 @@ document.addEventListener("click", (event) => {
     handleGoHome();
   } else if (id === "linktree-button") { 
     showScreen("linktree-screen"); // ✅ 링크트리 화면 보이기
+  } else if (id === "back-to-home") { 
+    showScreen("home-screen"); // ✅ 홈 화면으로 전환
   }
 });
 
@@ -550,10 +554,17 @@ document.getElementById("back-to-home").addEventListener("click", () => {
   showScreen("home-screen");
 });
 
-// ✅ 화면 전환 함수
+// ✅ 화면 전환 함수 (홈, 게임, 설정, 링크트리 전환)
 function showScreen(screenId) {
   document.querySelectorAll(".screen").forEach((screen) => {
-      screen.style.display = "none";
+    screen.style.display = "none"; // 모든 화면 숨기기
   });
+  
+  // ✅ 특정 화면만 보이도록 설정
   document.getElementById(screenId).style.display = "block";
+
+  // 🚨 링크트리 화면이 보일 때 `end-screen` 강제 숨기기
+  if (screenId === "linktree-screen") {
+    document.getElementById("end-screen").style.display = "none";
+  }
 }
