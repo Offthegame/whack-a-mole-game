@@ -18,10 +18,10 @@ body {
   가운데 정렬된 패널 형식 
 */
 #game-screen {
-  width: 70vw;
-  height: 90vh;
+  width: min(70vw, 1920px); /* 70vw를 기본으로 하지만 최대 1920px로 제한 */
+  height: calc(min(70vw, 1920px) * 0.5625); /* 16:9 비율 유지 */
   background: url("/assets/game-bg.png") no-repeat center center;
-  background-size: cover;
+  background-size: contain; /* 비율 유지하면서 가로폭에 맞춤 */
   border-radius: 10px;
   overflow: hidden; /* 내용이 넘치지 않도록 */
   display: flex;
@@ -175,6 +175,18 @@ button:hover {
   user-select: none;
   z-index: 10; /* 입력창보다 높은 값 */
 }
+
+#end-screen {
+  width: 90vw;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column; /* ✅ 요소들을 세로로 정렬 */
+  align-items: center; /* ✅ 가운데 정렬 */
+  justify-content: center; /* ✅ 중앙 정렬 */
+  text-align: center; /* ✅ 텍스트도 중앙 정렬 */
+  gap: 20px; /* ✅ 요소 간 간격 추가 */
+}
+
 
 /* 🎥 반응형 비디오 스타일 */
 .video-container {
