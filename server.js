@@ -12,20 +12,23 @@ const PORT = process.env.PORT || 3000; // Render에서 자동 할당된 포트 �
 
 console.log(process.env.NODE_ENV); // Render(서버관리)에서 "development"으로 설정하는 게 중요!
 
-// 환경에 따라 허용할 Origin 결정 (개발환경: localhost, 배포환경: 실제 도메인)
-const allowedOrigin =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://wincross-whackamole.netlify.app";
+// ✅ 허용할 Origin 목록 (배포 + 개발 환경)
+const allowedOrigins = [
+  "http://localhost:3000",  // 개발 환경 (로컬에서 테스트)
+  "https://wincross-whackamole.netlify.app",  // 배포된 프론트엔드
+];
 
-// CORS 옵션 설정
 const corsOptions = {
-  origin: allowedOrigin,
-  methods: "GET,POST,PUT,DELETE",
-  allowedHeaders: "Content-Type, Authorization",
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS 정책에 의해 차단됨"));
+    }
+  },
 };
 
-app.use(cors(corsOptions)); // 하나의 CORS 미들웨어만 적용
+app.use(cors(corsOptions));  // ✅ 수정된 CORS 설정 적용
 
 // ✅ ES 모듈에서 __dirname 설정
 const __filename = fileURLToPath(import.meta.url);
