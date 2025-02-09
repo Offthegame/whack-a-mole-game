@@ -30,6 +30,8 @@ let activeHoles = [];
 let moleTimer;       // 두더지 타이머
 let timerInterval = null; // 메인 타이머
 let gameActive = false;   // 게임 진행 상태
+let startX = 0;
+let endX = 0;
 
 // ======================
 // 3. DOM Elements
@@ -490,4 +492,44 @@ holes.forEach((hole) => {
 // ======================
 document.addEventListener("DOMContentLoaded", () => {
   populateRegionDropdown();
+});
+
+// ======================
+// 9. Swipe Gesture Handling
+// ======================
+function goNextScreen() {
+  if (currentScreen === "home") {
+      startGame();  // 홈 → 게임 시작
+  } else if (currentScreen === "game") {
+      showGameOver();  // 게임 → 게임 종료 화면
+  }
+}
+
+function goPrevScreen() {
+  if (currentScreen === "game") {
+      showHomeScreen();  // 게임 → 홈화면
+  }
+}
+
+// 터치 시작 이벤트
+document.addEventListener("touchstart", (event) => {
+  startX = event.touches[0].clientX; // 시작 위치 저장
+});
+
+// 터치 이동 이벤트 (선택적)
+document.addEventListener("touchmove", (event) => {
+  endX = event.touches[0].clientX; // 현재 위치 갱신
+});
+
+// 터치 종료 이벤트
+document.addEventListener("touchend", () => {
+  let diffX = startX - endX;
+
+  if (diffX > 50) {
+      console.log("➡️ 왼쪽으로 스와이프 (다음 화면)");
+      goNextScreen();  // 다음 화면 이동 함수
+  } else if (diffX < -50) {
+      console.log("⬅️ 오른쪽으로 스와이프 (이전 화면)");
+      goPrevScreen();  // 이전 화면 이동 함수
+  }
 });
