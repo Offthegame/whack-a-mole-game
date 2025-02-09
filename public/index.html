@@ -106,9 +106,45 @@
   <!-- 게임 종료 화면 -->
   <div id="end-screen" style="display: none;">
     <h1>Game Over!</h1>
-    <iframe title="vimeo-player" src="https://player.vimeo.com/video/446416103?h=464d10ec9d" width="640" height="360" frameborder="0"    allowfullscreen></iframe>    <p id="final-score">Your Score: 0</p>
+
+    <!-- 🎥 반응형 비디오 컨테이너 -->
+    <div class="video-container">
+      <iframe 
+          title="vimeo-player" 
+          src="https://player.vimeo.com/video/446416103?h=464d10ec9d" 
+          allowfullscreen>
+      </iframe>
+    </div>
+    
+    <p id="final-score">Your Score: 0</p>
     <button id="restart-button">Play Again</button>
     <button id="go-home-button">Go Home</button>
+    <button id="linktree-button">Next</button>
+  </div>
+
+  <!-- ✅ 링크트리 화면 -->
+  <div id="linktree-screen" class="screen">
+    <!-- 🔙 뒤로가기 버튼 -->
+    <button id="back-to-home" class="back-btn">← 뒤로가기</button>
+
+    <!-- ✅ 프로필 섹션 -->
+    <div class="profile">
+        <img src="assets/artart-logo.png" alt="ARTART Logo" class="profile-img">
+        <h2>@artart.today</h2>
+        <p>쉽고 힙한 문화/예술 이야기 ARTART</p>
+    </div>
+
+    <!-- ✅ 링크 버튼 리스트 -->
+    <div class="linktree-links">
+        <button class="linktree-btn">🎟️ [무료 이벤트 구독] 전시, 공연, 영화 이벤트</button>
+        <button class="linktree-btn">👗 (무료 증정) 퍼스널 컬러 + 패션 스타일 만들기 - 여자ver</button>
+        <button class="linktree-btn">🧥 (무료 증정) 퍼스널 컬러 + 패션 스타일 만들기 - 남자ver</button>
+        <button class="linktree-btn">🎨 힙하고 재미있는 아트아트 홈페이지</button>
+        <button class="linktree-btn">📰 [아트레터 구독] 핫한 아트 소식</button>
+        <button class="linktree-btn">💼 [채용공고] 아트아트와 함께할 인재 찾습니다</button>
+    </div>
+
+    <button id="back-to-home">🏠 홈으로</button>
   </div>
 
     <!-- ✅ JS 파일 순서 중요: main.js가 가장 마지막 -->

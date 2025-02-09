@@ -533,3 +533,25 @@ document.addEventListener("touchend", () => {
       goPrevScreen();  // 이전 화면 이동 함수
   }
 });
+
+// ======================
+// 10. Linktree Page
+// ======================
+// 🔙 뒤로가기 버튼 클릭 시 홈 화면으로 이동
+document.getElementById("back-to-home").addEventListener("click", () => {
+  document.getElementById("linktree-screen").style.display = "none";
+  document.getElementById("home-screen").style.display = "block";
+});
+
+// ✅ 홈으로 돌아가는 버튼
+document.getElementById("back-to-home").addEventListener("click", () => {
+  showScreen("home-screen");
+});
+
+// ✅ 화면 전환 함수
+function showScreen(screenId) {
+  document.querySelectorAll(".screen").forEach((screen) => {
+      screen.style.display = "none";
+  });
+  document.getElementById(screenId).style.display = "block";
+}
