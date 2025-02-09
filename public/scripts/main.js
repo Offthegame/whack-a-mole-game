@@ -404,10 +404,22 @@ function endGame() {
   document.getElementById("final-score").textContent = `Your Score: ${score}`;
 }
 
+function stopVideo() {
+  const iframe = document.querySelector('#end-screen iframe');
+  if (iframe) {
+    // iframe의 src를 다시 할당하여 비디오를 재로딩(즉, 멈춤)시킴
+    iframe.src = iframe.src;
+  }
+}
+
+
 /**
  * Play Again 버튼 클릭 시 게임 초기화 및 재시작
  */
 function handlePlayAgain() {
+  stopVideo(); // 플레이어 정지
+
+
   endScreen.style.display = "none";
   score = 0;
   remainingLives = 3;
@@ -415,10 +427,6 @@ function handlePlayAgain() {
   usedQuestions = [];
   currentQuestion = null;
   isWaiting = false;
-
-  // 2단계에서 사용한 구멍 숨김 (필요한 경우)
-  document.getElementById("hole-3")?.classList.add("hidden");
-  document.getElementById("hole-4")?.classList.add("hidden");
 
   resetAllMoles();
 
@@ -435,6 +443,8 @@ function handlePlayAgain() {
  * Go Home 버튼 클릭 시 홈 화면으로 복귀하고 게임 상태 초기화
  */
 function handleGoHome() {
+  stopVideo(); // 플레이어 정지
+
   console.log("🏠 Go Home 버튼 클릭 - 게임 종료 및 초기화!");
   gameActive = false;
   clearInterval(timerInterval);
