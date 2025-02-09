@@ -478,6 +478,8 @@ document.addEventListener("click", (event) => {
     handlePlayAgain();
   } else if (id === "go-home-button" || id === "home-button") {
     handleGoHome();
+  } else if (id === "linktree-button") { 
+    showScreen("linktree-screen"); // ✅ 링크트리 화면 보이기
   }
 });
 
