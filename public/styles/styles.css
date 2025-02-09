@@ -19,7 +19,6 @@ body {
 */
 #game-screen {
   width: min(70vw, 1920px); /* 70vw를 기본으로 하지만 최대 1920px로 제한 */
-  height: min(100vh, calc(min(70vw, 1920px) * 0.5625)); /* 최소 100vh 보장 */
   background: url("/assets/game-bg.png") no-repeat center center;
   background-size: cover; /* 화면 전체를 덮도록 설정 */
   border-radius: 10px;
