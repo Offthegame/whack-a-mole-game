@@ -156,3 +156,13 @@ app.get("/default-region", async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
+
+app.get("/api/regions", async (req, res) => {
+  try {
+    const regions = await Region.find({});
+    res.json(regions);
+  } catch (error) {
+    console.error("Failed to fetch regions:", error);
+    res.status(500).json({ error: "Failed to fetch regions" });
+  }
+});
