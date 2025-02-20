@@ -73,34 +73,36 @@ function hideLoading() {
 }
 
 async function populateRegionDropdown() {
-  showLoading(); // 드롭다운 데이터 로딩 시작 시 로딩 오버레이 표시
+  showLoading(); // 로딩 화면 표시
   try {
-    // API에서 모든 지역 데이터를 불러오기 시도
     const response = await fetch(`${API_BASE}/api/regions`);
-    let regions = [];
+    let dbRegions = [];
     if (response.ok) {
-      regions = await response.json();
+      dbRegions = await response.json();
     }
-  
-    // 지역 데이터가 없으면 기본 옵션 생성 (region-001 ~ region-050)
-    if (!regions || regions.length === 0) {
-      console.warn("지역 데이터 없음. 기본 옵션(region-001 ~ region-050) 생성.");
-      regions = [];
-      for (let i = 1; i <= 50; i++) {
-        const regionId = `region-${String(i).padStart(3, "0")}`;
-        regions.push({
-          id: regionId,
-          name: `Region ${String(i).padStart(3, "0")}`,
-          password: `pass${String(i).padStart(3, "0")}`,
-          // 필요 시 다른 기본 필드 추가
-        });
-      }
+
+    // 기본 옵션 생성: region-001부터 region-050
+    const defaultRegions = [];
+    for (let i = 1; i <= 50; i++) {
+      const regionId = `region-${String(i).padStart(3, "0")}`;
+      defaultRegions.push({
+        id: regionId,
+        name: `Region ${String(i).padStart(3, "0")}`,
+        password: `pass${String(i).padStart(3, "0")}`,
+      });
     }
-  
+
+    // DB에서 받은 데이터와 기본 옵션 병합:
+    // DB에 저장된 region이 있다면 그 값을 사용하고, 없으면 기본값 사용.
+    const mergedRegions = defaultRegions.map(defaultRegion => {
+      const found = dbRegions.find(region => region.id === defaultRegion.id);
+      return found ? found : defaultRegion;
+    });
+
     // 드롭다운 초기화
     regionDropdown.innerHTML = "";
     settingsDropdown.innerHTML = "";
-  
+
     // 기본 안내 옵션 추가
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
@@ -109,9 +111,9 @@ async function populateRegionDropdown() {
     defaultOption.selected = true;
     regionDropdown.appendChild(defaultOption.cloneNode(true));
     settingsDropdown.appendChild(defaultOption.cloneNode(true));
-  
-    // API에서 받아온(또는 기본 생성한) 지역 데이터를 기반으로 옵션 추가
-    regions.forEach(region => {
+
+    // 병합된 데이터로 옵션 추가
+    mergedRegions.forEach(region => {
       const option = document.createElement("option");
       option.value = region.id;
       option.textContent = region.name;
@@ -119,10 +121,10 @@ async function populateRegionDropdown() {
       regionDropdown.appendChild(option.cloneNode(true));
       settingsDropdown.appendChild(option.cloneNode(true));
     });
-  
+
     // 저장된 지역이 있으면 선택 상태 유지
     const savedRegion = localStorage.getItem("selectedRegion");
-    if (savedRegion && regions.some(r => r.id === savedRegion)) {
+    if (savedRegion && mergedRegions.some(r => r.id === savedRegion)) {
       regionDropdown.value = savedRegion;
       settingsDropdown.value = savedRegion;
       console.log(`🎯 적용된 지역: ${savedRegion}`);
@@ -133,7 +135,7 @@ async function populateRegionDropdown() {
   } catch (error) {
     console.error("지역 데이터를 불러오는 데 실패했습니다.", error);
   } finally {
-    hideLoading(); // 로딩 작업 종료 후 오버레이 숨김
+    hideLoading(); // 로딩 화면 숨김
   }
 }
 
