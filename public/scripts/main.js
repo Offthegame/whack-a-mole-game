@@ -106,6 +106,7 @@ function populateRegionDropdown() {
 
 /**
  * 선택된 지역 데이터(지역 설정)를 API에서 동적으로 불러온다.
+ * 만약 데이터가 존재하지 않으면 region-001을 기반으로 새로 생성 후 불러온다.
  * @param {string} regionId 
  * @returns {Object|null} 지역 데이터(JSON) 또는 null
  */
@@ -113,11 +114,52 @@ async function loadRegionData(regionId) {
   console.log(`🔍 지역 데이터 로드: ${regionId}`);
   try {
     const response = await fetch(`${API_BASE}/api/regions/${regionId}`);
-    if (!response.ok) throw new Error("Failed to load region data");
+    if (!response.ok) throw new Error("🚨 데이터 없음: 새로 생성 필요");
+
     return await response.json();
   } catch (error) {
-    console.error(`🚨 ${regionId} 데이터 불러오기 실패:`, error);
-    return null;
+    console.warn(`⚠️ ${regionId} 데이터 없음. region-001을 기반으로 새로 생성.`);
+
+    // ✅ 기본 데이터(region-001) 불러오기
+    const defaultResponse = await fetch(`${API_BASE}/api/regions/region-001`);
+    if (!defaultResponse.ok) {
+      console.error("🚨 기본 지역(region-001) 데이터를 불러올 수 없음.");
+      return null;
+    }
+    const defaultData = await defaultResponse.json();
+
+    // ✅ 새로운 지역 데이터 생성
+    const newRegionData = {
+      ...defaultData,  // 기본 데이터 복사
+      id: regionId,  // 새로운 지역 ID 적용
+      name: `Region ${regionId.split("-")[1]}`, // 새로운 지역 이름
+      password: `pass${regionId.split("-")[1]}`, // 새로운 비밀번호
+      questions: defaultData.questions.map((q, index) => ({
+        ...q,
+        id: `q${index + 1}`, // 질문 ID 유지
+        question: q.question.replace("철수가", "지수가"), // 예시: 특정 단어 변경
+      })),
+    };
+
+    // ✅ 새 지역 데이터 서버에 저장 요청
+    await fetch(`${API_BASE}/save-region`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newRegionData),
+    });
+
+    console.log(`✅ ${regionId} 생성 완료! 다시 로드 시도.`);
+
+    // ✅ 새로 생성한 지역 데이터를 다시 불러오기
+    await new Promise((resolve) => setTimeout(resolve, 500)); // 서버 반영 대기
+    try {
+      const newResponse = await fetch(`${API_BASE}/api/regions/${regionId}`);
+      if (!newResponse.ok) throw new Error(`🚨 ${regionId} 생성 후 로드 실패.`);
+      return await newResponse.json();
+    } catch (err) {
+      console.error(`🚨 ${regionId} 최종 로드 실패:`, err);
+      return null;
+    }
   }
 }
 
