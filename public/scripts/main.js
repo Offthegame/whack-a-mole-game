@@ -17,7 +17,6 @@ import { playHitSound, playWrongSound, playBackgroundMusic } from "/scripts/soun
 // ======================
 const API_BASE = "https://whack-a-mole-game-3bqy.onrender.com";
 
-// 게임 관련 상태 변수
 let selectedRegion = localStorage.getItem("selectedRegion") || "";
 let currentRegion = null;
 let score = 0;
@@ -27,11 +26,10 @@ let usedQuestions = [];
 let currentQuestion = null;
 let isWaiting = false;
 let activeHoles = [];
-let moleTimer;       // 두더지 타이머
+let moleTimer;           // 두더지 타이머
 let timerInterval = null; // 메인 타이머
 let gameActive = false;   // 게임 진행 상태
-let startX = 0;
-let endX = 0;
+let startX = 0, endX = 0;
 
 // ======================
 // 3. DOM Elements
@@ -78,13 +76,11 @@ function populateRegionDropdown() {
   for (let i = 1; i <= 50; i++) {
     const regionId = `region-${String(i).padStart(3, "0")}`;
     const regionName = `Region ${String(i).padStart(3, "0")}`;
-    const regionPassword = `pass${String(i).padStart(3, "0")}`; // 새로운 번호에 맞는 비밀번호
+    const regionPassword = `pass${String(i).padStart(3, "0")}`;
 
-    // 옵션 생성
     const option = document.createElement("option");
     option.value = regionId;
     option.textContent = regionName;
-    // 필요에 따라 비밀번호도 data-attribute로 저장 (설정 화면에서 인증할 때 사용 가능)
     option.setAttribute("data-password", regionPassword);
 
     regionDropdown.appendChild(option.cloneNode(true));
@@ -105,43 +101,40 @@ function populateRegionDropdown() {
 }
 
 /**
- * 선택된 지역 데이터(지역 설정)를 API에서 동적으로 불러온다.
- * 만약 데이터가 존재하지 않으면 region-001을 기반으로 새로 생성 후 불러온다.
+ * 선택된 지역 데이터(지역 설정)를 API에서 불러온다.
+ * 데이터가 없으면 region-001을 기반으로 새 데이터를 생성한다.
  * @param {string} regionId 
- * @returns {Object|null} 지역 데이터(JSON) 또는 null
+ * @returns {Object|null}
  */
 async function loadRegionData(regionId) {
   console.log(`🔍 지역 데이터 로드: ${regionId}`);
   try {
     const response = await fetch(`${API_BASE}/api/regions/${regionId}`);
     if (!response.ok) throw new Error("🚨 데이터 없음: 새로 생성 필요");
-
     return await response.json();
   } catch (error) {
-    console.warn(`⚠️ ${regionId} 데이터 없음. region-001을 기반으로 새로 생성.`);
-
-    // ✅ 기본 데이터(region-001) 불러오기
-    const defaultResponse = await fetch(`${API_BASE}/api/regions/region-001`);
+    console.warn(`⚠️ ${regionId} 데이터 없음. region-000을 기반으로 새로 생성.`);
+    const defaultResponse = await fetch(`${API_BASE}/api/regions/region-000`);
     if (!defaultResponse.ok) {
-      console.error("🚨 기본 지역(region-001) 데이터를 불러올 수 없음.");
+      console.error("🚨 기본 지역(region-000) 데이터를 불러올 수 없음.");
       return null;
     }
     const defaultData = await defaultResponse.json();
 
-    // ✅ 새로운 지역 데이터 생성
+    // 새로운 지역 데이터 구성
     const newRegionData = {
-      ...defaultData,  // 기본 데이터 복사
-      id: regionId,  // 새로운 지역 ID 적용
-      name: `Region ${regionId.split("-")[1]}`, // 새로운 지역 이름
-      password: `pass${regionId.split("-")[1]}`, // 새로운 비밀번호
+      ...defaultData,
+      id: regionId,
+      name: `Region ${regionId.split("-")[1]}`,
+      password: `pass${regionId.split("-")[1]}`,
       questions: defaultData.questions.map((q, index) => ({
         ...q,
-        id: `q${index + 1}`, // 질문 ID 유지
-        question: q.question.replace("철수가", "지수가"), // 예시: 특정 단어 변경
+        id: `q${index + 1}`,
+        question: q.question.replace("철수가", "지수가"),
       })),
     };
 
-    // ✅ 새 지역 데이터 서버에 저장 요청
+    // 새 지역 데이터 저장 요청
     await fetch(`${API_BASE}/save-region`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -149,9 +142,8 @@ async function loadRegionData(regionId) {
     });
 
     console.log(`✅ ${regionId} 생성 완료! 다시 로드 시도.`);
-
-    // ✅ 새로 생성한 지역 데이터를 다시 불러오기
     await new Promise((resolve) => setTimeout(resolve, 500)); // 서버 반영 대기
+
     try {
       const newResponse = await fetch(`${API_BASE}/api/regions/${regionId}`);
       if (!newResponse.ok) throw new Error(`🚨 ${regionId} 생성 후 로드 실패.`);
@@ -163,6 +155,78 @@ async function loadRegionData(regionId) {
   }
 }
 
+/**
+ * 새로운 지역을 서버에 저장하는 함수
+ */
+async function saveNewRegion(regionId) {
+  try {
+    const defaultResponse = await fetch(`${API_BASE}/api/regions/region-000`);
+    if (!defaultResponse.ok) {
+      console.error("🚨 기본 지역 데이터를 가져오지 못함.");
+      return null;
+    }
+    const defaultData = await defaultResponse.json();
+
+    const newRegionData = {
+      ...defaultData,
+      id: regionId,
+      name: `Region ${regionId.split("-")[1]}`,
+      password: `pass${regionId.split("-")[1]}`,
+      questions: defaultData.questions.map((q, index) => ({
+        ...q,
+        id: `q${index + 1}`,
+        question: q.question.replace("철수가", "지수가"),
+      })),
+    };
+
+    const response = await fetch(`${API_BASE}/save-region`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newRegionData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`🚨 서버 응답 오류: ${response.statusText}`);
+    }
+    console.log(`✅ ${regionId} 저장 성공!`);
+    return await response.json();
+  } catch (error) {
+    console.error("🚨 지역 저장 실패:", error);
+    return null;
+  }
+}
+
+/**
+ * 홈/설정 화면의 지역 드롭다운 변경 이벤트 핸들러
+ */
+document.querySelectorAll("#home-region, #settings-region").forEach((dropdown) => {
+  dropdown.addEventListener("change", async (e) => {
+    const selected = e.target.value;
+    localStorage.setItem("selectedRegion", selected);
+    console.log("🟢 새로운 지역 선택됨:", selected);
+
+    // 선택된 지역 데이터 불러오기
+    let regionData = await loadRegionData(selected);
+    if (!regionData) {
+      console.warn(`⚠️ ${selected} 데이터 없음. region-000을 기반으로 새로 생성.`);
+      const savedRegion = await saveNewRegion(selected);
+      if (savedRegion) {
+        console.log(`✅ ${selected} 생성 완료! 다시 로드 시도.`);
+        regionData = await loadRegionData(selected);
+      } else {
+        console.error(`🚨 ${selected} 생성 후 로드 실패.`);
+      }
+    }
+
+    if (regionData) {
+      currentRegion = regionData;
+      updateSettingsUI(regionData);
+    } else {
+      console.warn(`⚠️ ${selected} 데이터 로드 실패`);
+    }
+  });
+});
+
 // ======================
 // 5. Settings & Authentication
 // ======================
@@ -170,11 +234,9 @@ async function loadRegionData(regionId) {
 /**
  * 비밀번호 토글 (표시/숨김)
  */
-// scripts/main.js
 function togglePassword() {
   const passwordInput = document.getElementById("region-password");
   const toggleIcon = document.querySelector(".toggle-password");
-
   if (passwordInput.type === "password") {
     passwordInput.type = "text";
     toggleIcon.textContent = "🙈";
@@ -183,16 +245,13 @@ function togglePassword() {
     toggleIcon.textContent = "👁️";
   }
 }
-
-// 전역 객체(window)에 할당
 window.togglePassword = togglePassword;
 
-// 지역 변경 시 로컬 저장소에 업데이트
+// 지역 변경 시 로컬 저장소 업데이트
 regionDropdown.addEventListener("change", async (e) => {
   selectedRegion = e.target.value;
   localStorage.setItem("selectedRegion", selectedRegion);
   console.log("🟢 새로운 지역 선택됨:", selectedRegion);
-  // 미리 데이터를 불러오고, 콘솔에서 확인
   const regionData = await loadRegionData(selectedRegion);
   if (regionData) {
     console.log(`✅ ${selectedRegion} 데이터 로드 완료:`, regionData);
@@ -201,16 +260,14 @@ regionDropdown.addEventListener("change", async (e) => {
   }
 });
 
-// 설정 화면 관련 이벤트
+// 설정 화면 전환 및 인증
 document.getElementById("settings-button").addEventListener("click", () => {
   homeScreen.style.display = "none";
   settingsScreen.style.display = "block";
 });
 
 document.getElementById("auth-submit").addEventListener("click", () => {
-  // 현재 지역 데이터는 API로 불러온 데이터가 아닌 로컬 regions 배열(예시)에서 찾는 것으로 보임
-  // 필요에 따라 currentRegion을 loadRegionData() 결과로 설정하도록 변경 가능
-  const region = currentRegion; // 또는 regions 배열에서 찾을 수도 있음
+  const region = currentRegion;
   const enteredPassword = document.getElementById("region-password").value;
   if (region && enteredPassword === region.password) {
     authSection.style.display = "none";
@@ -272,7 +329,7 @@ async function startGame() {
   updateLivesUI(remainingLives);
   updateTimerUI(timeLeft);
 
-  // 두더지 클릭 이벤트 재설정 (이중 등록 방지)
+  // 두더지 클릭 이벤트 재설정 (중복 방지)
   document.querySelectorAll(".mole").forEach((mole) => {
     mole.replaceWith(mole.cloneNode(true));
   });
@@ -289,7 +346,7 @@ async function startGame() {
  */
 function startTimer() {
   timerInterval = setInterval(() => {
-    timeLeft -= 10; // 10ms 간격
+    timeLeft -= 10;
     if (timeLeft <= 0 || remainingLives <= 0) {
       clearInterval(timerInterval);
       endGame();
@@ -300,8 +357,7 @@ function startTimer() {
 }
 
 /**
- * 기존 level 기반 선택 함수를 새로운 질문 배열을 사용하는 함수로 변경
- * 각 질문은 고유 id를 가지고 있다고 가정 (데이터 수정 참고)
+ * 새로운 질문 선택 (중복 제거)
  */
 function getQuestion() {
   const questions = currentRegion ? currentRegion.questions : [];
@@ -316,8 +372,7 @@ function getQuestion() {
 }
 
 /**
- * 활성 두더지 초기화 후 delayMs 후에 새 두더지를 표시
- * @param {number} delayMs 
+ * 두더지 재표시를 위한 스케줄링
  */
 function scheduleNextMoles(delayMs) {
   resetAllMoles();
@@ -327,37 +382,29 @@ function scheduleNextMoles(delayMs) {
 }
 
 /**
- * 두더지를 화면에 표시하고 문제(정답/오답)를 할당
- * 구멍의 개수는 현재 문제의 오답 개수에 따라 결정된다.
- * (정답 1개 + 오답 배열 길이 만큼 총 답안 개수)
+ * 두더지를 화면에 표시하고 정답/오답 할당
  */
 function showMoles() {
   if (!gameActive) return;
   clearTimeout(moleTimer);
 
-  // 아직 문제가 없다면 새 질문 생성 (getQuestion() 사용)
   if (!currentQuestion) {
     currentQuestion = getQuestion();
     updateQuestionUI(currentQuestion.question, currentQuestion.emptySlot);
   }
 
-  // 총 답안 개수: 정답 1개 + 오답 배열 길이
   const totalAnswers = 1 + currentQuestion.wrong.length;
   const allAnswers = [currentQuestion.correct, ...currentQuestion.wrong];
   const shuffledAnswers = allAnswers.sort(() => Math.random() - 0.5);
 
   resetAllMoles();
 
-  // 구멍의 수는 totalAnswers에 따라 결정
   const numMoles = totalAnswers;
-  // DOM에 정의된 구멍들을 순서대로 사용
   const availableHoles = Array.from(holes).slice(0, numMoles);
 
-  // 순서대로 각 구멍에 두더지와 답안 할당
   availableHoles.forEach((hole, index) => {
     const moleImg = hole.querySelector(".mole");
     const answerLabel = hole.querySelector(".answer-label");
-
     moleImg.src = "assets/mole.svg";
     moleImg.dataset.answer = shuffledAnswers[index] || "";
     answerLabel.textContent = shuffledAnswers[index] || "";
@@ -365,21 +412,19 @@ function showMoles() {
     activeHoles.push(hole);
   });
 
-  // 두더지 클릭 이벤트 재설정 (이중 등록 방지)
   document.querySelectorAll(".mole").forEach((mole) => {
     mole.removeEventListener("click", handleMoleClick);
     mole.addEventListener("click", handleMoleClick);
   });
 
   console.log("🟢 showMoles: 활성 두더지 개수:", activeHoles.length);
-
   moleTimer = setTimeout(() => {
     scheduleNextMoles(500);
   }, 5000);
 }
 
 /**
- * 모든 구멍을 초기 상태로 복원
+ * 모든 구멍 초기화
  */
 function resetAllMoles() {
   activeHoles.forEach((hole) => {
@@ -394,7 +439,7 @@ function resetAllMoles() {
 }
 
 /**
- * 두더지 클릭 시 정답/오답을 처리
+ * 두더지 클릭 시 정답/오답 처리
  */
 function handleMoleClick(event) {
   if (isWaiting) return;
@@ -405,7 +450,6 @@ function handleMoleClick(event) {
   const answer = mole.dataset.answer;
 
   if (answer === currentQuestion.correct) {
-    // 정답 처리
     score += 100;
     updateScoreUI(score);
     mole.src = "assets/correct.svg";
@@ -418,7 +462,6 @@ function handleMoleClick(event) {
       scheduleNextMoles(500);
     }, 2000);
   } else {
-    // 오답 처리
     remainingLives--;
     updateLivesUI(remainingLives);
     mole.src = "assets/wrong.svg";
@@ -434,7 +477,6 @@ function handleMoleClick(event) {
       scheduleNextMoles(500);
     }, 2000);
   }
-  // 클릭한 두더지의 텍스트 제거
   mole.parentElement.querySelector(".answer-label").textContent = "";
 }
 
@@ -449,10 +491,12 @@ function endGame() {
   document.getElementById("final-score").textContent = `Your Score: ${score}`;
 }
 
+/**
+ * 비디오 정지 및 일시정지 관련 함수
+ */
 function stopVideo() {
   const iframe = document.querySelector('#end-screen iframe');
   if (iframe) {
-    // iframe의 src를 다시 할당하여 비디오를 재로딩(즉, 멈춤)시킴
     iframe.src = iframe.src;
   }
 }
@@ -460,18 +504,16 @@ function stopVideo() {
 function pauseVideo() {
   const iframe = document.querySelector("#end-screen iframe");
   if (iframe) {
-    const player = new Vimeo.Player(iframe); // Vimeo API로 플레이어 컨트롤
-    player.pause(); // 비디오 일시정지
+    const player = new Vimeo.Player(iframe);
+    player.pause();
   }
 }
 
 /**
- * Play Again 버튼 클릭 시 게임 초기화 및 재시작
+ * Play Again 버튼 클릭 시 게임 재시작
  */
 function handlePlayAgain() {
-  stopVideo(); // 플레이어 정지
-
-
+  stopVideo();
   endScreen.style.display = "none";
   score = 0;
   remainingLives = 3;
@@ -492,11 +534,10 @@ function handlePlayAgain() {
 }
 
 /**
- * Go Home 버튼 클릭 시 홈 화면으로 복귀하고 게임 상태 초기화
+ * Go Home 버튼 클릭 시 홈 화면으로 복귀 및 초기화
  */
 function handleGoHome() {
-  stopVideo(); // 플레이어 정지
-
+  stopVideo();
   console.log("🏠 Go Home 버튼 클릭 - 게임 종료 및 초기화!");
   gameActive = false;
   clearInterval(timerInterval);
@@ -519,8 +560,6 @@ function handleGoHome() {
 // ======================
 // 7. Global Event Listeners
 // ======================
-
-// start, restart, go-home, home 버튼 클릭 이벤트 위임
 document.addEventListener("click", (event) => {
   const { id } = event.target;
   if (id === "start-button") {
@@ -530,10 +569,10 @@ document.addEventListener("click", (event) => {
   } else if (id === "go-home-button" || id === "home-button") {
     handleGoHome();
   } else if (id === "linktree-button") { 
-    showScreen("linktree-screen"); // ✅ 링크트리 화면 보이기
-    pauseVideo(); // ✅ 영상 일시정지
+    showScreen("linktree-screen");
+    pauseVideo();
   } else if (id === "back-to-home") { 
-    showScreen("home-screen"); // ✅ 홈 화면으로 전환
+    showScreen("home-screen");
   }
 });
 
@@ -555,66 +594,58 @@ document.addEventListener("DOMContentLoaded", () => {
 // ======================
 function goNextScreen() {
   if (currentScreen === "home") {
-      startGame();  // 홈 → 게임 시작
+    startGame();
   } else if (currentScreen === "game") {
-      showGameOver();  // 게임 → 게임 종료 화면
+    showGameOver();
   }
 }
 
 function goPrevScreen() {
   if (currentScreen === "game") {
-      showHomeScreen();  // 게임 → 홈화면
+    showHomeScreen();
   }
 }
 
-// 터치 시작 이벤트
 document.addEventListener("touchstart", (event) => {
-  startX = event.touches[0].clientX; // 시작 위치 저장
+  startX = event.touches[0].clientX;
 });
 
-// 터치 이동 이벤트 (선택적)
 document.addEventListener("touchmove", (event) => {
-  endX = event.touches[0].clientX; // 현재 위치 갱신
+  endX = event.touches[0].clientX;
 });
 
-// 터치 종료 이벤트
 document.addEventListener("touchend", () => {
   let diffX = startX - endX;
-
   if (diffX > 50) {
-      console.log("➡️ 왼쪽으로 스와이프 (다음 화면)");
-      goNextScreen();  // 다음 화면 이동 함수
+    console.log("➡️ 왼쪽으로 스와이프 (다음 화면)");
+    goNextScreen();
   } else if (diffX < -50) {
-      console.log("⬅️ 오른쪽으로 스와이프 (이전 화면)");
-      goPrevScreen();  // 이전 화면 이동 함수
+    console.log("⬅️ 오른쪽으로 스와이프 (이전 화면)");
+    goPrevScreen();
   }
 });
 
 // ======================
 // 10. Linktree Page
 // ======================
-// ✅ 링크트리 → 게임 종료 화면(end-screen)으로 이동
 document.getElementById("back-to-end").addEventListener("click", () => {
-  document.getElementById("linktree-screen").style.display = "none"; // 링크트리 숨기기
-  document.getElementById("end-screen").style.display = "block"; // 게임 종료 화면 보이기
-  console.log("뒤로가기 버튼 클릭됨"); // 콘솔에서 확인
+  document.getElementById("linktree-screen").style.display = "none";
+  document.getElementById("end-screen").style.display = "block";
+  console.log("뒤로가기 버튼 클릭됨");
 });
 
-// ✅ 홈으로 돌아가는 버튼
 document.getElementById("back-to-home").addEventListener("click", () => {
   showScreen("home-screen");
 });
 
-// ✅ 화면 전환 함수 (홈, 게임, 설정, 링크트리 전환)
+/**
+ * 화면 전환 함수 (홈, 게임, 설정, 링크트리)
+ */
 function showScreen(screenId) {
   document.querySelectorAll(".screen").forEach((screen) => {
-    screen.style.display = "none"; // 모든 화면 숨기기
+    screen.style.display = "none";
   });
-  
-  // ✅ 특정 화면만 보이도록 설정
   document.getElementById(screenId).style.display = "block";
-
-  // 🚨 링크트리 화면이 보일 때 `end-screen` 강제 숨기기
   if (screenId === "linktree-screen") {
     document.getElementById("end-screen").style.display = "none";
   }

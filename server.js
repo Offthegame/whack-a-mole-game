@@ -118,14 +118,22 @@ app.get("/api/regions/:regionId", async (req, res) => {
   }
 });
 
-// ✅ 지역 데이터 저장 (프론트엔드에서 호출)
+// ✅ 새로운 지역 데이터를 저장하는 API
 app.post("/save-region", async (req, res) => {
   try {
+    const { id, name, password, gameTime, randomizeQuestions, questions } = req.body;
+
+    // 필수 데이터 검증
+    if (!id || !name || !password || !gameTime || questions?.length === 0) {
+      return res.status(400).json({ error: "❌ 필수 필드가 부족합니다." });
+    }
+
     const updatedRegion = await Region.findOneAndUpdate(
       { id: req.body.id },
       req.body,
-      { new: true, upsert: true }
+      { new: true, upsert: true, setDefaultsOnInsert: true }
     );
+
     console.log(`✅ 지역 데이터 저장 완료: ${updatedRegion.id}`);
     res.json({ message: "Region data saved successfully", region: updatedRegion });
   } catch (error) {
@@ -133,6 +141,7 @@ app.post("/save-region", async (req, res) => {
     res.status(500).json({ error: "Failed to save region data" });
   }
 });
+
 
 // ✅ 기본 지역 데이터 가져오기 (region-001)
 app.get("/default-region", async (req, res) => {
