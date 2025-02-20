@@ -120,6 +120,8 @@ async function loadRegionData(regionId) {
       return null;
     }
     const defaultData = await defaultResponse.json();
+    // 여기서 _id를 제거하고 새 데이터를 생성
+    const { _id, ...defaultDataWithoutId } = defaultData;
 
     // 새로운 지역 데이터 구성
     const newRegionData = {
@@ -166,6 +168,7 @@ async function saveNewRegion(regionId) {
       return null;
     }
     const defaultData = await defaultResponse.json();
+    const { _id, ...defaultDataWithoutId } = defaultData;
 
     const newRegionData = {
       ...defaultData,
