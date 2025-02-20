@@ -125,11 +125,11 @@ async function loadRegionData(regionId) {
 
     // 새로운 지역 데이터 구성
     const newRegionData = {
-      ...defaultData,
+      ...defaultDataWithoutId,
       id: regionId,
       name: `Region ${regionId.split("-")[1]}`,
       password: `pass${regionId.split("-")[1]}`,
-      questions: defaultData.questions.map((q, index) => ({
+      questions: defaultDataWithoutId.questions.map((q, index) => ({
         ...q,
         id: `q${index + 1}`,
         question: q.question.replace("철수가", "지수가"),
@@ -171,11 +171,11 @@ async function saveNewRegion(regionId) {
     const { _id, ...defaultDataWithoutId } = defaultData;
 
     const newRegionData = {
-      ...defaultData,
+      ...defaultDataWithoutId,
       id: regionId,
       name: `Region ${regionId.split("-")[1]}`,
       password: `pass${regionId.split("-")[1]}`,
-      questions: defaultData.questions.map((q, index) => ({
+      questions: defaultDataWithoutId.questions.map((q, index) => ({
         ...q,
         id: `q${index + 1}`,
         question: q.question.replace("철수가", "지수가"),
