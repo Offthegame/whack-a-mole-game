@@ -55,16 +55,34 @@ const holes = document.querySelectorAll(".hole");
 // 4. Region Data & Dropdown Population
 // ======================
 
+
+// 로딩 화면 표시
+function showLoading() {
+  const loadingScreen = document.getElementById("loading-screen");
+  if (loadingScreen) {
+    loadingScreen.style.display = "flex";
+  }
+}
+
+// 로딩 화면 숨김
+function hideLoading() {
+  const loadingScreen = document.getElementById("loading-screen");
+  if (loadingScreen) {
+    loadingScreen.style.display = "none";
+  }
+}
+
 async function populateRegionDropdown() {
+  showLoading(); // 드롭다운 데이터 로딩 시작 시 로딩 오버레이 표시
   try {
-    // API에서 모든 지역 데이터 불러오기
+    // API에서 모든 지역 데이터를 불러오기 시도
     const response = await fetch(`${API_BASE}/api/regions`);
     let regions = [];
     if (response.ok) {
       regions = await response.json();
     }
-
-    // 지역 데이터가 없으면 기본 옵션으로 region-001부터 region-050까지 생성
+  
+    // 지역 데이터가 없으면 기본 옵션 생성 (region-001 ~ region-050)
     if (!regions || regions.length === 0) {
       console.warn("지역 데이터 없음. 기본 옵션(region-001 ~ region-050) 생성.");
       regions = [];
@@ -74,15 +92,15 @@ async function populateRegionDropdown() {
           id: regionId,
           name: `Region ${String(i).padStart(3, "0")}`,
           password: `pass${String(i).padStart(3, "0")}`,
-          // 필요한 다른 기본 필드들도 여기에 추가할 수 있음
+          // 필요 시 다른 기본 필드 추가
         });
       }
     }
-
+  
     // 드롭다운 초기화
     regionDropdown.innerHTML = "";
     settingsDropdown.innerHTML = "";
-
+  
     // 기본 안내 옵션 추가
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
@@ -91,7 +109,7 @@ async function populateRegionDropdown() {
     defaultOption.selected = true;
     regionDropdown.appendChild(defaultOption.cloneNode(true));
     settingsDropdown.appendChild(defaultOption.cloneNode(true));
-
+  
     // API에서 받아온(또는 기본 생성한) 지역 데이터를 기반으로 옵션 추가
     regions.forEach(region => {
       const option = document.createElement("option");
@@ -101,7 +119,7 @@ async function populateRegionDropdown() {
       regionDropdown.appendChild(option.cloneNode(true));
       settingsDropdown.appendChild(option.cloneNode(true));
     });
-
+  
     // 저장된 지역이 있으면 선택 상태 유지
     const savedRegion = localStorage.getItem("selectedRegion");
     if (savedRegion && regions.some(r => r.id === savedRegion)) {
@@ -114,6 +132,8 @@ async function populateRegionDropdown() {
     }
   } catch (error) {
     console.error("지역 데이터를 불러오는 데 실패했습니다.", error);
+  } finally {
+    hideLoading(); // 로딩 작업 종료 후 오버레이 숨김
   }
 }
 
@@ -125,6 +145,7 @@ async function populateRegionDropdown() {
  */
 async function loadRegionData(regionId) {
   console.log(`🔍 지역 데이터 로드: ${regionId}`);
+  showLoading();  // 데이터 불러오기 시작 전 로딩 화면 표시
   try {
     const response = await fetch(`${API_BASE}/api/regions/${regionId}`);
     if (!response.ok) throw new Error("🚨 데이터 없음: 새로 생성 필요");
@@ -171,6 +192,8 @@ async function loadRegionData(regionId) {
       console.error(`🚨 ${regionId} 최종 로드 실패:`, err);
       return null;
     }
+  } finally {
+    hideLoading();  // 데이터 불러오기 완료 후 로딩 화면 숨김
   }
 }
 
@@ -178,6 +201,7 @@ async function loadRegionData(regionId) {
  * 새로운 지역을 서버에 저장하는 함수
  */
 async function saveNewRegion(regionId) {
+  showLoading(); // 로딩 화면 표시
   try {
     const defaultResponse = await fetch(`${API_BASE}/api/regions/region-000`);
     if (!defaultResponse.ok) {
@@ -185,7 +209,7 @@ async function saveNewRegion(regionId) {
       return null;
     }
     const defaultData = await defaultResponse.json();
-    const { _id, ...defaultDataWithoutId } = defaultData;
+    const { _id, ...defaultDataWithoutId } = defaultData;  // _id 제거
 
     const newRegionData = {
       ...defaultDataWithoutId,
@@ -213,8 +237,11 @@ async function saveNewRegion(regionId) {
   } catch (error) {
     console.error("🚨 지역 저장 실패:", error);
     return null;
+  } finally {
+    hideLoading(); // 작업 완료 후 로딩 화면 숨김
   }
 }
+
 
 /**
  * 홈/설정 화면의 지역 드롭다운 변경 이벤트 핸들러

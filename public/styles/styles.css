@@ -13,6 +13,28 @@ body {
   background-color: #f4f4f4;
 }
 
+
+/* 로딩 오버레이가 전체 화면을 덮고 터치/클릭을 가로채도록 설정 */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+  z-index: 1000;  /* 다른 요소보다 위에 표시 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 스피너(또는 로딩 애니메이션)의 스타일 */
+.spinner {
+  font-size: 1.5rem;
+  color: #fff;
+  /* 추가 애니메이션 효과나 이미지를 넣어도 좋습니다 */
+}
+
 /* 
   ★ 게임 전체 컨테이너 ★
   가운데 정렬된 패널 형식 

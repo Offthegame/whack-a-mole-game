@@ -4,9 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>두더지 게임</title>
-  <link rel="stylesheet" href="styles/styles.css">  <!-- CSS 파일 -->
+  <link rel="stylesheet" href="styles/styles.css">
+  <style>
+    /* 로딩 오버레이 스타일 */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+      z-index: 9999; /* 모든 요소 위에 표시 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .spinner {
+      font-size: 2rem;
+      color: #fff;
+      /* 여기서 spinner 애니메이션이나 로딩 이미지를 추가할 수도 있습니다 */
+    }
+  </style>
 </head>
 <body>
+  <!-- 로딩 오버레이 (초기에는 숨김) -->
+  <div id="loading-screen" style="display: none;">
+    <div class="spinner">Loading...</div>
+  </div>
+
   <!-- 홈 화면 -->
   <div id="home-screen" style="display: block;">
     <h1>두더지 게임</h1>
@@ -42,9 +67,9 @@
       </div>
       <!-- 비밀번호 인증 섹션 -->
       <div class="password-container">
-      <label for="region-password">Enter Region Password:</label>
-      <input type="password" id="region-password" class="password-input" placeholder="Enter password">
-      <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        <label for="region-password">Enter Region Password:</label>
+        <input type="password" id="region-password" class="password-input" placeholder="Enter password">
+        <span class="toggle-password" onclick="togglePassword()">👁️</span>
       </div>
       <button id="auth-submit">Submit</button>
       <p id="auth-error" style="color: red; display: none;">Invalid password. Try again.</p>
@@ -68,8 +93,8 @@
 
   <!-- 게임 화면 -->
   <div id="game-screen" style="display: none;">
-  <!-- ✅ 상단 홈 버튼 추가 -->
-  <button id="home-button" class="home-button">🏠 홈으로</button>
+    <!-- 상단 홈 버튼 추가 -->
+    <button id="home-button" class="home-button">🏠 홈으로</button>
   
     <div class="game-header">
       <p id="question">Question will appear here...</p>
@@ -80,22 +105,18 @@
 
     <!-- 1단계에서는 2개, 2단계에서는 4개 구멍이 보임 -->
     <div class="game-grid">
-      <!-- 구멍 1: 1단계부터 보이는 구멍 -->
       <div class="hole" id="hole-1">
         <img class="mole" src="assets/mole.svg" alt="Mole">
         <span class="answer-label"></span>
       </div>
-      <!-- 구멍 2: 1단계부터 보이는 구멍 -->
       <div class="hole" id="hole-2">
         <img class="mole" src="assets/mole.svg" alt="Mole">
         <span class="answer-label"></span>
       </div>
-      <!-- 구멍 3: 기본적으로 숨겨진 상태 (.hidden) -->
       <div class="hole" id="hole-3">
         <img class="mole" src="assets/mole.svg" alt="Mole">
         <span class="answer-label"></span>
       </div>
-      <!-- 구멍 4: 기본적으로 숨겨진 상태 (.hidden) -->
       <div class="hole" id="hole-4">
         <img class="mole" src="assets/mole.svg" alt="Mole">
         <span class="answer-label"></span>
@@ -106,56 +127,45 @@
   <!-- 게임 종료 화면 -->
   <div id="end-screen" style="display: none;">
     <h1>Game Over!</h1>
-
-    <!-- 🎥 반응형 비디오 컨테이너 -->
     <div class="video-container">
       <iframe
-      title="vimeo-player"
-      src="https://player.vimeo.com/video/446416103?h=464d10ec9d"
-      width="100%"
-      height="100%"
-      frameborder="0"
-      allowfullscreen>
+        title="vimeo-player"
+        src="https://player.vimeo.com/video/446416103?h=464d10ec9d"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        allowfullscreen>
       </iframe>
     </div>
-
     <p id="final-score">Your Score: 0</p>
     <button id="restart-button">Play Again</button>
     <button id="go-home-button">Go Home</button>
     <button id="linktree-button">Next</button>
   </div>
 
-  <!-- ✅ 링크트리 화면 -->
+  <!-- 링크트리 화면 -->
   <div id="linktree-screen" class="screen" style="display: none;">
-    <!-- 🔙 뒤로가기 버튼 -->
     <button id="back-to-end" class="back-btn">← 뒤로가기</button>
-
-    <!-- ✅ 프로필 섹션 -->
     <div class="profile">
-        <img src="assets/dfc-logo.webp" alt="ARTART Logo" class="profile-img">
-        <h2>@artart.today</h2>
-        <p>쉽고 힙한 문화/예술 이야기 ARTART</p>
+      <img src="assets/dfc-logo.webp" alt="ARTART Logo" class="profile-img">
+      <h2>@artart.today</h2>
+      <p>쉽고 힙한 문화/예술 이야기 ARTART</p>
     </div>
-
-    <!-- ✅ 링크 버튼 리스트 -->
     <div class="linktree-links">
-        <button class="linktree-btn">🎟️ [무료 이벤트 구독] 전시, 공연, 영화 이벤트</button>
-        <button class="linktree-btn">👗 (무료 증정) 퍼스널 컬러 + 패션 스타일 만들기 - 여자ver</button>
-        <button class="linktree-btn">🧥 (무료 증정) 퍼스널 컬러 + 패션 스타일 만들기 - 남자ver</button>
-        <button class="linktree-btn">🎨 힙하고 재미있는 아트아트 홈페이지</button>
-        <button class="linktree-btn">📰 [아트레터 구독] 핫한 아트 소식</button>
-        <button class="linktree-btn">💼 [채용공고] 아트아트와 함께할 인재 찾습니다</button>
+      <button class="linktree-btn">🎟️ [무료 이벤트 구독] 전시, 공연, 영화 이벤트</button>
+      <button class="linktree-btn">👗 (무료 증정) 퍼스널 컬러 + 패션 스타일 만들기 - 여자ver</button>
+      <button class="linktree-btn">🧥 (무료 증정) 퍼스널 컬러 + 패션 스타일 만들기 - 남자ver</button>
+      <button class="linktree-btn">🎨 힙하고 재미있는 아트아트 홈페이지</button>
+      <button class="linktree-btn">📰 [아트레터 구독] 핫한 아트 소식</button>
+      <button class="linktree-btn">💼 [채용공고] 아트아트와 함께할 인재 찾습니다</button>
     </div>
-
     <button id="back-to-home">🏠 홈으로</button>
   </div>
 
-    <!-- ✅ JS 파일 순서 중요: main.js가 가장 마지막 -->
-    <!-- index.html -->
+  <!-- JS 파일 순서 중요: main.js가 가장 마지막 -->
   <script src="https://player.vimeo.com/api/player.js"></script>
   <script type="module" src="/scripts/main.js"></script>
   <script type="module" src="/scripts/ui.js"></script>
   <script type="module" src="/scripts/sound.js"></script>
-
 </body>
 </html>
