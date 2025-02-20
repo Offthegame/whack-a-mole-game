@@ -55,48 +55,65 @@ const holes = document.querySelectorAll(".hole");
 // 4. Region Data & Dropdown Population
 // ======================
 
-/**
- * 지역 선택 드롭다운을 초기화한다.
- */
-function populateRegionDropdown() {
-  regionDropdown.innerHTML = "";
-  settingsDropdown.innerHTML = "";
+async function populateRegionDropdown() {
+  try {
+    // API에서 모든 지역 데이터 불러오기
+    const response = await fetch(`${API_BASE}/api/regions`);
+    let regions = [];
+    if (response.ok) {
+      regions = await response.json();
+    }
 
-  // 기본 안내 옵션 추가
-  const defaultOption = document.createElement("option");
-  defaultOption.value = "";
-  defaultOption.textContent = "지역을 선택하세요";
-  defaultOption.disabled = true;
-  defaultOption.selected = true;
-  regionDropdown.appendChild(defaultOption.cloneNode(true));
-  settingsDropdown.appendChild(defaultOption.cloneNode(true));
+    // 지역 데이터가 없으면 기본 옵션으로 region-001부터 region-050까지 생성
+    if (!regions || regions.length === 0) {
+      console.warn("지역 데이터 없음. 기본 옵션(region-001 ~ region-050) 생성.");
+      regions = [];
+      for (let i = 1; i <= 50; i++) {
+        const regionId = `region-${String(i).padStart(3, "0")}`;
+        regions.push({
+          id: regionId,
+          name: `Region ${String(i).padStart(3, "0")}`,
+          password: `pass${String(i).padStart(3, "0")}`,
+          // 필요한 다른 기본 필드들도 여기에 추가할 수 있음
+        });
+      }
+    }
 
-  // Region 001 ~ Region 050 옵션 추가
-  const validRegions = [];
-  for (let i = 1; i <= 50; i++) {
-    const regionId = `region-${String(i).padStart(3, "0")}`;
-    const regionName = `Region ${String(i).padStart(3, "0")}`;
-    const regionPassword = `pass${String(i).padStart(3, "0")}`;
+    // 드롭다운 초기화
+    regionDropdown.innerHTML = "";
+    settingsDropdown.innerHTML = "";
 
-    const option = document.createElement("option");
-    option.value = regionId;
-    option.textContent = regionName;
-    option.setAttribute("data-password", regionPassword);
+    // 기본 안내 옵션 추가
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = "지역을 선택하세요";
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    regionDropdown.appendChild(defaultOption.cloneNode(true));
+    settingsDropdown.appendChild(defaultOption.cloneNode(true));
 
-    regionDropdown.appendChild(option.cloneNode(true));
-    settingsDropdown.appendChild(option.cloneNode(true));
-    validRegions.push(regionId);
-  }
+    // API에서 받아온(또는 기본 생성한) 지역 데이터를 기반으로 옵션 추가
+    regions.forEach(region => {
+      const option = document.createElement("option");
+      option.value = region.id;
+      option.textContent = region.name;
+      option.setAttribute("data-password", region.password);
+      regionDropdown.appendChild(option.cloneNode(true));
+      settingsDropdown.appendChild(option.cloneNode(true));
+    });
 
-  // 저장된 지역이 유효하면 선택 상태 유지
-  const savedRegion = localStorage.getItem("selectedRegion");
-  if (savedRegion && validRegions.includes(savedRegion)) {
-    regionDropdown.value = savedRegion;
-    settingsDropdown.value = savedRegion;
-    console.log(`🎯 적용된 지역: ${savedRegion}`);
-  } else if (savedRegion) {
-    console.warn(`⚠️ ${savedRegion}는 유효하지 않으므로 초기화.`);
-    localStorage.removeItem("selectedRegion");
+    // 저장된 지역이 있으면 선택 상태 유지
+    const savedRegion = localStorage.getItem("selectedRegion");
+    if (savedRegion && regions.some(r => r.id === savedRegion)) {
+      regionDropdown.value = savedRegion;
+      settingsDropdown.value = savedRegion;
+      console.log(`🎯 적용된 지역: ${savedRegion}`);
+    } else if (savedRegion) {
+      console.warn(`⚠️ ${savedRegion}는 유효하지 않으므로 초기화.`);
+      localStorage.removeItem("selectedRegion");
+    }
+  } catch (error) {
+    console.error("지역 데이터를 불러오는 데 실패했습니다.", error);
   }
 }
 
