@@ -469,30 +469,71 @@ button:hover {
   z-index: 10; /* 입력창보다 높은 값 */
 }
 
+/* 게임 종료 화면 스타일 */
 #end-screen {
-  width: 90vw;
-  max-width: 1400px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url("/assets/game-bg.webp") no-repeat center center;
+  background-size: cover;
   display: flex;
-  flex-direction: column; /* ✅ 요소들을 세로로 정렬 */
-  align-items: center; /* ✅ 가운데 정렬 */
-  justify-content: center; /* ✅ 중앙 정렬 */
-  text-align: center; /* ✅ 텍스트도 중앙 정렬 */
-  gap: 20px; /* ✅ 요소 간 간격 추가 */
+  align-items: center;
+  justify-content: center;
+}
+
+/* 결과 보드 스타일 */
+.result-board {
+  width: 50%;
+  max-width: 500px;
+  background: url("/assets/result-board.webp") no-repeat center center;
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  text-align: center;
 }
 
 
-/* 🎥 반응형 비디오 스타일 */
-.video-container {
-  position: relative;
-  width: 100%; /* 화면 가로폭에 맞춤 */
-  max-width: 1920px; /* 최대 크기 제한 */
-  aspect-ratio: 16 / 9; /* 비율 유지 */
+.score-display {
+  font-size: 36px;
+  font-weight: bold;
+  color: #ffffff;
+  -webkit-text-stroke: 2px #603813;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 5px 20px;
+  border-radius: 20px;
 }
 
-.video-container iframe {
-  width: 100%;
-  height: 100%;
+/* 버튼 컨테이너 */
+.end-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* 버튼 스타일 */
+.end-buttons button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  background: none;
   border: none;
+  cursor: pointer;
+  padding: 10px;
+  width: 180px;
+  text-align: left;
+}
+
+.end-buttons button img {
+  width: 30px;
+  height: auto;
 }
 
 #linktree-screen {

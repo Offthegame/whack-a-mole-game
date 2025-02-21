@@ -536,24 +536,6 @@ function endGame() {
 }
 
 /**
- * 비디오 정지 및 일시정지 관련 함수
- */
-function stopVideo() {
-  const iframe = document.querySelector('#end-screen iframe');
-  if (iframe) {
-    iframe.src = iframe.src;
-  }
-}
-
-function pauseVideo() {
-  const iframe = document.querySelector("#end-screen iframe");
-  if (iframe) {
-    const player = new Vimeo.Player(iframe);
-    player.pause();
-  }
-}
-
-/**
  * Play Again 버튼 클릭 시 게임 재시작
  */
 function handlePlayAgain() {
@@ -567,13 +549,6 @@ function handlePlayAgain() {
   isWaiting = false;
 
   resetAllMoles();
-
-  document.querySelectorAll(".mole").forEach((mole) => {
-    mole.removeEventListener("click", handleMoleClick);
-    mole.addEventListener("click", handleMoleClick);
-  });
-
-  console.log("✅ Play Again: 두더지 클릭 이벤트 재등록 완료!");
   startGame();
 }
 
@@ -614,7 +589,9 @@ document.addEventListener("click", (event) => {
     handleGoHome();
   } else if (id === "linktree-button") { 
     showScreen("linktree-screen");
-    pauseVideo();
+  } else if (id === "video-button") { 
+    const videoUrl = "https://player.vimeo.com/video/446416103?h=464d10ec9d";
+    window.open(videoUrl, "_blank");
   } else if (id === "back-to-home") { 
     showScreen("home-screen");
   }

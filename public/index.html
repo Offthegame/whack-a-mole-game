@@ -140,24 +140,31 @@
     </div>
   </div>
 
-  <!-- 게임 종료 화면 -->
-  <div id="end-screen" style="display: none;">
-    <h1>Game Over!</h1>
-    <div class="video-container">
-      <iframe
-        title="vimeo-player"
-        src="https://player.vimeo.com/video/446416103?h=464d10ec9d"
-        width="100%"
-        height="100%"
-        frameborder="0"
-        allowfullscreen>
-      </iframe>
+<!-- 게임 종료 화면 -->
+<div id="end-screen" style="display: none;">
+  <div class="result-board">
+    <p id="final-score" class="score-display">100점</p>
+    
+    <div class="end-buttons">
+      <button id="go-home-button">
+        <img src="assets/home-icon.webp" alt="홈으로">
+        홈으로
+      </button>
+      <button id="restart-button">
+        <img src="assets/replay-icon.webp" alt="다시하기">
+        다시하기
+      </button>
+      <button id="video-button">
+        <img src="assets/video-icon.webp" alt="영상 시청">
+        영상 시청
+      </button>
+      <button id="linktree-button">
+        <img src="assets/linktree-icon.webp" alt="링크트리">
+        링크트리
+      </button>
     </div>
-    <p id="final-score">Your Score: 0</p>
-    <button id="restart-button">Play Again</button>
-    <button id="go-home-button">Go Home</button>
-    <button id="linktree-button">Next</button>
   </div>
+</div>
 
   <!-- 링크트리 화면 -->
   <div id="linktree-screen" class="screen" style="display: none;">
