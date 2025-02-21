@@ -236,9 +236,9 @@ html, body {
 #score {
   font-size: 24px;
   font-weight: bold;
-  color: #fceabb !important; /* 기존 컨셉과 맞는 갈색 계열 */
-  text-shadow: 2px 2px 0px #603813, /* 밝은 테두리 효과 */
-               -2px -2px 0px #603813;
+  color: #ffffff; /* 글자 색상 */
+  -webkit-text-stroke: 1.5px #603813; /* 갈색 테두리 */
+  text-shadow: none; /* 기존 text-shadow 제거 */
 }
 
 /* 🔹 타이머 */
