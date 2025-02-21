@@ -220,7 +220,7 @@ html, body {
 @media (max-width: 768px) {
   .game-header {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr; /* 3등분 */
