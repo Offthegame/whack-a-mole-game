@@ -312,7 +312,7 @@ regionDropdown.addEventListener("change", async (e) => {
 // 설정 화면 전환 및 인증
 document.getElementById("settings-button").addEventListener("click", () => {
   homeScreen.style.display = "none";
-  settingsScreen.style.display = "block";
+  settingsScreen.style.display = "flex";
 });
 
 document.getElementById("auth-submit").addEventListener("click", () => {
@@ -320,11 +320,11 @@ document.getElementById("auth-submit").addEventListener("click", () => {
   const enteredPassword = document.getElementById("region-password").value;
   if (region && enteredPassword === region.password) {
     authSection.style.display = "none";
-    settingsOptions.style.display = "block";
+    settingsOptions.style.display = "flex";
     document.getElementById("game-time").value = region.gameTime;
     document.getElementById("random-toggle").checked = region.randomizeQuestions;
   } else {
-    document.getElementById("auth-error").style.display = "block";
+    document.getElementById("auth-error").style.display = "flex";
   }
 });
 
@@ -338,7 +338,7 @@ document.getElementById("save-settings").addEventListener("click", () => {
 
 document.getElementById("back-to-home").addEventListener("click", () => {
   settingsScreen.style.display = "none";
-  homeScreen.style.display = "block";
+  homeScreen.style.display = "flex";
 });
 
 // ======================
@@ -365,7 +365,7 @@ async function startGame() {
 
   // 화면 전환 및 초기 상태 설정
   homeScreen.style.display = "none";
-  gameScreen.style.display = "block";
+  gameScreen.style.display = "flex";
   gameActive = true;
   score = 0;
   timeLeft = currentRegion.gameTime * 1000; // ms 단위
@@ -536,7 +536,7 @@ function endGame() {
   clearInterval(timerInterval);
   gameActive = false;
   gameScreen.style.display = "none";
-  endScreen.style.display = "block";
+  endScreen.style.display = "flex";
   document.getElementById("final-score").textContent = `Your Score: ${score}`;
 }
 
@@ -595,7 +595,7 @@ function handleGoHome() {
   endScreen.style.display = "none";
   gameScreen.style.display = "none";
   linktreeScreen.style.display = "none";
-  homeScreen.style.display = "block";
+  homeScreen.style.display = "flex";
 
   score = 0;
   remainingLives = 3;
@@ -679,7 +679,7 @@ document.addEventListener("touchend", () => {
 // ======================
 document.getElementById("back-to-end").addEventListener("click", () => {
   document.getElementById("linktree-screen").style.display = "none";
-  document.getElementById("end-screen").style.display = "block";
+  document.getElementById("end-screen").style.display = "flex";
   console.log("뒤로가기 버튼 클릭됨");
 });
 
@@ -694,7 +694,7 @@ function showScreen(screenId) {
   document.querySelectorAll(".screen").forEach((screen) => {
     screen.style.display = "none";
   });
-  document.getElementById(screenId).style.display = "block";
+  document.getElementById(screenId).style.display = "flex";
   if (screenId === "linktree-screen") {
     document.getElementById("end-screen").style.display = "none";
   }
