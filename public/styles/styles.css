@@ -246,7 +246,7 @@ html, body {
   display: flex;
   align-items: center;
   position: relative;
-  width: auto;
+  width: 80px;
   height: 40px; 
   background: url("/assets/timer.webp") no-repeat center center;
   background-size: contain;
@@ -259,6 +259,7 @@ html, body {
   font-weight: bold;
   color: white;
   text-align: center;
+  left: 20%;
 }
 
 /* 🔹 생명 표시 */
