@@ -2,16 +2,66 @@
   ★ 기본 body 스타일 ★
   게임 화면을 수직/수평으로 중앙 정렬 
 */
+/* 🔹 커스텀 폰트 추가 */
+@font-face {
+  font-family: 'ONE-Mobile-POP';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 🔹 기본 설정 */
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
+  height: 100vh;
   background-color: #f4f4f4;
+  font-family: 'ONE-Mobile-POP', sans-serif;
+  cursor: url("assets/glove.webp"), auto; /* 마우스 포인터를 장갑 이미지로 설정 */
 }
+
+/* 🔹 홈 화면 컨테이너 */
+#home-screen {
+  position: relative;
+  width: min(90vw, 1600px); /* 최대 1600px */
+  height: calc(min(90vw, 1600px) * 9 / 16); /* 16:9 비율 유지 */
+  background: url("assets/home-bg.webp") no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 🔹 지역 선택 드롭다운 */
+#region-select {
+  width: 60%;
+  max-width: 300px;
+  padding: 12px;
+  font-size: 20px;
+  font-family: 'ONE-Mobile-POP', sans-serif;
+  border-radius: 10px;
+  text-align: center;
+  border: 3px solid #ccc;
+  background: white;
+  margin-bottom: 20px;
+}
+
+/* 🔹 START 버튼 (이미지 버튼) */
+#start-button {
+  width: 250px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+#start-button:hover {
+  transform: scale(1.05); /* 마우스를 올리면 살짝 확대 */
+}
+
 
 
 /* 로딩 오버레이가 전체 화면을 덮고 터치/클릭을 가로채도록 설정 */
