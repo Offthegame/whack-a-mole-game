@@ -20,7 +20,7 @@ body {
   height: 100vh;
   background-color: #f4f4f4;
   font-family: 'ONE-Mobile-POP', sans-serif;
-  cursor: url("assets/glove.webp"), auto; /* 마우스 포인터를 장갑 이미지로 설정 */
+  cursor: url("/assets/glove.webp"), auto; /* 마우스 포인터를 장갑 이미지로 설정 */
 }
 
 /* 🔹 홈 화면 컨테이너 */
@@ -28,7 +28,7 @@ body {
   position: relative;
   width: min(90vw, 1600px); /* 최대 1600px */
   height: calc(min(90vw, 1600px) * 9 / 16); /* 16:9 비율 유지 */
-  background: url("assets/home-bg.webp") no-repeat center center;
+  background: url("/assets/home-bg.webp") no-repeat center center;
   background-size: cover;
   display: flex;
   flex-direction: column;
