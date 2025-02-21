@@ -313,7 +313,6 @@ html, body {
   font-size: 24px;
   font-weight: bold;
   color: white;
-  -webkit-text-stroke: 1.5px #603813; /* 갈색 테두리 */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -401,7 +400,7 @@ button:hover {
 */
 .answer-label {
   position: absolute;
-  bottom: 3%;
+  bottom: 4%;
   left: 50%;
   transform: translate(-50%, -50%); /* 수평/수직 중앙 정렬 */
   font-size: 16px;
