@@ -24,20 +24,48 @@ html, body {
 }
 
 /* 🔹 홈 화면 컨테이너 */
+/* 🔹 기본 홈 화면 스타일 */
 #home-screen {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: min(90vw, 1600px); /* 최대 1600px */
-  height: min(50vh, 900px); /* 부모 높이(100vh)에 비례하여 조절 */
-  max-width: 100%; /* 추가: 부모 요소보다 커지지 않도록 */
-  max-height: 100%; /* 추가: 부모 요소보다 커지지 않도록 */
+  width: min(90vw, 1600px); /* 기본: 최대 1600px */
+  height: min(50vh, 900px); /* 기본: 최대 900px */
+  max-width: 100%;
+  max-height: 100%;
   background: url("/assets/home-bg.webp") no-repeat center center;
   background-size: contain;
-  overflow: hidden; /* 내부 요소가 넘치지 않도록 */
-  gap: 20px; /* 요소 간 간격 */
+  overflow: hidden;
+  gap: 20px;
+}
+
+/* 🔹 반응형: 모바일 환경 */
+@media (max-width: 768px) {
+  #home-screen {
+    width: min(90vw, 600px); /* 모바일에서는 더 좁게 */
+    height: min(80vh, 1000px); /* 세로 화면 비율 조정 */
+    background: url("/assets/home-vt.webp") no-repeat center center;
+    background-size: contain;
+  }
+}
+
+/* 🔹 태블릿 환경 */
+@media (max-width: 1024px) {
+  #home-screen {
+    width: min(85vw, 1200px);
+    height: min(60vh, 1000px);
+  }
+}
+
+/* 🔹 초소형 모바일 (세로로 더 긴 화면) */
+@media (max-width: 480px) {
+  #home-screen {
+    width: 100vw;
+    height: 100vh;
+    background-size: cover; /* 작은 화면에서 꽉 차게 */
+  }
 }
 
 /* 🔹 홈 컨텐츠 전체 */
