@@ -267,8 +267,7 @@ html, body {
   font-size: 18px;
   font-weight: bold;
   color: white;
-  left: 60%;
-  transform: translateX(-50%);
+
 }
 
 /* 🔹 생명 표시 */
