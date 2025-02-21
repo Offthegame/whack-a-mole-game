@@ -361,9 +361,16 @@ async function startGame() {
     console.error("🚨 currentRegion is undefined after loading.");
     return;
   }
+
   console.log(`✅ ${selectedRegion} 데이터 로드 완료:`, currentRegion);
 
-  // 화면 전환 및 초기 상태 설정
+  // UI 업데이트
+  document.getElementById("region-info").textContent = currentRegion.name;
+  updateScoreUI(0);
+  updateLivesUI(3);
+  updateTimerUI(currentRegion.gameTime * 1000);
+
+  // 화면 전환
   homeScreen.style.display = "none";
   gameScreen.style.display = "flex";
   gameActive = true;
@@ -373,18 +380,6 @@ async function startGame() {
   usedQuestions = [];
   currentQuestion = null;
   isWaiting = false;
-
-  updateScoreUI(score);
-  updateLivesUI(remainingLives);
-  updateTimerUI(timeLeft);
-
-  // 두더지 클릭 이벤트 재설정 (중복 방지)
-  document.querySelectorAll(".mole").forEach((mole) => {
-    mole.replaceWith(mole.cloneNode(true));
-  });
-  document.querySelectorAll(".mole").forEach((mole) => {
-    mole.addEventListener("click", handleMoleClick);
-  });
 
   showMoles();
   startTimer();

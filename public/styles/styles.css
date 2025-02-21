@@ -103,7 +103,7 @@ html, body {
   background-color: white; /* 🔹 투명 배경 제거 (흰색 적용) */
   
   padding: 12px 40px 12px 20px;
-  border-radius: 10px;
+  border-radius: 20px;
   border: 3px solid #ccc;
   
   font-size: 20px;
@@ -114,7 +114,6 @@ html, body {
 #start-button {
   width: 200px;
   height: auto;
-  cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
 
@@ -124,8 +123,8 @@ html, body {
 
 #settings-button {
   position: absolute;
-  top: 20px;   /* 위쪽 여백 */
-  left: 20px;  /* 왼쪽 여백 */
+  top: 2%;   /* 위쪽 여백 */
+  left: 2%;  /* 왼쪽 여백 */
   width: 50px; /* 버튼 크기 조정 */
   height: auto;
   cursor: pointer;
@@ -161,16 +160,64 @@ html, body {
   ★ 게임 전체 컨테이너 ★
   가운데 정렬된 패널 형식 
 */
-#game-screen {
-  width: min(70vw, 1920px); /* 70vw를 기본으로 하지만 최대 1920px로 제한 */
-  background: url("/assets/game-bg.png") no-repeat center center;
-  background-size: cover; /* 화면 전체를 덮도록 설정 */
-  border-radius: 10px;
-  overflow: auto; /* 내부 요소가 많아도 스크롤 가능 */
+/* 🔹 게임 헤더 스타일 */
+.game-header {
+  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  position: absolute;
+  top: 10px;
+}
+
+/* 🔹 뒤로가기 버튼 */
+#back-button {
+  width: 50px;
+  height: auto;
+  cursor: pointer;
+}
+
+/* 🔹 지역 정보 */
+.region-info {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 5px 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* 🔹 점수 표시 */
+.score-box {
+  font-size: 24px;
+  font-weight: bold;
+  color: #5C3B1E;
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+}
+
+/* 🔹 타이머 박스 */
+.timer-box {
+  display: flex;
+  align-items: center;
+  background: url("assets/timer.webp") no-repeat center;
+  background-size: contain;
+  padding: 5px 10px;
+  font-size: 22px;
+  color: white;
+  font-weight: bold;
+}
+
+/* 🔹 생명 표시 */
+.lives-box {
+  display: flex;
+  gap: 5px;
+}
+
+.life-icon {
+  width: 40px;
+  height: auto;
 }
 
 

@@ -1,40 +1,28 @@
 // UI 업데이트 관련 코드
 
-// ---------------------
 // 점수 업데이트
-// ---------------------
 export function updateScoreUI(score) {
-  const scoreDisplay = document.getElementById("score");
-  scoreDisplay.textContent = `Score: ${score}`;
+  document.getElementById("score").textContent = `${score}점`;
 }
 
-// ---------------------
 // 생명 업데이트
-// ---------------------
 export function updateLivesUI(remainingLives) {
-  const livesDisplay = document.getElementById("lives");
-  livesDisplay.textContent = `Lives: ${remainingLives}`;
+  const livesContainer = document.getElementById("lives-container");
+  livesContainer.innerHTML = "";
+  for (let i = 0; i < remainingLives; i++) {
+    const lifeImg = document.createElement("img");
+    lifeImg.src = "assets/life.webp";
+    lifeImg.classList.add("life-icon");
+    livesContainer.appendChild(lifeImg);
+  }
 }
 
-// ---------------------
 // 타이머 업데이트
-// ---------------------
 export function updateTimerUI(timeLeft) {
   const timerDisplay = document.getElementById("timer");
-
-  // 밀리초 → 분, 초, 밀리초 변환
-  const minutes = Math.floor(timeLeft / 60000); // 1분 = 60000ms
-  const seconds = Math.floor((timeLeft % 60000) / 1000); // 1초 = 1000ms
-  const milliseconds = timeLeft % 1000; // 밀리초
-
-  // "mm:ss:ms" 형식으로 표시
-  const formattedTime = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}:${String(milliseconds).padStart(3, "0")}`;
-
-  if (timerDisplay) {
-    timerDisplay.textContent = `Time Left: ${formattedTime}`;
-  } else {
-    console.warn("Timer display element not found.");
-  }
+  const minutes = Math.floor(timeLeft / 60000);
+  const seconds = Math.floor((timeLeft % 60000) / 1000);
+  timerDisplay.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 }
 
 
