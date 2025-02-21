@@ -506,14 +506,14 @@ button:hover {
   background: rgba(255, 255, 255, 0.5);
   padding: 5px 20px;
   border-radius: 20px;
-  margin: 60px auto 0; /* ✅ 위쪽 여백 추가, 중앙 정렬, 아래 마진 제거 */
+  margin: 80px auto 0; /* ✅ 위쪽 여백 추가, 중앙 정렬, 아래 마진 제거 */
 }
 
 /* 버튼 컨테이너 */
 .end-buttons {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   margin-top: 20px;
 }
 
@@ -521,13 +521,11 @@ button:hover {
 .end-buttons button {
   display: flex;
   align-items: center;
-  gap: 10px;
   font-size: 18px;
   font-weight: bold;
   color: #ffffff;
   background: none;
   border: none;
-  cursor: pointer;
   padding: 10px;
   width: 180px;
   text-align: left;
