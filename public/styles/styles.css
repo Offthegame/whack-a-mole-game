@@ -212,17 +212,20 @@ html, body {
 .game-header {
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-between;  /* 요소들 간 간격 유지 */
   align-items: center;
-  padding: 10px;
+  padding: 10px 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 /* 🔹 뒤로 가기 버튼 */
 .back-btn {
-  position: absolute;
   width: 50px;
   height: auto;
-  left: 2%;  /* 왼쪽 여백 */
+  margin-left: 10px; /* 왼쪽 여백 */
 }
 
 /* 🔹 지역 정보 */
@@ -242,40 +245,31 @@ html, body {
   text-shadow: none; /* 기존 text-shadow 제거 */
 }
 
-/* 🔹 타이머 */
-#timer-container {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
 /* 🔹 타이머 컨테이너 */
 #timer-container {
   display: flex;
   align-items: center;
   position: relative;
-  width: auto; /* 타이머 배경 크기에 맞게 조정 */
+  width: auto;
   height: 40px; 
   background: url("/assets/timer.webp") no-repeat center center;
   background-size: contain;
-  justify-content: center;
-  text-align: center;
+  padding: 0 15px; /* 좌우 여백 추가 */
 }
 
 /* 🔹 타이머 숫자 */
 #timer {
-  position: absolute;
   font-size: 18px;
   font-weight: bold;
   color: white;
-
+  text-align: center;
 }
 
 /* 🔹 생명 표시 */
 #lives-container {
-  position: relative;
   display: flex;
   gap: 5px;
-  right: 2%;
+  margin-right: 10px; /* 오른쪽 여백 추가 */
 }
 .life-icon {
   width: 40px;
