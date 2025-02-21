@@ -345,8 +345,8 @@ button:hover {
   grid-template-columns: repeat(2, 200px);
   gap: 20px;
   justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 40px;
+  margin-top: 10px;
+  margin-bottom: 60px;
 }
 
 /* 
@@ -400,7 +400,7 @@ button:hover {
 */
 .answer-label {
   position: absolute;
-  bottom: 4%;
+  bottom: 6%;
   left: 50%;
   transform: translate(-50%, -50%); /* 수평/수직 중앙 정렬 */
   font-size: 16px;
