@@ -37,9 +37,21 @@ html, body {
   background: url("/assets/home-bg.webp") no-repeat center center;
   background-size: contain;
   overflow: hidden; /* 내부 요소가 넘치지 않도록 */
-
+  gap: 20px; /* 요소 간 간격 */
 }
 
+/* 🔹 홈 컨텐츠 전체 */
+#home-contents {
+  position: absolute;
+  top: 65%; /* 화면의 65% 높이 위치 */
+  transform: translateY(-50%); /* 정확한 중앙 정렬 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* 🔹 지역 선택 드롭다운 */
 
 /* 🔹 지역 선택 드롭다운 */
 /* 기존 select 숨기기 */
@@ -69,10 +81,12 @@ html, body {
 }
 
 #settings-button {
-  width: 50px; /* 적절한 크기로 조정 */
+  position: absolute;
+  top: 20px;   /* 위쪽 여백 */
+  left: 20px;  /* 왼쪽 여백 */
+  width: 50px; /* 버튼 크기 조정 */
   height: auto;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
 }
 
 #settings-button:hover {
