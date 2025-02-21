@@ -160,6 +160,18 @@ html, body {
   ★ 게임 전체 컨테이너 ★
   가운데 정렬된 패널 형식 
 */
+#game-screen {
+  width: min(70vw, 1920px); /* 70vw를 기본으로 하지만 최대 1920px로 제한 */
+  background: url("/assets/game-bg.webp") no-repeat center center;
+  background-size: cover; /* 화면 전체를 덮도록 설정 */
+  border-radius: 10px;
+  overflow: auto; /* 내부 요소가 많아도 스크롤 가능 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 /* 🔹 게임 헤더 스타일 */
 .game-header {
   width: 100%;
