@@ -526,13 +526,3 @@ button:hover {
   border-radius: 8px;
   cursor: pointer;
 }
-/* 🔙 뒤로가기 버튼 스타일 */
-.back-btn {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-}
