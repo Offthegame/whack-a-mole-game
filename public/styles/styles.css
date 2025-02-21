@@ -357,8 +357,8 @@ button:hover {
 */
 .hole {
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 2000px;
   background-color: transparent;
   margin: 10px;
   overflow: hidden;
@@ -380,10 +380,10 @@ button:hover {
   transform: translateX(-50%);
   transition: bottom 0.3s ease-in-out; /* 부드러운 애니메이션 */
   z-index: 1; /* 텍스트(.answer-label)보다 뒤에 보이도록 */
-  width: 90%;
+  width: 92%;
   height: auto;
-  max-width: 140px;
-  max-height: 140px;
+  max-width: 190px;
+  max-height: 190px;
 }
 
 /* 
@@ -401,7 +401,7 @@ button:hover {
 */
 .answer-label {
   position: absolute;
-  bottom: 10%;
+  bottom: 5%;
   left: 50%;
   transform: translate(-50%, -50%); /* 수평/수직 중앙 정렬 */
   font-size: 16px;
