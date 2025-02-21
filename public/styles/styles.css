@@ -11,7 +11,7 @@
 }
 
 /* 🔹 기본 설정 */
-body {
+html, body {
   margin: 0;
   padding: 0;
   display: flex;
@@ -26,15 +26,18 @@ body {
 /* 🔹 홈 화면 컨테이너 */
 #home-screen {
   position: relative;
-  width: min(90vw, 1600px); /* 최대 1600px */
-  height: calc(min(90vw, 1600px) * 9 / 16); /* 16:9 비율 유지 */
-  background: url("/assets/home-bg.webp") no-repeat center center;
-  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: min(90vw, 1600px); /* 최대 1600px */
+  height: min(90vh, 900px); /* 부모 높이(100vh)에 비례하여 조절 */
+  max-width: 100%; /* 추가: 부모 요소보다 커지지 않도록 */
+  max-height: 100%; /* 추가: 부모 요소보다 커지지 않도록 */
+  background: url("/assets/home-bg.webp") no-repeat center center;
+  background-size: contain;
 }
+
 
 /* 🔹 지역 선택 드롭다운 */
 /* 기존 select 숨기기 */
@@ -42,7 +45,7 @@ body {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: url("assets/dropdown-arrow.webp") no-repeat right 10px center; /* 원하는 드롭다운 이미지 */
+  background: url("/assets/dropdown-arrow.webp") no-repeat right 10px center; /* 원하는 드롭다운 이미지 */
   background-size: 20px;
   padding: 12px 40px 12px 20px;
   border-radius: 10px;
