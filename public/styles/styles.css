@@ -215,10 +215,6 @@ html, body {
   justify-content: space-between;  /* 요소들 간 간격 유지 */
   align-items: center;
   padding: 10px 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
 }
 
 /* 🔹 뒤로 가기 버튼 */
