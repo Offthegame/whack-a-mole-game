@@ -449,7 +449,7 @@ function showMoles() {
   availableHoles.forEach((hole, index) => {
     const moleImg = hole.querySelector(".mole");
     const answerLabel = hole.querySelector(".answer-label");
-    moleImg.src = "assets/mole.svg";
+    moleImg.src = "assets/mole.webp";
     moleImg.dataset.answer = shuffledAnswers[index] || "";
     answerLabel.textContent = shuffledAnswers[index] || "";
     hole.classList.add("active");
@@ -475,7 +475,7 @@ function resetAllMoles() {
     hole.classList.remove("active");
     const moleImg = hole.querySelector(".mole");
     const answerLabel = hole.querySelector(".answer-label");
-    moleImg.src = "assets/mole.svg";
+    moleImg.src = "assets/mole.webp";
     moleImg.dataset.answer = "";
     answerLabel.textContent = "";
   });
@@ -496,7 +496,7 @@ function handleMoleClick(event) {
   if (answer === currentQuestion.correct) {
     score += 100;
     updateScoreUI(score);
-    mole.src = "assets/correct.svg";
+    mole.src = "assets/correct.webp";
     playHitSound();
 
     setTimeout(() => {
@@ -508,7 +508,7 @@ function handleMoleClick(event) {
   } else {
     remainingLives--;
     updateLivesUI(remainingLives);
-    mole.src = "assets/wrong.svg";
+    mole.src = "assets/wrong.webp";
     playWrongSound();
 
     if (remainingLives <= 0) {
