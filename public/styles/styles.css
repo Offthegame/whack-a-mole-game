@@ -211,14 +211,37 @@ html, body {
 /* 🔹 게임 상단 UI */
 .game-header {
   display: flex;
-  width: 100%;
-  justify-content: space-between;  /* 요소들 간 간격 유지 */
+  flex-wrap: wrap;  /* 줄 바꿈 허용 */
+  justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
 }
+/* 🔹 모바일 (768px 이하)에서는 두 줄로 변경 */
+@media (max-width: 768px) {
+  .game-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3등분 */
+    grid-template-rows: auto auto; /* 두 줄 배치 */
+    width: 100%;
+    gap: 10px; /* 간격 추가 */
+  }
+
+  /* 🔹 첫 번째 줄 */
+  .back-btn { grid-column: 1; grid-row: 1; }   /* 왼쪽 */
+  #region-info { grid-column: 2; grid-row: 1; } /* 가운데 */
+  #timer-container { grid-column: 3; grid-row: 1; } /* 오른쪽 */
+
+  /* 🔹 두 번째 줄 */
+  #score { grid-column: 2; grid-row: 2; } /* 가운데 */
+  #lives-container { grid-column: 3; grid-row: 2; } /* 오른쪽 */
+}
 
 /* 🔹 뒤로 가기 버튼 */
-.back-btn {
+.game-back-btn {
+  order: 1;
   width: 50px;
   height: auto;
   margin-left: 10px; /* 왼쪽 여백 */
@@ -226,6 +249,7 @@ html, body {
 
 /* 🔹 지역 정보 */
 #region-info {
+  order: 2;
   background: rgba(255, 255, 255, 0.7);
   padding: 5px 10px;
   border-radius: 10px;
@@ -234,6 +258,7 @@ html, body {
 
 /* 🔹 점수 표시 */
 #score {
+  order: 4;
   font-size: 24px;
   font-weight: bold;
   color: #ffffff; /* 글자 색상 */
@@ -243,6 +268,7 @@ html, body {
 
 /* 🔹 타이머 컨테이너 */
 #timer-container {
+  order: 3;
   display: flex;
   align-items: center;
   position: relative;
@@ -260,11 +286,12 @@ html, body {
   color: white;
   text-align: center;
   position:absolute;  
-  left: 40%;
+  left: 30%;
 }
 
 /* 🔹 생명 표시 */
 #lives-container {
+  order: 5;
   display: flex;
   gap: 5px;
   margin-right: 10px; /* 오른쪽 여백 추가 */
