@@ -233,8 +233,7 @@ html, body {
 }
 
 /* 🔹 점수 표시 */
-/* 🔹 점수 표시 */
-#score-display {
+#score {
   font-size: 24px;
   font-weight: bold;
   color: #fceabb !important; /* 기존 컨셉과 맞는 갈색 계열 */
