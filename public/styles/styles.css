@@ -218,7 +218,7 @@ html, body {
 }
 
 /* 🔹 뒤로 가기 버튼 */
-#back-button {
+#go-home-button {
   width: 50px;
   height: auto;
   left: 2%;  /* 왼쪽 여백 */
