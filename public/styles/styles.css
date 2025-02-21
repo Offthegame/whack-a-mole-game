@@ -31,27 +31,26 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: min(90vw, 1600px); /* 기본: 최대 1600px */
-  height: min(50vh, 900px); /* 기본: 최대 900px */
+  width: min(90vw, 1600px);
+  height: min(50vh, 900px);
   max-width: 100%;
   max-height: 100%;
   background: url("/assets/home-bg.webp") no-repeat center center;
   background-size: contain;
   overflow: hidden;
-  gap: 20px;
 }
 
-/* 🔹 반응형: 모바일 환경 */
+/* 🔹 모바일 (세로 화면) */
 @media (max-width: 768px) {
   #home-screen {
-    width: min(90vw, 600px); /* 모바일에서는 더 좁게 */
-    height: min(80vh, 1000px); /* 세로 화면 비율 조정 */
+    width: min(90vw, 600px);
+    height: min(80vh, 1000px);
     background: url("/assets/home-vt.webp") no-repeat center center;
     background-size: contain;
   }
 }
 
-/* 🔹 태블릿 환경 */
+/* 🔹 태블릿 (중간 크기 화면) */
 @media (max-width: 1024px) {
   #home-screen {
     width: min(85vw, 1200px);
@@ -64,7 +63,19 @@ html, body {
   #home-screen {
     width: 100vw;
     height: 100vh;
-    background-size: cover; /* 작은 화면에서 꽉 차게 */
+    background-size: cover;
+  }
+}
+
+/* 🔹 가로 모드 (Landscape) */
+@media (orientation: landscape) {
+  #home-screen {
+    width: 100vw;
+    height: 100vh;
+    background: url("/assets/home-bg.webp") no-repeat center center;
+    background-size: cover; /* 화면을 꽉 채움 */
+    flex-direction: row; /* 버튼 위치를 가로 배치 */
+    justify-content: space-evenly; /* 버튼을 가로로 정렬 */
   }
 }
 
@@ -77,6 +88,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  gap: 20px;
 }
 
 /* 🔹 지역 선택 드롭다운 */
@@ -98,7 +110,7 @@ html, body {
 
 /* 🔹 START 버튼 (이미지 버튼) */
 #start-button {
-  width: 250px;
+  width: 200px;
   height: auto;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
