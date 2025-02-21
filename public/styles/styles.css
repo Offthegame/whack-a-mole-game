@@ -584,7 +584,6 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 10px;
   font-family: 'Dotum', sans-serif; /* ✅ KoPubWorld 폰트 */
 }
 
@@ -633,12 +632,13 @@ button {
   background-size: contain;
   color: #000;
   border: none;
-  padding: 8px 20px; /* ✅ 버튼 여백 */
+  padding: 12px 20px; /* ✅ 버튼 여백 */
   font-size: 16px;
   font-family: 'Dotum', sans-serif;
   width: 90%;
   max-width: 400px;
   text-align: center;
+  margin: 2px;
 }
 
 .linktree-btn img {
@@ -653,7 +653,10 @@ button {
 /* ✅ 말풍선과 캐릭터 */
 .bottom-section {
   position: relative;
-  margin-top: 30px;
+  bottom: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .bubble {
