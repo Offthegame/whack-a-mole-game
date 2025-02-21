@@ -582,7 +582,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-family: 'Dotum', sans-serif; /* ✅ KoPubWorld 폰트 */
 }
 
