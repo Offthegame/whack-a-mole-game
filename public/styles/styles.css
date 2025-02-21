@@ -514,13 +514,14 @@ button:hover {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 /* 버튼 스타일 */
 .end-buttons button {
   display: flex;
   align-items: center;
+  gap: 10px;
   font-size: 18px;
   font-weight: bold;
   color: #ffffff;
