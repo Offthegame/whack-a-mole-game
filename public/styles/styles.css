@@ -258,7 +258,7 @@ html, body {
 
 /* 🔹 점수 표시 */
 #score {
-  order: 4;
+  order: 3;
   font-size: 24px;
   font-weight: bold;
   color: #ffffff; /* 글자 색상 */
@@ -268,7 +268,7 @@ html, body {
 
 /* 🔹 타이머 컨테이너 */
 #timer-container {
-  order: 3;
+  order: 4;
   display: flex;
   align-items: center;
   position: relative;
