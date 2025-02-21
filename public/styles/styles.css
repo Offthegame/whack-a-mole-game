@@ -172,20 +172,16 @@ html, body {
   justify-content: center;
 }
 
-/* 🔹 게임 헤더 스타일 */
+/* 🔹 게임 상단 UI */
 .game-header {
-  width: 100%;
   display: flex;
-  align-items: center;
+  width: 100%;
   justify-content: space-between;
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  position: absolute;
-  top: 10px;
+  align-items: center;
+  padding: 10px;
 }
 
-/* 🔹 뒤로가기 버튼 */
+/* 🔹 뒤로 가기 버튼 */
 #back-button {
   width: 50px;
   height: auto;
@@ -193,45 +189,61 @@ html, body {
 }
 
 /* 🔹 지역 정보 */
-.region-info {
-  background: rgba(255, 255, 255, 0.8);
-  padding: 5px 15px;
+#region-info {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 5px 10px;
   border-radius: 10px;
-  font-size: 20px;
   font-weight: bold;
 }
 
 /* 🔹 점수 표시 */
-.score-box {
+#score-display {
   font-size: 24px;
   font-weight: bold;
-  color: #5C3B1E;
-  text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+  color: #603813;
 }
 
-/* 🔹 타이머 박스 */
-.timer-box {
+/* 🔹 타이머 */
+#timer-container {
   display: flex;
   align-items: center;
-  background: url("assets/timer.webp") no-repeat center;
-  background-size: contain;
-  padding: 5px 10px;
-  font-size: 22px;
-  color: white;
+  gap: 5px;
+}
+#timer-container img {
+  width: 50px;
+}
+#timer {
+  font-size: 20px;
   font-weight: bold;
+  color: white;
 }
 
 /* 🔹 생명 표시 */
-.lives-box {
+#lives-container {
   display: flex;
   gap: 5px;
 }
-
 .life-icon {
   width: 40px;
   height: auto;
 }
 
+/* 🔹 문제 컨테이너 */
+#question-container {
+  width: 80%;
+  max-width: 1000px;
+  background: url("/assets/question.webp") no-repeat center center;
+  background-size: contain;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+}
 
 /* 
   ★ 버튼 공통 스타일 ★ 

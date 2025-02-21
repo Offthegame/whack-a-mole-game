@@ -29,18 +29,18 @@ export function updateTimerUI(timeLeft) {
 // ---------------------
 // 문제 표시 업데이트
 // ---------------------
-export function updateQuestionUI(questionText, emptySlot) {
-  const questionDisplay = document.getElementById("question");
+// 🔹 문제 UI 업데이트 함수 수정
+export function updateQuestionUI(questionText) {
+  const questionElement = document.getElementById("question-text");
 
-  // "(빈칸)"을 <img> 태그로 대체
-  const formattedQuestion = questionText.replace(
-    "(빈칸)",
-    `<img src="${emptySlot}" alt="empty slot" class="empty-slot">`
-  );
+  if (!questionElement) {
+    console.error("🚨 문제 UI 요소를 찾을 수 없습니다.");
+    return;
+  }
 
-  // DOM에 HTML로 업데이트
-  questionDisplay.innerHTML = formattedQuestion;
+  questionElement.textContent = questionText;
 }
+
 
 // ---------------------
 // 화면 전환 (Intro → Game)

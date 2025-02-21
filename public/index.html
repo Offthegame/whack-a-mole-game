@@ -95,17 +95,17 @@
   <!-- 상단 UI -->
   <div class="game-header">
     <!-- 뒤로가기 버튼 -->
-    <img src="assets/back-icon.webp" alt="Back" id="back-button">
+    <img src="assets/back-icon.webp" id="back-button" alt="뒤로가기">
 
     <!-- 지역 정보 -->
     <div class="region-info" id="region-info">Region-001</div>
 
     <!-- 점수창 -->
-    <div class="score-box" id="score">100점</div>
+    <div id="score-display">100점</div>
 
     <!-- 시간창 -->
-    <div class="timer-box">
-      <img src="assets/timer.webp" alt="Timer">
+    <div id="timer-container">
+      <img src="assets/timer.webp" alt="타이머 배경">
       <span id="timer">1:23</span>
     </div>
 
@@ -114,6 +114,10 @@
       <img src="assets/life.webp" class="life-icon">
       <img src="assets/life.webp" class="life-icon">
       <img src="assets/life.webp" class="life-icon">
+    </div>
+    <!-- 문제 표시 컨테이너 -->
+    <div id="question-container">
+      <p id="question-text">나는 매일 공원 ___ 운동을 한다.</p>
     </div>
   </div>
 
