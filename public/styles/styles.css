@@ -214,7 +214,8 @@ html, body {
   flex-wrap: wrap;  /* 줄 바꿈 허용 */
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  width: 90%;
+  padding: 10px 20px;  /* 상하좌우 여백 */
 }
 /* 🔹 모바일 (768px 이하)에서는 두 줄로 변경 */
 @media (max-width: 768px) {
