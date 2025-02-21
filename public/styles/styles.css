@@ -237,7 +237,7 @@ html, body {
 #score-display {
   font-size: 24px;
   font-weight: bold;
-  color: #fceabb; /* 기존 컨셉과 맞는 갈색 계열 */
+  color: #fceabb !important; /* 기존 컨셉과 맞는 갈색 계열 */
   text-shadow: 2px 2px 0px #603813, /* 밝은 테두리 효과 */
                -2px -2px 0px #603813;
 }
@@ -254,7 +254,7 @@ html, body {
   align-items: center;
   position: relative;
   width: 80px; /* 타이머 배경 크기에 맞게 조정 */
-  height: 30px;
+  height: 30px; 
   background: url("/assets/timer.webp") no-repeat center center;
   background-size: contain;
   justify-content: center;
