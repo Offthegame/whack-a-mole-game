@@ -494,6 +494,7 @@ button:hover {
   align-items: center;
   padding: 50px 20px;
   text-align: center;
+  overflow: hidden;
 }
 
 
@@ -505,6 +506,7 @@ button:hover {
   background: rgba(255, 255, 255, 0.5);
   padding: 5px 20px;
   border-radius: 20px;
+  margin: 60px auto 0; /* ✅ 위쪽 여백 추가, 중앙 정렬, 아래 마진 제거 */
 }
 
 /* 버튼 컨테이너 */

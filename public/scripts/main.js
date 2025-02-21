@@ -539,7 +539,6 @@ function endGame() {
  * Play Again 버튼 클릭 시 게임 재시작
  */
 function handlePlayAgain() {
-  stopVideo();
   endScreen.style.display = "none";
   score = 0;
   remainingLives = 3;
@@ -556,7 +555,6 @@ function handlePlayAgain() {
  * Go Home 버튼 클릭 시 홈 화면으로 복귀 및 초기화
  */
 function handleGoHome() {
-  stopVideo();
   console.log("🏠 Go Home 버튼 클릭 - 게임 종료 및 초기화!");
   gameActive = false;
   clearInterval(timerInterval);
