@@ -253,8 +253,8 @@ html, body {
   display: flex;
   align-items: center;
   position: relative;
-  width: 80px; /* 타이머 배경 크기에 맞게 조정 */
-  height: 30px; 
+  width: auto; /* 타이머 배경 크기에 맞게 조정 */
+  height: 40px; 
   background: url("/assets/timer.webp") no-repeat center center;
   background-size: contain;
   justify-content: center;
@@ -267,7 +267,8 @@ html, body {
   font-size: 18px;
   font-weight: bold;
   color: white;
-  left: 50%;
+  left: 60%;
+  transform: translateX(-50%);
 }
 
 /* 🔹 생명 표시 */
