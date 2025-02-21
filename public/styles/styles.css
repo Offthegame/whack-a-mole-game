@@ -259,6 +259,7 @@ html, body {
   font-weight: bold;
   color: white;
   text-align: center;
+  position:absolute;  
   left: 60%;
 }
 
