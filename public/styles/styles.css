@@ -221,7 +221,7 @@ html, body {
 #back-button {
   width: 50px;
   height: auto;
-  cursor: pointer;
+  left: 2%;  /* 왼쪽 여백 */
 }
 
 /* 🔹 지역 정보 */
@@ -233,10 +233,13 @@ html, body {
 }
 
 /* 🔹 점수 표시 */
+/* 🔹 점수 표시 */
 #score-display {
   font-size: 24px;
   font-weight: bold;
-  color: #603813;
+  color: #fceabb; /* 기존 컨셉과 맞는 갈색 계열 */
+  text-shadow: 2px 2px 0px #603813, /* 밝은 테두리 효과 */
+               -2px -2px 0px #603813;
 }
 
 /* 🔹 타이머 */
@@ -245,11 +248,23 @@ html, body {
   align-items: center;
   gap: 5px;
 }
-#timer-container img {
-  width: 50px;
+/* 🔹 타이머 컨테이너 */
+#timer-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 80px; /* 타이머 배경 크기에 맞게 조정 */
+  height: 30px;
+  background: url("/assets/timer.webp") no-repeat center center;
+  background-size: contain;
+  justify-content: center;
+  text-align: center;
 }
+
+/* 🔹 타이머 숫자 */
 #timer {
-  font-size: 20px;
+  position: absolute;
+  font-size: 18px;
   font-weight: bold;
   color: white;
 }
