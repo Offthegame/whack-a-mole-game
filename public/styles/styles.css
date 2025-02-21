@@ -37,17 +37,18 @@ body {
 }
 
 /* 🔹 지역 선택 드롭다운 */
-#region-select {
-  width: 60%;
-  max-width: 300px;
-  padding: 12px;
-  font-size: 20px;
-  font-family: 'ONE-Mobile-POP', sans-serif;
+/* 기존 select 숨기기 */
+#region {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("assets/dropdown-arrow.webp") no-repeat right 10px center; /* 원하는 드롭다운 이미지 */
+  background-size: 20px;
+  padding: 12px 40px 12px 20px;
   border-radius: 10px;
-  text-align: center;
+  font-size: 20px;
   border: 3px solid #ccc;
-  background: white;
-  margin-bottom: 20px;
+  cursor: pointer;
 }
 
 /* 🔹 START 버튼 (이미지 버튼) */
@@ -62,6 +63,16 @@ body {
   transform: scale(1.05); /* 마우스를 올리면 살짝 확대 */
 }
 
+#settings-button {
+  width: 50px; /* 적절한 크기로 조정 */
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+#settings-button:hover {
+  transform: scale(1.1);
+}
 
 
 /* 로딩 오버레이가 전체 화면을 덮고 터치/클릭을 가로채도록 설정 */
