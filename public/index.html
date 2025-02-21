@@ -166,24 +166,45 @@
   </div>
 </div>
 
-  <!-- 링크트리 화면 -->
-  <div id="linktree-screen" class="screen" style="display: none;">
+<!-- 링크트리 화면 -->
+<div id="linktree-screen" class="screen" style="display: none;">
+  <div class="linktree-board">
     <button id="back-to-end" class="back-btn">← 뒤로가기</button>
+
+    <!-- 프로필 -->
     <div class="profile">
-      <img src="assets/dfc-logo.webp" alt="ARTART Logo" class="profile-img">
-      <h2>@artart.today</h2>
-      <p>쉽고 힙한 문화/예술 이야기 ARTART</p>
+      <img src="assets/dfc-logo.webp" alt="DFC Logo" class="profile-img">
+      <h2>@dfc.official</h2>
+      <p>DFC_제자들의 교회</p>
     </div>
+
+    <!-- 메뉴 -->
     <div class="linktree-links">
-      <button class="linktree-btn">🎟️ [무료 이벤트 구독] 전시, 공연, 영화 이벤트</button>
-      <button class="linktree-btn">👗 (무료 증정) 퍼스널 컬러 + 패션 스타일 만들기 - 여자ver</button>
-      <button class="linktree-btn">🧥 (무료 증정) 퍼스널 컬러 + 패션 스타일 만들기 - 남자ver</button>
-      <button class="linktree-btn">🎨 힙하고 재미있는 아트아트 홈페이지</button>
-      <button class="linktree-btn">📰 [아트레터 구독] 핫한 아트 소식</button>
-      <button class="linktree-btn">💼 [채용공고] 아트아트와 함께할 인재 찾습니다</button>
+      <button class="linktree-btn" onclick="window.open('https://namu.wiki/w/%EC%A0%9C%EC%9E%90%EB%93%A4%EC%84%A0%EA%B5%90%ED%9A%8C', '_blank')">
+        <img src="assets/menu.webp" alt="Menu"> ❓DFC란? (나무위키)
+      </button>
+      <button class="linktree-btn" onclick="window.open('https://www.youtube.com/watch?v=UCwWY4DSoMs', '_blank')">
+        <img src="assets/menu.webp" alt="Menu"> 📽️ DFC 소개 영상
+      </button>
+      <button class="linktree-btn" onclick="window.open('https://dfc.kr/', '_blank')">
+        <img src="assets/menu.webp" alt="Menu"> 🔗 DFC 웹사이트
+      </button>
+      <button class="linktree-btn" onclick="window.open('https://www.instagram.com/dfc.kr', '_blank')">
+        <img src="assets/menu.webp" alt="Menu"> 📱 DFC 공식 Instagram
+      </button>
+      <button class="linktree-btn" onclick="window.open('https://dfc.kr/sns/index.htm', '_blank')">
+        <img src="assets/menu.webp" alt="Menu"> 🐣 우리학교 DFC 인스타그램도 있다구?
+      </button>
     </div>
-    <button id="back-to-home">🏠 홈으로</button>
+
+    <!-- 말풍선과 캐릭터 -->
+    <div class="bottom-section">
+      <img src="assets/bubble.webp" alt="말풍선" class="bubble">
+      <p class="bubble-text">DFC와 함께하세요!</p>
+      <img src="assets/milari.webp" alt="캐릭터" class="character">
+    </div>
   </div>
+</div>
 
   <!-- JS 파일 순서 중요: main.js가 가장 마지막 -->
   <script src="https://player.vimeo.com/api/player.js"></script>

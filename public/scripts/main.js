@@ -653,10 +653,6 @@ document.getElementById("back-to-end").addEventListener("click", () => {
   console.log("뒤로가기 버튼 클릭됨");
 });
 
-document.getElementById("back-to-home").addEventListener("click", () => {
-  showScreen("home-screen");
-});
-
 /**
  * 화면 전환 함수 (홈, 게임, 설정, 링크트리)
  */
