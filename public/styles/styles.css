@@ -338,12 +338,12 @@ button:hover {
 
 /* 
   ★ 구멍 컨테이너 (그리드) ★
-  2 x (150px) = 2열로 구성, 
+  2 x (200px) = 2열로 구성, 
   필요 시 점수에 따라 4열로 바꿀 수도 있음.
 */
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(2, 150px);
+  grid-template-columns: repeat(2, 200px);
   gap: 20px;
   justify-content: center;
   margin-top: 20px;
