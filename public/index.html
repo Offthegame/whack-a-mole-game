@@ -91,17 +91,32 @@
 
   <!-- 게임 화면 -->
   <div id="game-screen" style="display: none;">
-    <!-- 상단 홈 버튼 추가 -->
-    <button id="home-button" class="home-button">🏠 홈으로</button>
   
-    <div class="game-header">
-      <p id="question">Question will appear here...</p>
-      <p id="lives">Lives: 3</p>
-      <p id="score">Score: 0</p>
-      <p id="timer">Time Left: 2:00</p>
+  <!-- 상단 UI -->
+  <div class="game-header">
+    <!-- 뒤로가기 버튼 -->
+    <img src="assets/back-icon.webp" alt="Back" id="back-button">
+
+    <!-- 지역 정보 -->
+    <div class="region-info" id="region-info">Region-001</div>
+
+    <!-- 점수창 -->
+    <div class="score-box" id="score">100점</div>
+
+    <!-- 시간창 -->
+    <div class="timer-box">
+      <img src="assets/timer.webp" alt="Timer">
+      <span id="timer">1:23</span>
     </div>
 
-    <!-- 1단계에서는 2개, 2단계에서는 4개 구멍이 보임 -->
+    <!-- 생명 표시 -->
+    <div class="lives-box" id="lives-container">
+      <img src="assets/life.webp" class="life-icon">
+      <img src="assets/life.webp" class="life-icon">
+      <img src="assets/life.webp" class="life-icon">
+    </div>
+  </div>
+
     <div class="game-grid">
       <div class="hole" id="hole-1">
         <img class="mole" src="assets/mole.svg" alt="Mole">
