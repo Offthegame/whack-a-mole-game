@@ -329,9 +329,6 @@ button {
   border: none;
   border-radius: 5px;
 }
-button:hover {
-  background: #0056b3;
-}
 
 /* 
   ★ 구멍 컨테이너 (그리드) ★
@@ -618,6 +615,7 @@ button:hover {
 .linktree-links {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 4px;
   margin-top: 10px;
   width: 100%;
