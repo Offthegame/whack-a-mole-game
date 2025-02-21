@@ -92,21 +92,23 @@ html, body {
 }
 
 /* 🔹 지역 선택 드롭다운 */
-
-/* 🔹 지역 선택 드롭다운 */
 /* 기존 select 숨기기 */
 #region {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: url("/assets/dropdown-arrow.webp") no-repeat right 10px center; /* 원하는 드롭다운 이미지 */
+  
+  background: url("/assets/dropdown-arrow.webp") no-repeat right 10px center;
   background-size: 20px;
+  background-color: white; /* 🔹 투명 배경 제거 (흰색 적용) */
+  
   padding: 12px 40px 12px 20px;
   border-radius: 10px;
-  font-size: 20px;
   border: 3px solid #ccc;
-  cursor: pointer;
-}
+  
+  font-size: 20px;
+  font-family: 'ONE-Mobile-POP', sans-serif; /* 🔹 기존 폰트 적용 */
+  }
 
 /* 🔹 START 버튼 (이미지 버튼) */
 #start-button {
