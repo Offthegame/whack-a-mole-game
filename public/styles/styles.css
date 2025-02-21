@@ -603,11 +603,15 @@ button:hover {
   font-size: 22px;
   font-weight: bold;
   font-family: 'ONE-Mobile-POP', sans-serif;
+  margin-bottom: 0px;
+  padding: 0px;
 }
 
 .profile p {
   font-size: 16px;
   color: #555;
+  margin:0px;
+  padding: 0px;
 }
 
 /* ✅ 메뉴 스타일 */
@@ -616,6 +620,8 @@ button:hover {
   flex-direction: column;
   gap: 4px;
   margin-top: 10px;
+  width: 100%;
+  max-width: 500px;
 }
 
 .linktree-btn {
@@ -626,7 +632,7 @@ button:hover {
   background-size: contain;
   color: #000;
   border: none;
-  padding: 4px 20px; /* ✅ 버튼 여백 */
+  padding: 8px 20px; /* ✅ 버튼 여백 */
   font-size: 16px;
   font-family: 'Dotum', sans-serif;
   width: 90%;
