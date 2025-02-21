@@ -31,11 +31,13 @@ html, body {
   align-items: center;
   justify-content: center;
   width: min(90vw, 1600px); /* 최대 1600px */
-  height: min(90vh, 900px); /* 부모 높이(100vh)에 비례하여 조절 */
+  height: min(50vh, 900px); /* 부모 높이(100vh)에 비례하여 조절 */
   max-width: 100%; /* 추가: 부모 요소보다 커지지 않도록 */
   max-height: 100%; /* 추가: 부모 요소보다 커지지 않도록 */
   background: url("/assets/home-bg.webp") no-repeat center center;
   background-size: contain;
+  overflow: hidden; /* 내부 요소가 넘치지 않도록 */
+
 }
 
 
