@@ -275,7 +275,7 @@ html, body {
 /* 🔹 문제 컨테이너 */
 #question-container {
   width: 80%;
-  max-width: 1000px;
+  max-width: 700px;
   background: url("/assets/question.webp") no-repeat center center;
   background-size: contain;
   padding: 20px;
