@@ -218,7 +218,8 @@ html, body {
 }
 
 /* 🔹 뒤로 가기 버튼 */
-#go-home-button {
+.back-btn {
+  position: absolute;
   width: 50px;
   height: auto;
   left: 2%;  /* 왼쪽 여백 */
@@ -270,8 +271,10 @@ html, body {
 
 /* 🔹 생명 표시 */
 #lives-container {
+  position: relative;
   display: flex;
   gap: 5px;
+  right: 2%;
 }
 .life-icon {
   width: 40px;
