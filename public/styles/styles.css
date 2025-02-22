@@ -94,7 +94,7 @@ html, body {
 
 #settings-button {
   position: absolute;
-  top: 2%;   /* 위쪽 여백 */
+  top: 5%;   /* 위쪽 여백 */
   left: 2%;  /* 왼쪽 여백 */
   width: 50px; /* 버튼 크기 조정 */
   height: auto;
@@ -251,38 +251,6 @@ html, body {
   width: 90%;
   padding: 10px 20px;  /* 상하좌우 여백 */
 }
-/* 🔹 모바일 (768px 이하)에서는 두 줄로 변경 */
-@media (max-width: 768px) {
-  .game-header {
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* 3등분 */
-    grid-template-rows: auto auto; /* 두 줄 배치 */
-    width: 100%;
-    gap: 10px; /* 간격 추가 */
-  }
-
-  /* 🔹 첫 번째 줄 */
-  .back-btn { grid-column: 1; grid-row: 1; }   /* 왼쪽 */
-  #region-info { grid-column: 2; grid-row: 1; } /* 가운데 */
-  #timer-container { grid-column: 3; grid-row: 1; } /* 오른쪽 */
-
-  /* 🔹 두 번째 줄 */
-  #score { grid-column: 2; grid-row: 2; } /* 가운데 */
-  #lives-container { grid-column: 3; grid-row: 2; } /* 오른쪽 */
-
-  .result-board {
-    width: 92%; /* 가로 크기를 92%로 설정 */
-    max-width: none; /* 최대 너비 제한 해제 */
-  }
-  .linktree-board {
-    width: 92%; /* 가로 크기를 92%로 설정 */
-    max-width: none; /* 최대 너비 제한 해제 */
-  }
-
-}
 
 /* 🔹 뒤로 가기 버튼 */
 .game-back-btn {
@@ -290,6 +258,9 @@ html, body {
   width: 50px;
   height: auto;
   margin-left: 10px; /* 왼쪽 여백 */
+  background: none;
+  border: none;
+  padding: 5px;
 }
 
 /* 🔹 지역 정보 */
@@ -701,4 +672,37 @@ html, body {
 .character {
   width: 100px;
   margin-top: -30px;
+}
+
+/* 🔹 모바일 (768px 이하)에서는 두 줄로 변경 */
+@media (max-width: 768px) {
+  .game-header {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3등분 */
+    grid-template-rows: auto auto; /* 두 줄 배치 */
+    width: 100%;
+    gap: 10px; /* 간격 추가 */
+  }
+
+  /* 🔹 첫 번째 줄 */
+  .back-btn { grid-column: 1; grid-row: 1; }   /* 왼쪽 */
+  #region-info { grid-column: 2; grid-row: 1; } /* 가운데 */
+  #timer-container { grid-column: 3; grid-row: 1; } /* 오른쪽 */
+
+  /* 🔹 두 번째 줄 */
+  #score { grid-column: 2; grid-row: 2; } /* 가운데 */
+  #lives-container { grid-column: 3; grid-row: 2; } /* 오른쪽 */
+
+  .result-board {
+    width: 92%; /* 가로 크기를 92%로 설정 */
+    max-width: none; /* 최대 너비 제한 해제 */
+  }
+  .linktree-board {
+    width: 92%; /* 가로 크기를 92%로 설정 */
+    max-width: none; /* 최대 너비 제한 해제 */
+  }
+
 }
