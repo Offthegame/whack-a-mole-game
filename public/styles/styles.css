@@ -329,18 +329,6 @@ html, body {
 }
 
 /* 
-  ★ 버튼 공통 스타일 ★ 
-*/
-button {
-  padding: 10px 20px;
-  margin: 10px;
-  background: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-
-/* 
   ★ 구멍 컨테이너 (그리드) ★
   2 x (200px) = 2열로 구성, 
   필요 시 점수에 따라 4열로 바꿀 수도 있음.
