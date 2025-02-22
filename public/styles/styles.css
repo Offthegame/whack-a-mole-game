@@ -61,12 +61,12 @@ html, body {
 /* 타이틀 영역 (상단 중앙) */
 #home-top {
   position: absolute;
-  top: 16%;
+  top: 12%;
   width: 100%;
   text-align: center;
 }
 #title img {
-  max-width: 32%;
+  max-width: 24%;
   height: auto;
 }
 
