@@ -458,7 +458,6 @@ html, body {
   width: 50%;
   height: 50%;
   max-width: 500px;
-  max-width: 500px;
   background: url("/assets/result-board.webp") no-repeat center center;
   background-size: contain;
   display: flex;
@@ -528,15 +527,16 @@ html, body {
   width: 50%;
   height: 50%;
   max-width: 500px;
-  max-width: 500px;
   background: url("/assets/board.webp") no-repeat center center;
   background-size: contain;
   display: flex;
   flex-direction: column;
+  justify-content: center; /* 추가: 세로 중앙 정렬 */
   align-items: center;
   padding: 50px 20px;
   text-align: center;
   position: relative;
+  overflow: hidden; /* 필요시 추가: 내용이 넘치면 숨김 */
 }
 
 /* 뒤로 가기 버튼 */
@@ -578,7 +578,7 @@ html, body {
 }
 .profile p {
   font-size: 16px;
-  color: #555;
+  color: #000000;
   margin: 0;
   padding: 0;
 }
