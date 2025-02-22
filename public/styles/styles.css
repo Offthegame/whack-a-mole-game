@@ -80,18 +80,6 @@ html, body {
   }
 }
 
-/* 🔹 홈 컨텐츠 전체 */
-#home-contents {
-  position: absolute;
-  top: 65%; /* 화면의 65% 높이 위치 */
-  transform: translateY(-50%); /* 정확한 중앙 정렬 */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 20px;
-}
-
 #settings-button {
   position: absolute;
   top: 2%;   /* 위쪽 여백 */
@@ -105,18 +93,30 @@ html, body {
   transform: scale(1.1);
 }
 
-/* 홈 상단 영역 (타이틀 이미지 포함) */
+/* 타이틀 영역를 절대 위치로 상단에 배치 */
 #home-top {
-  display: flex;
-  justify-content: center;
+  position: absolute;
+  top: 10%; /* 상단 여백 조정 */
   width: 100%;
-  margin-bottom: 20px; /* 타이틀과 드롭다운 사이 여백 */
+  text-align: center;
 }
 
 /* 타이틀 이미지 */
 #title img {
-  max-width: 80%;
+  max-width: 50%;
   height: auto;
+}
+
+/* 🔹 홈 컨텐츠 전체 */
+#home-contents {
+  position: absolute;
+  top: 65%; /* 화면의 65% 높이 위치 */
+  transform: translateY(-50%); /* 정확한 중앙 정렬 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
 }
 
 /* 🔹 지역 선택 드롭다운 */
