@@ -329,7 +329,7 @@ html, body {
 .hole {
   position: relative;
   width: 200px;
-  height: 200px;
+  height: 150px;
   background-color: transparent;
   margin: 10px;
   overflow: hidden;
