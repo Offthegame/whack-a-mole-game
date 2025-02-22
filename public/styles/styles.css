@@ -1,8 +1,8 @@
-/* 
-  ★ 기본 body 스타일 ★
-  게임 화면을 수직/수평으로 중앙 정렬 
-*/
-/* 🔹 커스텀 폰트 추가 */
+/* ==========================================================================
+   기본 설정 및 폰트
+   ========================================================================== */
+
+/* 커스텀 폰트 추가 */
 @font-face {
   font-family: 'ONE-Mobile-POP';
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
@@ -10,7 +10,7 @@
   font-style: normal;
 }
 
-/* 🔹 기본 설정 */
+/* html, body 기본 설정 및 중앙 정렬 */
 html, body {
   margin: 0;
   padding: 0;
@@ -20,17 +20,20 @@ html, body {
   height: 100vh;
   background-color: #f4f4f4;
   font-family: 'ONE-Mobile-POP', sans-serif;
-  cursor: url("/assets/glove.webp"), auto; /* 마우스 포인터를 장갑 이미지로 설정 */
+  cursor: url("/assets/glove.webp"), auto;
 }
 
-/* 🔹 홈 화면 컨테이너 */
-/* 🔹 기본 홈 화면 스타일 */
+/* ==========================================================================
+   홈 화면
+   ========================================================================== */
+
+/* 홈 화면 컨테이너 */
 #home-screen {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* 상단부터 배치 */
+  justify-content: flex-start;
   width: min(90vw, 1600px);
   height: min(50vh, 900px);
   max-width: 100%;
@@ -38,10 +41,84 @@ html, body {
   background: url("/assets/home-bg.webp") no-repeat center center;
   background-size: contain;
   overflow: hidden;
-  padding-top: 60px; /* 상단 여백 (타이틀과 버튼 공간 확보) */
+  padding-top: 60px;
 }
 
-/* 🔹 모바일 (세로 화면) */
+/* 세팅 버튼 (좌측 상단) */
+#settings-button {
+  position: absolute;
+  top: 5%;
+  left: 2%;
+  width: 50px;
+  height: auto;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+#settings-button:hover {
+  transform: scale(1.1);
+}
+
+/* 타이틀 영역 (상단 중앙) */
+#home-top {
+  position: absolute;
+  top: 16%;
+  width: 100%;
+  text-align: center;
+}
+#title img {
+  max-width: 32%;
+  height: auto;
+}
+
+/* 홈 컨텐츠 (지역 드롭다운 + 시작 버튼) */
+#home-contents {
+  position: absolute;
+  top: 65%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+/* 지역 선택 드롭다운 */
+#region {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("/assets/dropdown-arrow.webp") no-repeat right 10px center;
+  background-size: 20px;
+  background-color: white;
+  padding: 12px 40px 12px 20px;
+  border-radius: 20px;
+  border: 3px solid #ccc;
+  font-size: 20px;
+  font-family: 'ONE-Mobile-POP', sans-serif;
+}
+
+/* START 버튼 (이미지 버튼) */
+#start-button {
+  width: 200px;
+  height: auto;
+  background: none;
+  border: none;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+#start-button img {
+  width: 100%;
+  height: auto;
+}
+#start-button:hover {
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   반응형 (미디어 쿼리)
+   ========================================================================== */
+
+/* 모바일 (세로 화면, max-width: 768px) */
 @media (max-width: 768px) {
   #home-screen {
     width: min(90vw, 600px);
@@ -49,21 +126,20 @@ html, body {
     background: url("/assets/home-vt.webp") no-repeat center center;
     background-size: contain;
   }
-    /* 타이틀 영역를 절대 위치로 상단에 배치 */
+  /* 타이틀 영역 조정 */
   #home-top {
     position: absolute;
-    top: 30%; /* 상단 여백 조정 */
+    top: 30%;
     width: 100%;
     text-align: center;
   }
-    /* 타이틀 이미지 */
   #title img {
     max-width: 50%;
     height: auto;
   }
 }
 
-/* 🔹 태블릿 (중간 크기 화면) */
+/* 태블릿 (max-width: 1024px) */
 @media (max-width: 1024px) {
   #home-screen {
     width: min(85vw, 1200px);
@@ -71,7 +147,7 @@ html, body {
   }
 }
 
-/* 🔹 초소형 모바일 (세로로 더 긴 화면) */
+/* 초소형 모바일 (max-width: 480px) */
 @media (max-width: 480px) {
   #home-screen {
     width: 100vw;
@@ -80,120 +156,23 @@ html, body {
   }
 }
 
-/* 🔹 가로 모드 (Landscape) */
+/* 가로 모드 (Landscape) */
 @media (orientation: landscape) {
   #home-screen {
     width: 100vw;
     height: 100vh;
     background: url("/assets/home-bg.webp") no-repeat center center;
-    background-size: cover; /* 화면을 꽉 채움 */
-    flex-direction: row; /* 버튼 위치를 가로 배치 */
-    justify-content: space-evenly; /* 버튼을 가로로 정렬 */
+    background-size: cover;
+    flex-direction: row;
+    justify-content: space-evenly;
   }
 }
 
-#settings-button {
-  position: absolute;
-  top: 5%;   /* 위쪽 여백 */
-  left: 2%;  /* 왼쪽 여백 */
-  width: 50px; /* 버튼 크기 조정 */
-  height: auto;
-  transition: transform 0.2s ease-in-out;
-}
+/* ==========================================================================
+   게임 화면
+   ========================================================================== */
 
-#settings-button:hover {
-  transform: scale(1.1);
-}
-
-/* 타이틀 영역를 절대 위치로 상단에 배치 */
-#home-top {
-  position: absolute;
-  top: 16%; /* 상단 여백 조정 */
-  width: 100%;
-  text-align: center;
-}
-
-/* 타이틀 이미지 */
-#title img {
-  max-width: 32%;
-  height: auto;
-}
-
-/* 🔹 홈 컨텐츠 전체 */
-#home-contents {
-  position: absolute;
-  top: 65%; /* 화면의 65% 높이 위치 */
-  transform: translateY(-50%); /* 정확한 중앙 정렬 */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 20px;
-}
-
-/* 🔹 지역 선택 드롭다운 */
-/* 기존 select 숨기기 */
-#region {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  
-  background: url("/assets/dropdown-arrow.webp") no-repeat right 10px center;
-  background-size: 20px;
-  background-color: white; /* 🔹 투명 배경 제거 (흰색 적용) */
-  
-  padding: 12px 40px 12px 20px;
-  border-radius: 20px;
-  border: 3px solid #ccc;
-  
-  font-size: 20px;
-  font-family: 'ONE-Mobile-POP', sans-serif; /* 🔹 기존 폰트 적용 */
-  }
-
-/* 🔹 START 버튼 (이미지 버튼) */
-#start-button {
-  width: 200px;
-  height: auto;
-  transition: transform 0.2s ease-in-out;
-  background: none;
-  border: none;
-}
-
-#start-button img {
-  width: 100%;
-  height: auto;
-}
-
-#start-button:hover {
-  transform: scale(1.05); /* 마우스를 올리면 살짝 확대 */
-}
-
-
-/* 로딩 오버레이가 전체 화면을 덮고 터치/클릭을 가로채도록 설정 */
-#loading-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
-  z-index: 1000;  /* 다른 요소보다 위에 표시 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* 스피너(또는 로딩 애니메이션)의 스타일 */
-.spinner {
-  font-size: 1.5rem;
-  color: #fff;
-  /* 추가 애니메이션 효과나 이미지를 넣어도 좋습니다 */
-}
-
-/* 
-  ★ 게임 전체 컨테이너 ★
-  가운데 정렬된 패널 형식 
-*/
+/* 게임 전체 컨테이너 */
 #game-screen {
   position: relative;
   display: flex;
@@ -207,7 +186,7 @@ html, body {
   overflow: hidden;
 }
 
-/* 🔹 모바일 (세로 화면) */
+/* 모바일 게임 화면 (max-width: 768px) */
 @media (max-width: 768px) {
   #game-screen {
     background: url("/assets/game-bg-vt.webp") no-repeat center center;
@@ -215,7 +194,7 @@ html, body {
   }
 }
 
-/* 🔹 태블릿 (중간 크기 화면) */
+/* 태블릿 게임 화면 (max-width: 1024px) */
 @media (max-width: 1024px) {
   #game-screen {
     width: 100vw;
@@ -223,47 +202,51 @@ html, body {
   }
 }
 
-/* 🔹 초소형 모바일 (세로로 더 긴 화면) */
+/* 초소형 모바일 게임 화면 (max-width: 480px) */
 @media (max-width: 480px) {
   #game-screen {
     background-size: cover;
   }
 }
 
-/* 🔹 가로 모드 (Landscape) */
+/* 가로 모드 게임 화면 (Landscape) */
 @media (orientation: landscape) {
   #game-screen {
     width: 100vw;
     height: 100vh;
     background: url("/assets/game-bg.webp") no-repeat center center;
     background-size: cover;
-    flex-direction: column; /* 세로 정렬 유지 */
-    justify-content: space-between; /* 상단 UI와 게임 영역 간격 조절 */
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 
-/* 🔹 게임 상단 UI */
+/* 게임 상단 UI */
 .game-header {
   display: flex;
-  flex-wrap: wrap;  /* 줄 바꿈 허용 */
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   width: 90%;
-  padding: 10px 20px;  /* 상하좌우 여백 */
+  padding: 10px 20px;
 }
 
-/* 🔹 뒤로 가기 버튼 */
+/* 뒤로 가기 버튼 */
 .game-back-btn {
   order: 1;
   width: 50px;
   height: auto;
-  margin-left: 10px; /* 왼쪽 여백 */
+  margin-left: 10px;
   background: none;
   border: none;
   padding: 5px;
 }
+.game-back-btn img {
+  width: 50px;
+  height: auto;
+}
 
-/* 🔹 지역 정보 */
+/* 지역 정보 */
 #region-info {
   order: 2;
   background: rgba(255, 255, 255, 0.7);
@@ -272,52 +255,51 @@ html, body {
   font-weight: bold;
 }
 
-/* 🔹 점수 표시 */
+/* 점수 표시 */
 #score {
   order: 3;
   font-size: 24px;
   font-weight: bold;
-  color: #ffffff; /* 글자 색상 */
-  -webkit-text-stroke: 1.5px #603813; /* 갈색 테두리 */
-  text-shadow: none; /* 기존 text-shadow 제거 */
+  color: #ffffff;
+  -webkit-text-stroke: 1.5px #603813;
+  text-shadow: none;
 }
 
-/* 🔹 타이머 컨테이너 */
+/* 타이머 컨테이너 */
 #timer-container {
   order: 4;
   display: flex;
   align-items: center;
   position: relative;
   width: 80px;
-  height: 40px; 
+  height: 40px;
   background: url("/assets/timer.webp") no-repeat center center;
   background-size: contain;
-  padding: 0 15px; /* 좌우 여백 추가 */
+  padding: 0 15px;
 }
-
-/* 🔹 타이머 숫자 */
+/* 타이머 숫자 */
 #timer {
   font-size: 18px;
   font-weight: bold;
   color: white;
   text-align: center;
-  position:absolute;  
+  position: absolute;
   left: 50%;
 }
 
-/* 🔹 생명 표시 */
+/* 생명 표시 */
 #lives-container {
   order: 5;
   display: flex;
   gap: 5px;
-  margin-right: 10px; /* 오른쪽 여백 추가 */
+  margin-right: 10px;
 }
 .life-icon {
   width: 40px;
   height: auto;
 }
 
-/* 🔹 문제 컨테이너 */
+/* 문제 컨테이너 */
 #question-container {
   width: 80%;
   max-width: 700px;
@@ -331,28 +313,19 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px auto; /* ✅ 위쪽에 여백 추가 */
+  margin: 20px auto;
 }
 
-/* 
-  ★ 구멍 컨테이너 (그리드) ★
-  2 x (200px) = 2열로 구성, 
-  필요 시 점수에 따라 4열로 바꿀 수도 있음.
-*/
+/* 구멍 컨테이너 (그리드) */
 .game-grid {
   display: grid;
   grid-template-columns: repeat(2, 200px);
   gap: 20px;
   justify-content: center;
-  margin-top: 10px;
-  margin-bottom: 60px;
+  margin: 10px 0 60px;
 }
 
-/* 
-  ★ 구멍(hole) ★
-  - 절대 위치된 .mole, .answer-label를 감싸는 컨테이너
-  - overflow: hidden; → 밖으로 나가지 않도록
-*/
+/* 구멍 */
 .hole {
   position: relative;
   width: 200px;
@@ -360,74 +333,51 @@ html, body {
   background-color: transparent;
   margin: 10px;
   overflow: hidden;
-  /* 예: 원형 구멍을 원하면 아래처럼 설정
-     border-radius: 50%;
-     background-color: #ccc;
-  */
 }
 
-/* 
-  ★ 두더지(mole) ★
-  - 기본적으로 bottom: -100%로 구멍 아래에 숨김
-  - .hole.active .mole가 될 때 bottom: 0까지 올라오도록 
-*/
+/* 두더지 */
 .mole {
   position: absolute;
-  bottom: -100%; /* 두더지가 보이지 않는 초기 위치 */
+  bottom: -100%;
   left: 50%;
   transform: translateX(-50%);
-  transition: bottom 0.3s ease-in-out; /* 부드러운 애니메이션 */
-  z-index: 1; /* 텍스트(.answer-label)보다 뒤에 보이도록 */
+  transition: bottom 0.3s ease-in-out;
+  z-index: 1;
   width: 92%;
   height: auto;
   max-width: 190px;
   max-height: 190px;
 }
-
-/* 
-  ★ .hole.active .mole ★
-  - 두더지가 올라오는 위치
-*/
+/* 두더지 활성화 */
 .hole.active .mole {
-  bottom: 0; 
+  bottom: 0;
 }
 
-/* 
-  ★ 정답/오답 텍스트(answer-label) ★
-  - 두더지보다 위(z-index: 2)에 표시
-  - 구멍 중앙에 배치 
-*/
+/* 정답/오답 텍스트 */
 .answer-label {
   position: absolute;
   bottom: 6%;
   left: 50%;
-  transform: translate(-50%, -50%); /* 수평/수직 중앙 정렬 */
+  transform: translate(-50%, -50%);
   font-size: 16px;
   font-weight: bold;
   color: #ffffff;
-  pointer-events: none; /* 클릭 방지 */
+  pointer-events: none;
   text-align: center;
-  z-index: 2; /* 두더지(.mole)보다 앞 */
+  z-index: 2;
 }
 
-/* 
-  ★ (빈칸)을 대체하는 이미지(empty-slot) ★
-  - 문제 문장 내에서 빈칸 대신 svg 이미지로 표시할 때
-*/
+/* 빈 슬롯 이미지 */
 .empty-slot {
   width: 20px;
   height: 20px;
-  vertical-align: middle; 
+  vertical-align: middle;
   margin: 0 5px;
 }
 
-/* 
-  ★ 추가: 숨김 클래스 .hidden 예시 ★
-  - 2단계 전까지 구멍을 감추고 싶을 때 
-  - JS에서 classList.remove("hidden") 하면 보임
-*/
+/* 숨김 클래스 */
 .hidden {
-  display: none; 
+  display: none;
 }
 
 /* 홈 버튼 스타일 */
@@ -439,23 +389,22 @@ html, body {
   font-size: 14px;
   transition: background 0.3s ease;
 }
-
 .home-button:hover {
-  transform: scale(1.05); /* 마우스를 올리면 살짝 확대 */
+  transform: scale(1.05);
 }
 
-/* setting.js 설정 인증창 */
+/* ==========================================================================
+   설정 및 인증 관련
+   ========================================================================== */
 .password-container {
   position: relative;
   display: inline-block;
 }
-
 .password-input {
-  padding-right: 30px; /* 아이콘과 간격 확보 */
+  padding-right: 30px;
   width: 200px;
   height: 30px;
 }
-
 .toggle-password {
   position: absolute;
   right: 5px;
@@ -463,10 +412,34 @@ html, body {
   transform: translateY(-50%);
   font-size: 18px;
   user-select: none;
-  z-index: 10; /* 입력창보다 높은 값 */
+  z-index: 10;
 }
 
-/* 게임 종료 화면 스타일 */
+/* ==========================================================================
+   로딩 오버레이
+   ========================================================================== */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.spinner {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+/* ==========================================================================
+   게임 종료 화면 및 결과 보드
+   ========================================================================== */
+
+/* 게임 종료 화면 */
 #end-screen {
   position: absolute;
   top: 0;
@@ -480,7 +453,7 @@ html, body {
   justify-content: center;
 }
 
-/* 결과 보드 스타일 */
+/* 결과 보드 */
 .result-board {
   width: 50%;
   max-width: 500px;
@@ -493,7 +466,6 @@ html, body {
   text-align: center;
   overflow: hidden;
 }
-
 .score-display {
   font-size: 36px;
   font-weight: bold;
@@ -502,7 +474,7 @@ html, body {
   background: rgba(255, 255, 255, 0.5);
   padding: 5px 20px;
   border-radius: 20px;
-  margin: 80px auto 0; /* ✅ 위쪽 여백 추가, 중앙 정렬, 아래 마진 제거 */
+  margin: 80px auto 0;
 }
 
 /* 버튼 컨테이너 */
@@ -512,8 +484,6 @@ html, body {
   gap: 4px;
   margin-top: 10px;
 }
-
-/* 버튼 스타일 */
 .end-buttons button {
   display: flex;
   align-items: center;
@@ -528,13 +498,16 @@ html, body {
   text-align: left;
   margin: 0;
 }
-
 .end-buttons button img {
   width: 40px;
   height: auto;
 }
 
-/* ✅ 링크트리 화면 스타일 */
+/* ==========================================================================
+   링크트리 화면
+   ========================================================================== */
+
+/* 링크트리 화면 */
 #linktree-screen {
   position: absolute;
   top: 0;
@@ -548,7 +521,7 @@ html, body {
   justify-content: center;
 }
 
-/* ✅ 링크트리 보드 */
+/* 링크트리 보드 */
 .linktree-board {
   width: 50%;
   max-width: 500px;
@@ -562,7 +535,7 @@ html, body {
   position: relative;
 }
 
-/* ✅ 뒤로 가기 버튼 */
+/* 뒤로 가기 버튼 */
 .back-btn {
   position: absolute;
   top: 15px;
@@ -574,41 +547,39 @@ html, body {
   height: auto;
 }
 
-/* ✅ 프로필 스타일 */
+/* 프로필 */
 .profile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Dotum', sans-serif; /* ✅ KoPubWorld 폰트 */
+  font-family: 'Dotum', sans-serif;
 }
-
 .profile-img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  boarder: 2px solid #603813;
+  /* 오타 수정: boarder -> border */
+  border: 2px solid #603813;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .profile h2 {
   margin-top: 10px;
   font-size: 22px;
   font-weight: bold;
   font-family: 'ONE-Mobile-POP', sans-serif;
-  margin-bottom: 0px;
-  padding: 0px;
+  margin-bottom: 0;
+  padding: 0;
 }
-
 .profile p {
   font-size: 16px;
   color: #555;
-  margin:0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
-/* ✅ 메뉴 스타일 */
+/* 메뉴 */
 .linktree-links {
   display: flex;
   flex-direction: column;
@@ -618,7 +589,6 @@ html, body {
   width: 100%;
   max-width: 500px;
 }
-
 .linktree-btn {
   display: flex;
   align-items: center;
@@ -628,7 +598,7 @@ html, body {
   background-size: contain;
   color: #000;
   border: none;
-  padding: 12px 20px; /* ✅ 버튼 여백 */
+  padding: 12px 20px;
   font-size: 16px;
   font-family: 'Dotum', sans-serif;
   width: 90%;
@@ -636,17 +606,15 @@ html, body {
   text-align: center;
   margin: 2px;
 }
-
 .linktree-btn img {
   width: 24px;
   height: auto;
 }
-
 .linktree-btn:hover {
-  transform: scale(1.05); /* 마우스를 올리면 살짝 확대 */
+  transform: scale(1.05);
 }
 
-/* ✅ 말풍선과 캐릭터 */
+/* 말풍선 및 캐릭터 */
 .bottom-section {
   position: relative;
   bottom: 5%;
@@ -654,11 +622,9 @@ html, body {
   flex-direction: column;
   align-items: center;
 }
-
 .bubble {
   width: 250px;
 }
-
 .bubble-text {
   font-size: 18px;
   font-weight: bold;
@@ -668,41 +634,48 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 .character {
   width: 100px;
   margin-top: -30px;
 }
 
-/* 🔹 모바일 (768px 이하)에서는 두 줄로 변경 */
+/* ==========================================================================
+   모바일 전용 스타일 (max-width: 768px)
+   ========================================================================== */
 @media (max-width: 768px) {
   .game-header {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* 3등분 */
-    grid-template-rows: auto auto; /* 두 줄 배치 */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
     width: 100%;
-    gap: 10px; /* 간격 추가 */
+    gap: 10px;
   }
-
-  /* 🔹 첫 번째 줄 */
-  .back-btn { grid-column: 1; grid-row: 1; }   /* 왼쪽 */
-  #region-info { grid-column: 2; grid-row: 1; } /* 가운데 */
-  #timer-container { grid-column: 3; grid-row: 1; } /* 오른쪽 */
-
-  /* 🔹 두 번째 줄 */
-  #score { grid-column: 2; grid-row: 2; } /* 가운데 */
-  #lives-container { grid-column: 3; grid-row: 2; } /* 오른쪽 */
-
-  .result-board {
-    width: 92%; /* 가로 크기를 92%로 설정 */
-    max-width: none; /* 최대 너비 제한 해제 */
+  .back-btn {
+    grid-column: 1;
+    grid-row: 1;
   }
+  #region-info {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  #timer-container {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  #score {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  #lives-container {
+    grid-column: 3;
+    grid-row: 2;
+  }
+  .result-board,
   .linktree-board {
-    width: 92%; /* 가로 크기를 92%로 설정 */
-    max-width: none; /* 최대 너비 제한 해제 */
+    width: 92%;
+    max-width: none;
   }
-
 }
