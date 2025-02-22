@@ -237,6 +237,16 @@ html, body {
   /* 🔹 두 번째 줄 */
   #score { grid-column: 2; grid-row: 2; } /* 가운데 */
   #lives-container { grid-column: 3; grid-row: 2; } /* 오른쪽 */
+
+  .result-board {
+    width: 92%; /* 가로 크기를 92%로 설정 */
+    max-width: none; /* 최대 너비 제한 해제 */
+  }
+  .linktree-board {
+    width: 92%; /* 가로 크기를 92%로 설정 */
+    max-width: none; /* 최대 너비 제한 해제 */
+  }
+
 }
 
 /* 🔹 뒤로 가기 버튼 */
@@ -490,15 +500,6 @@ button {
   overflow: hidden;
 }
 
-/* 🔹 모바일 (세로 화면, 768px 이하) */
-@media (max-width: 768px) {
-  .result-board {
-    width: 92%; /* 가로 크기를 92%로 설정 */
-    max-width: none; /* 최대 너비 제한 해제 */
-  }
-}
-
-
 .score-display {
   font-size: 36px;
   font-weight: bold;
@@ -514,8 +515,8 @@ button {
 .end-buttons {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 5px;
+  gap: 4px;
+  margin-top: 10px;
 }
 
 /* 버튼 스타일 */
@@ -531,6 +532,7 @@ button {
   padding: 5px;
   width: 180px;
   text-align: left;
+  margin: 0;
 }
 
 .end-buttons button img {

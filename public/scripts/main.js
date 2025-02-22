@@ -578,10 +578,18 @@ function handleGoHome() {
 // 7. Global Event Listeners
 // ======================
 document.addEventListener("click", (event) => {
-  const { id } = event.target;
-  if (id === "start-button") {
-    startGame();
-  } else if (id === "restart-button") {
+  let target = event.target;
+  
+  // 이미지 클릭 시 부모 버튼을 타겟으로 변경
+  if (target.tagName === "IMG") {
+    target = target.closest("button");
+  }
+
+  if (!target) return; // 예외 처리
+
+  const { id } = target;
+
+  if (id === "restart-button") {
     handlePlayAgain();
   } else if (id === "go-home-button" || id === "home-button") {
     handleGoHome();
@@ -594,6 +602,7 @@ document.addEventListener("click", (event) => {
     showScreen("home-screen");
   }
 });
+
 
 // 초기 두더지 클릭 이벤트 등록
 holes.forEach((hole) => {
