@@ -10,7 +10,7 @@ import {
   updateQuestionUI 
 } from "/scripts/ui.js";
 
-import { playHitSound, playWrongSound, playBackgroundMusic } from "/scripts/sound.js";
+import { playBackgroundMusic, playButtonSound, playHitSound, playWrongSound, updateScoreUI, updateLivesUI, updateTimerUI, updateQuestionUI } from "/scripts/sound.js";
 
 // ======================
 // 2. Global Variables & Game State
@@ -578,8 +578,12 @@ function handleGoHome() {
 // 7. Global Event Listeners
 // ======================
 document.addEventListener("click", (event) => {
-  // 클릭한 요소의 가장 가까운 button 요소를 찾음
+  // 버튼이나 그 내부 요소를 클릭했을 때, 가장 가까운 button을 찾습니다.
   const button = event.target.closest("button");
+  if (button) {
+    // 버튼 클릭 시 효과음 재생
+    playButtonSound();
+  }
   if (!button) return; // 버튼이 아니라면 무시
   
   const { id } = button;
@@ -611,6 +615,7 @@ holes.forEach((hole) => {
 // ======================
 document.addEventListener("DOMContentLoaded", () => {
   populateRegionDropdown();
+  playBackgroundMusic(); // 홈 화면 로드 시 배경음악 재생 시도
 });
 
 // ======================
@@ -670,3 +675,10 @@ function showScreen(screenId) {
     document.getElementById("end-screen").style.display = "none";
   }
 }
+
+// 홈 화면의 어느 요소든 클릭하면 배경음악을 재생하도록 설정
+homeScreen.addEventListener("click", function startMusicOnce() {
+  playBackgroundMusic();
+  // 한 번 실행 후 이벤트 리스너 제거
+  homeScreen.removeEventListener("click", startMusicOnce);
+});
