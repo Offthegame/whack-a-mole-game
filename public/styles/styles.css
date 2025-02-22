@@ -49,6 +49,18 @@ html, body {
     background: url("/assets/home-vt.webp") no-repeat center center;
     background-size: contain;
   }
+    /* 타이틀 영역를 절대 위치로 상단에 배치 */
+  #home-top {
+    position: absolute;
+    top: 30%; /* 상단 여백 조정 */
+    width: 100%;
+    text-align: center;
+  }
+    /* 타이틀 이미지 */
+  #title img {
+    max-width: 50%;
+    height: auto;
+  }
 }
 
 /* 🔹 태블릿 (중간 크기 화면) */
@@ -96,14 +108,14 @@ html, body {
 /* 타이틀 영역를 절대 위치로 상단에 배치 */
 #home-top {
   position: absolute;
-  top: 10%; /* 상단 여백 조정 */
+  top: 16%; /* 상단 여백 조정 */
   width: 100%;
   text-align: center;
 }
 
 /* 타이틀 이미지 */
 #title img {
-  max-width: 50%;
+  max-width: 32%;
   height: auto;
 }
 
