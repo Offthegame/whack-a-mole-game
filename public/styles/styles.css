@@ -66,14 +66,14 @@ html, body {
   text-align: center;
 }
 #title img {
-  max-width: 24%;
+  max-width: 28%;
   height: auto;
 }
 
 /* 홈 컨텐츠 (지역 드롭다운 + 시작 버튼) */
 #home-contents {
   position: absolute;
-  top: 65%;
+  top: 70%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
