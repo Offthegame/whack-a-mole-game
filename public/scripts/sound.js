@@ -17,7 +17,7 @@ export function resultSound() {
 }
 
 // 배경음악 설정: 반복 재생 및 볼륨 조절
-const bgmAudio = new Audio("assets/bgm1.mp3");
+const bgmAudio = new Audio("assets/sounds/bgm1.mp3");
 bgmAudio.loop = true;
 bgmAudio.volume = 0.3;
 
@@ -35,7 +35,7 @@ export function stopBackgroundMusic() {
 }
 
 // 버튼 효과음 설정
-const buttonAudio = new Audio("assets/button.mp3");
+const buttonAudio = new Audio("assets/sounds/button.mp3");
 buttonAudio.volume = 0.7;
 
 export function playButtonSound() {
