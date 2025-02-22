@@ -597,7 +597,7 @@ document.addEventListener("click", (event) => {
   } else if (id === "linktree-button") { 
     showScreen("linktree-screen");
   } else if (id === "video-button") { 
-    const videoUrl = "https://player.vimeo.com/video/446416103?h=464d10ec9d";
+    const videoUrl = "https://vimeo.com/1059278963";
     window.open(videoUrl, "_blank");
   } else if (id === "back-to-home") { 
     showScreen("home-screen");
