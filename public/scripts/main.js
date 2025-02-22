@@ -578,18 +578,14 @@ function handleGoHome() {
 // 7. Global Event Listeners
 // ======================
 document.addEventListener("click", (event) => {
-  let target = event.target;
+  // 클릭한 요소의 가장 가까운 button 요소를 찾음
+  const button = event.target.closest("button");
+  if (!button) return; // 버튼이 아니라면 무시
   
-  // 이미지 클릭 시 부모 버튼을 타겟으로 변경
-  if (target.tagName === "IMG") {
-    target = target.closest("button");
-  }
-
-  if (!target) return; // 예외 처리
-
-  const { id } = target;
-
-  if (id === "restart-button") {
+  const { id } = button;
+  if (id === "start-button") {
+    startGame();
+  } else if (id === "restart-button") {
     handlePlayAgain();
   } else if (id === "go-home-button" || id === "home-button") {
     handleGoHome();
