@@ -30,7 +30,7 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* 상단부터 배치 */
   width: min(90vw, 1600px);
   height: min(50vh, 900px);
   max-width: 100%;
@@ -38,6 +38,7 @@ html, body {
   background: url("/assets/home-bg.webp") no-repeat center center;
   background-size: contain;
   overflow: hidden;
+  padding-top: 60px; /* 상단 여백 (타이틀과 버튼 공간 확보) */
 }
 
 /* 🔹 모바일 (세로 화면) */
@@ -91,6 +92,33 @@ html, body {
   gap: 20px;
 }
 
+#settings-button {
+  position: absolute;
+  top: 2%;   /* 위쪽 여백 */
+  left: 2%;  /* 왼쪽 여백 */
+  width: 50px; /* 버튼 크기 조정 */
+  height: auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+#settings-button:hover {
+  transform: scale(1.1);
+}
+
+/* 홈 상단 영역 (타이틀 이미지 포함) */
+#home-top {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px; /* 타이틀과 드롭다운 사이 여백 */
+}
+
+/* 타이틀 이미지 */
+#title img {
+  max-width: 80%;
+  height: auto;
+}
+
 /* 🔹 지역 선택 드롭다운 */
 /* 기존 select 숨기기 */
 #region {
@@ -115,22 +143,17 @@ html, body {
   width: 200px;
   height: auto;
   transition: transform 0.2s ease-in-out;
+  background: none;
+  border: none;
+}
+
+#start-button img {
+  width: 100%;
+  height: auto;
 }
 
 #start-button:hover {
   transform: scale(1.05); /* 마우스를 올리면 살짝 확대 */
-}
-
-#settings-button {
-  position: absolute;
-  top: 2%;   /* 위쪽 여백 */
-  left: 2%;  /* 왼쪽 여백 */
-  width: 50px; /* 버튼 크기 조정 */
-  height: auto;
-}
-
-#settings-button:hover {
-  transform: scale(1.1);
 }
 
 
@@ -564,7 +587,6 @@ html, body {
   background: none;
   border: none;
   font-size: 18px;
-  cursor: pointer;
   width: 50px;
   height: auto;
 }
