@@ -11,10 +11,15 @@ export function playWrongSound() {
   audio.play().catch(err => console.error("Wrong sound 재생 오류:", err));
 }
 
+export function resultSound() {
+  const audio = new Audio("assets/sounds/result.mp3");
+  audio.play().catch(err => console.error("Wrong sound 재생 오류:", err));
+}
+
 // 배경음악 설정: 반복 재생 및 볼륨 조절
 const bgmAudio = new Audio("assets/bgm1.mp3");
 bgmAudio.loop = true;
-bgmAudio.volume = 0.5;
+bgmAudio.volume = 0.3;
 
 export function playBackgroundMusic() {
   // 이미 재생 중이면 다시 재생하지 않음
@@ -31,7 +36,7 @@ export function stopBackgroundMusic() {
 
 // 버튼 효과음 설정
 const buttonAudio = new Audio("assets/button.mp3");
-buttonAudio.volume = 1.0;
+buttonAudio.volume = 0.7;
 
 export function playButtonSound() {
   buttonAudio.currentTime = 0;

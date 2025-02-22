@@ -456,9 +456,9 @@ html, body {
 /* 결과 보드 */
 .result-board {
   width: 50%;
-  height: 45%;
+  height: 50%;
   max-width: 500px;
-  max-width: 490px;
+  max-width: 500px;
   background: url("/assets/result-board.webp") no-repeat center center;
   background-size: contain;
   display: flex;
@@ -526,9 +526,9 @@ html, body {
 /* 링크트리 보드 */
 .linktree-board {
   width: 50%;
-  height: 45%;
+  height: 50%;
   max-width: 500px;
-  max-width: 490px;
+  max-width: 500px;
   background: url("/assets/board.webp") no-repeat center center;
   background-size: contain;
   display: flex;

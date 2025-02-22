@@ -10,7 +10,7 @@ import {
   updateQuestionUI 
 } from "/scripts/ui.js";
 
-import { playBackgroundMusic, playButtonSound, playHitSound, playWrongSound } from "/scripts/sound.js";
+import { playBackgroundMusic, playButtonSound, playHitSound, playWrongSound, resultSound } from "/scripts/sound.js";
 
 // ======================
 // 2. Global Variables & Game State
@@ -529,6 +529,7 @@ function handleMoleClick(event) {
  */
 function endGame() {
   clearInterval(timerInterval);
+  resultSound();
   gameActive = false;
   gameScreen.style.display = "none";
   endScreen.style.display = "flex";
