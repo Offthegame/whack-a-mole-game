@@ -10,7 +10,7 @@ import {
   updateQuestionUI 
 } from "/scripts/ui.js";
 
-import { playBackgroundMusic, playButtonSound, playHitSound, playWrongSound, resultSound } from "/scripts/sound.js";
+import { playBackgroundMusic, stopBackgroundMusic, playButtonSound, playHitSound, playWrongSound, resultSound } from "/scripts/sound.js";
 
 // ======================
 // 2. Global Variables & Game State
