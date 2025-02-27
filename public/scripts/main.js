@@ -92,8 +92,7 @@ async function populateRegionDropdown() {
       });
     }
 
-    // DB에서 받은 데이터와 기본 옵션 병합:
-    // DB에 저장된 region이 있다면 그 값을 사용하고, 없으면 기본값 사용.
+    // DB에서 받은 데이터와 기본 옵션 병합
     const mergedRegions = defaultRegions.map(defaultRegion => {
       const found = dbRegions.find(region => region.id === defaultRegion.id);
       return found ? found : defaultRegion;
@@ -103,7 +102,7 @@ async function populateRegionDropdown() {
     regionDropdown.innerHTML = "";
     settingsDropdown.innerHTML = "";
 
-    // 기본 안내 옵션 추가
+    // ✅ 기본 안내 옵션 추가 (항상 가장 먼저 추가)
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
     defaultOption.textContent = "지역을 선택하세요";
@@ -122,22 +121,28 @@ async function populateRegionDropdown() {
       settingsDropdown.appendChild(option.cloneNode(true));
     });
 
-    // 저장된 지역이 있으면 선택 상태 유지
+    // ✅ 저장된 지역 확인 및 적용
     const savedRegion = localStorage.getItem("selectedRegion");
+    
     if (savedRegion && mergedRegions.some(r => r.id === savedRegion)) {
+      // ✅ 저장된 지역이 유효하면 선택 유지
       regionDropdown.value = savedRegion;
       settingsDropdown.value = savedRegion;
       console.log(`🎯 적용된 지역: ${savedRegion}`);
-    } else if (savedRegion) {
-      console.warn(`⚠️ ${savedRegion}는 유효하지 않으므로 초기화.`);
+    } else {
+      // 🚨 저장된 지역이 없거나 유효하지 않으면 초기화
+      console.warn(`⚠️ ${savedRegion || "없음"}는 유효하지 않으므로 초기화.`);
       localStorage.removeItem("selectedRegion");
+      regionDropdown.value = "";
+      settingsDropdown.value = "";
     }
   } catch (error) {
-    console.error("지역 데이터를 불러오는 데 실패했습니다.", error);
+    console.error("🚨 지역 데이터를 불러오는 데 실패했습니다.", error);
   } finally {
     hideLoading(); // 로딩 화면 숨김
   }
 }
+
 
 /**
  * 선택된 지역 데이터(지역 설정)를 API에서 불러온다.
@@ -350,7 +355,7 @@ document.getElementById("back-to-home").addEventListener("click", () => {
  */
 async function startGame() {
   if (!selectedRegion) {
-    alert("Please select a region before starting the game.");
+    alert("지역을 선택해 주세요.");
     return;
   }
 
