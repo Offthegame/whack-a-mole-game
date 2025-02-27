@@ -31,6 +31,9 @@ let timerInterval = null; // 메인 타이머
 let gameActive = false;   // 게임 진행 상태
 let startX = 0, endX = 0;
 
+// 배경음악 상태 변수
+let isMusicPlaying = true; // 기본값: 배경음악 재생 중
+
 // ======================
 // 3. DOM Elements
 // ======================
@@ -50,6 +53,9 @@ const livesElement = document.getElementById("lives");
 const regionDropdown = document.getElementById("region");
 const settingsDropdown = document.getElementById("settings-region"); // Admin 화면의 드롭다운
 const holes = document.querySelectorAll(".hole");
+
+// 배경음악 버튼 요소 가져오기
+const musicButton = document.getElementById("music-button");
 
 // ======================
 // 4. Region Data & Dropdown Population
@@ -280,6 +286,21 @@ document.querySelectorAll("#home-region, #settings-region").forEach((dropdown) =
     }
   });
 });
+
+// 배경음악 토글 함수
+function toggleBackgroundMusic() {
+  if (isMusicPlaying) {
+    stopBackgroundMusic(); // 배경음악 정지
+    musicButton.src = "assets/music-off.webp"; // 이미지 변경
+  } else {
+    playBackgroundMusic(); // 배경음악 재생
+    musicButton.src = "assets/music-on.webp"; // 이미지 변경
+  }
+  isMusicPlaying = !isMusicPlaying; // 상태 변경
+}
+
+// 배경음악 버튼 클릭 이벤트 추가
+musicButton.addEventListener("click", toggleBackgroundMusic);
 
 // ======================
 // 5. Settings & Authentication
@@ -631,7 +652,7 @@ holes.forEach((hole) => {
 // ======================
 document.addEventListener("DOMContentLoaded", () => {
   populateRegionDropdown();
-  playBackgroundMusic(); // 홈 화면 로드 시 배경음악 재생 시도
+  playBackgroundMusic(); // 홈 화면 로드 시 배경음악 재생
 });
 
 // ======================

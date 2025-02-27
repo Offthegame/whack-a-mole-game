@@ -58,6 +58,20 @@ html, body {
   transform: scale(1.1);
 }
 
+/* 음악 버튼 (우측 하단) */
+#music-button {
+  position: absolute;
+  top: 95%;
+  left: 95%;
+  width: 50px;
+  height: auto;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+#music-button:hover {
+  transform: scale(1.1);
+}
+
 /* 타이틀 영역 (상단 중앙) */
 #home-top {
   position: absolute;

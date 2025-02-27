@@ -31,7 +31,6 @@ export function playBackgroundMusic() {
 export function stopBackgroundMusic() {
   // 화면 전환 시 호출하지 않도록 주의!
   bgmAudio.pause();
-  bgmAudio.currentTime = 0;
 }
 
 // 버튼 효과음 설정
