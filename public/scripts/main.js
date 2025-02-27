@@ -706,6 +706,7 @@ document.addEventListener("touchend", () => {
 // 10. Linktree Page
 // ======================
 document.getElementById("back-to-end").addEventListener("click", () => {
+  playButtonSound();
   document.getElementById("linktree-screen").style.display = "none";
   document.getElementById("end-screen").style.display = "flex";
   console.log("뒤로가기 버튼 클릭됨");
@@ -726,6 +727,8 @@ function showScreen(screenId) {
 
 // 🔹 홈 화면을 클릭하면 배경음악을 재생하도록 설정
 homeScreen.addEventListener("click", function startMusicOnce() {
+  playButtonSound();
+
   if (!isMusicPlaying) {
     playBackgroundMusic();
     isMusicPlaying = true;
