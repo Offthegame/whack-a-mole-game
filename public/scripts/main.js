@@ -57,6 +57,11 @@ const holes = document.querySelectorAll(".hole");
 // 배경음악 버튼 요소 가져오기
 const musicButton = document.getElementById("music-button");
 
+// 비디오 모달 관련 요소 가져오기
+const videoModal = document.getElementById("video-modal");
+const videoFrame = document.getElementById("video-frame");
+const closeVideoButton = document.getElementById("close-video");
+
 // ======================
 // 4. Region Data & Dropdown Population
 // ======================
@@ -289,6 +294,8 @@ document.querySelectorAll("#home-region, #settings-region").forEach((dropdown) =
 
 // 배경음악 토글 함수
 function toggleBackgroundMusic() {
+  playButtonSound();
+
   if (isMusicPlaying) {
     stopBackgroundMusic(); // 배경음악 정지
     musicButton.src = "assets/music-on.webp"; // 이미지 변경
@@ -338,11 +345,13 @@ regionDropdown.addEventListener("change", async (e) => {
 
 // 설정 화면 전환 및 인증
 document.getElementById("settings-button").addEventListener("click", () => {
+  playButtonSound();
   homeScreen.style.display = "none";
   settingsScreen.style.display = "flex";
 });
 
 document.getElementById("auth-submit").addEventListener("click", () => {
+  playButtonSound();
   const region = currentRegion;
   const enteredPassword = document.getElementById("region-password").value;
   if (region && enteredPassword === region.password) {
@@ -356,6 +365,7 @@ document.getElementById("auth-submit").addEventListener("click", () => {
 });
 
 document.getElementById("save-settings").addEventListener("click", () => {
+  playButtonSound();
   if (currentRegion) {
     currentRegion.gameTime = parseInt(document.getElementById("game-time").value, 10);
     currentRegion.randomizeQuestions = document.getElementById("random-toggle").checked;
@@ -364,6 +374,7 @@ document.getElementById("save-settings").addEventListener("click", () => {
 });
 
 document.getElementById("back-to-home").addEventListener("click", () => {
+  playButtonSound();
   settingsScreen.style.display = "none";
   homeScreen.style.display = "flex";
 });
@@ -605,15 +616,11 @@ function handleGoHome() {
 // ======================
 // 7. Global Event Listeners
 // ======================
+// ✅ 기존 전역 이벤트 리스너에서 video-button 관련 코드 삭제
 document.addEventListener("click", (event) => {
-  // 버튼이나 그 내부 요소를 클릭했을 때, 가장 가까운 button을 찾습니다.
   const button = event.target.closest("button");
-  if (button) {
-    // 버튼 클릭 시 효과음 재생
-    playButtonSound();
-  }
-  if (!button) return; // 버튼이 아니라면 무시
-  
+  if (!button) return;
+
   const { id } = button;
   if (id === "start-button") {
     startGame();
@@ -623,24 +630,31 @@ document.addEventListener("click", (event) => {
     handleGoHome();
   } else if (id === "linktree-button") { 
     showScreen("linktree-screen");
-  } else if (id === "video-button") { 
-    const videoUrl = "https://player.vimeo.com/video/1059278963";
-    const popupWidth = 800;
-    const popupHeight = 450;
-    const left = (window.innerWidth - popupWidth) / 2;
-    const top = (window.innerHeight - popupHeight) / 2;
-  
-    window.open(
-      videoUrl, 
-      "VimeoPopup", 
-      `width=${popupWidth},height=${popupHeight},top=${top},left=${left},resizable=yes,scrollbars=no`
-    );
-  }
-   else if (id === "back-to-home") { 
+  } else if (id === "back-to-home") { 
     showScreen("home-screen");
   }
 });
 
+
+// ✅ video-button 클릭 이벤트를 별도로 관리하여 모달 열기
+document.getElementById("video-button").addEventListener("click", () => {
+  videoFrame.src = "https://player.vimeo.com/video/1059278963";
+  videoModal.style.display = "flex"; // 모달 보이기
+});
+
+// ✅ 닫기 버튼 클릭 시 모달 닫기
+closeVideoButton.addEventListener("click", () => {
+  videoModal.style.display = "none";
+  videoFrame.src = ""; // 비디오 정지
+});
+
+// ✅ 배경 클릭 시 모달 닫기
+videoModal.addEventListener("click", (event) => {
+  if (event.target === videoModal) {
+    videoModal.style.display = "none";
+    videoFrame.src = "";
+  }
+});
 
 // 초기 두더지 클릭 이벤트 등록
 holes.forEach((hole) => {
@@ -727,7 +741,6 @@ function showScreen(screenId) {
 
 // 🔹 홈 화면을 클릭하면 배경음악을 재생하도록 설정
 homeScreen.addEventListener("click", function startMusicOnce() {
-  playButtonSound();
 
   if (!isMusicPlaying) {
     playBackgroundMusic();

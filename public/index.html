@@ -63,7 +63,7 @@
 
   <!-- 설정 화면 -->
   <div id="settings-screen" style="display: none;">
-    <h1>Settings</h1>
+    <h1>관리자 인증</h1>
 
     <div id="auth-section">
       <!-- 지역 선택 섹션 -->
@@ -157,7 +157,13 @@
 <div id="end-screen" style="display: none;">
   <div class="result-board">
     <p id="final-score" class="score-display">100점</p>
-    
+        <!-- 비디오 모달 -->
+    <div id="video-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="close-video">&times;</span>
+        <iframe id="video-frame" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+      </div>
+    </div>
     <div class="end-buttons">
       <button id="go-home-button">
         <img src="assets/home-icon.webp" alt="홈으로">
