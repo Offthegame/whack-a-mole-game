@@ -291,10 +291,10 @@ document.querySelectorAll("#home-region, #settings-region").forEach((dropdown) =
 function toggleBackgroundMusic() {
   if (isMusicPlaying) {
     stopBackgroundMusic(); // 배경음악 정지
-    musicButton.src = "assets/music-off.webp"; // 이미지 변경
+    musicButton.src = "assets/music-on.webp"; // 이미지 변경
   } else {
     playBackgroundMusic(); // 배경음악 재생
-    musicButton.src = "assets/music-on.webp"; // 이미지 변경
+    musicButton.src = "assets/music-off.webp"; // 이미지 변경
   }
   isMusicPlaying = !isMusicPlaying; // 상태 변경
 }
