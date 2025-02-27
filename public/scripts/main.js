@@ -724,9 +724,14 @@ function showScreen(screenId) {
   }
 }
 
-// 홈 화면의 어느 요소든 클릭하면 배경음악을 재생하도록 설정
+// 🔹 홈 화면을 클릭하면 배경음악을 재생하도록 설정
 homeScreen.addEventListener("click", function startMusicOnce() {
-  playBackgroundMusic();
+  if (!isMusicPlaying) {
+    playBackgroundMusic();
+    isMusicPlaying = true;
+    musicButton.src = "assets/music-off.webp"; // ✅ 배경음악이 켜지면 아이콘 변경
+    localStorage.setItem("isMusicPlaying", "true"); // 상태 저장
+  }
   // 한 번 실행 후 이벤트 리스너 제거
   homeScreen.removeEventListener("click", startMusicOnce);
 });
