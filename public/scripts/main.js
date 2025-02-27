@@ -598,8 +598,18 @@ document.addEventListener("click", (event) => {
     showScreen("linktree-screen");
   } else if (id === "video-button") { 
     const videoUrl = "https://vimeo.com/1059278963";
-    window.open(videoUrl, "_blank");
-  } else if (id === "back-to-home") { 
+    const popupWidth = 800;
+    const popupHeight = 450;
+    const left = (window.innerWidth - popupWidth) / 2;
+    const top = (window.innerHeight - popupHeight) / 2;
+  
+    window.open(
+      videoUrl, 
+      "VimeoPopup", 
+      `width=${popupWidth},height=${popupHeight},top=${top},left=${left},resizable=yes,scrollbars=no`
+    );
+  }
+   else if (id === "back-to-home") { 
     showScreen("home-screen");
   }
 });
