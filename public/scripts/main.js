@@ -32,7 +32,7 @@ let gameActive = false;   // 게임 진행 상태
 let startX = 0, endX = 0;
 
 // 배경음악 상태 변수
-let isMusicPlaying = true; // 기본값: 배경음악 재생 중
+let isMusicPlaying = false; // 기본값: 배경음악 재생 중
 
 // ======================
 // 3. DOM Elements
@@ -297,6 +297,7 @@ function toggleBackgroundMusic() {
     musicButton.src = "assets/music-off.webp"; // 이미지 변경
   }
   isMusicPlaying = !isMusicPlaying; // 상태 변경
+  localStorage.setItem("isMusicPlaying", isMusicPlaying.toString()); // 상태 저장
 }
 
 // 배경음악 버튼 클릭 이벤트 추가
@@ -650,9 +651,19 @@ holes.forEach((hole) => {
 // ======================
 // 8. DOMContentLoaded 초기화
 // ======================
+// 🔹 페이지 로드 시 음악 상태 복원
 document.addEventListener("DOMContentLoaded", () => {
   populateRegionDropdown();
-  playBackgroundMusic(); // 홈 화면 로드 시 배경음악 재생
+  
+  // ✅ localStorage에서 음악 상태 불러오기
+  const savedMusicState = localStorage.getItem("isMusicPlaying");
+  
+  if (savedMusicState === "true") {
+    playBackgroundMusic(true); // 자동 재생 시도
+  } else {
+    isMusicPlaying = false;
+    musicButton.src = "assets/music-on.webp"; // 음악 OFF 상태 유지
+  }
 });
 
 // ======================

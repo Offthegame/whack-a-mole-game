@@ -3,11 +3,13 @@
 // 효과음 함수들
 export function playHitSound() {
   const audio = new Audio("assets/sounds/hit.mp3");
+  audio.volume = 0.5;
   audio.play().catch(err => console.error("Hit sound 재생 오류:", err));
 }
 
 export function playWrongSound() {
   const audio = new Audio("assets/sounds/wrong.mp3");
+  audio.volume = 0.5;
   audio.play().catch(err => console.error("Wrong sound 재생 오류:", err));
 }
 
