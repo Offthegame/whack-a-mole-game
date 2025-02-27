@@ -602,7 +602,7 @@ document.addEventListener("click", (event) => {
   } else if (id === "linktree-button") { 
     showScreen("linktree-screen");
   } else if (id === "video-button") { 
-    const videoUrl = "https://vimeo.com/1059278963";
+    const videoUrl = "https://player.vimeo.com/video/1059278963";
     const popupWidth = 800;
     const popupHeight = 450;
     const left = (window.innerWidth - popupWidth) / 2;
