@@ -63,70 +63,42 @@
 
 <!-- 설정 화면 -->
 <div id="settings-screen" class="screen" style="display: none;">
-  <div id="login-contents">
-    
-    <div id="auth-section">
-      <h1>관리자 인증</h1>
-      <!-- 지역 선택 -->
-      <div class="input-container">
-        <select id="settings-region">
-          <option value="" disabled selected>지역을 선택해주세요</option>
-          <!-- 동적으로 추가될 옵션 -->
-        </select>
-      </div>
-      
-      <!-- 비밀번호 입력 -->
-      <div class="input-container password-container">
-        <input type="password" id="region-password" class="password-input" placeholder="비밀번호 입력">
-        <span class="toggle-password" onclick="togglePassword()">👁️</span>
-      </div>
-      
-      <button id="auth-submit">확인</button>
-      <p id="auth-error" style="color: red; display: none;">비밀번호가 틀립니다.</p>
-    </div>
+  <div id="login-contents">    
+    <div id="auth-section">...</div>
   </div>
-  
-<!-- 기본 설정 -->
+  <!-- 뒤로가기 버튼 -->
+  <img src="assets/back-icon.webp" alt="Back" class="back-btn" id="back-to-home">
+</div>
+
+<!-- ✅ 기본 설정을 `#settings-screen` 바깥으로 이동 -->
 <div id="settings-options" class="screen" style="display: none;">
   <h1>기본 설정</h1>
   <label for="region-name">지역 이름:</label>
   <input type="text" id="region-name">
-
   <label for="edit-region-password">비밀번호:</label>
   <div class="input-container password-container">
     <input type="password" id="edit-region-password" class="password-input">
-    <span class="toggle-password" onclick="toggleEditRegionPassword()">👁️</span> <!-- ✅ 추가됨 -->
+    <span class="toggle-password" onclick="toggleEditRegionPassword()">👁️</span>
   </div>
-
   <label for="milari-said">밀아리 대사:</label>
   <input type="text" id="milari-said">
-
   <button id="save-settings">기본 설정 저장</button>
   <button id="edit-region-button">게임 데이터 수정</button>
+  <img src="assets/back-icon.webp" alt="Back" class="back-btn" id="back-to-home">
 </div>
 
-<!-- 게임 데이터 수정 화면 -->
+<!-- ✅ 게임 데이터 수정 화면도 `#settings-screen` 바깥으로 이동 -->
 <div id="edit-region-screen" class="screen" style="display: none;">
   <h1>게임 데이터 수정</h1>
-
   <label for="game-time">게임 시간 (초):</label>
   <input type="number" id="game-time" min="30" max="600">
-
   <label>
-    <input type="checkbox" id="random-toggle">
-    문제 랜덤화 여부
+    <input type="checkbox" id="random-toggle"> 문제 랜덤화 여부
   </label>
-
   <h2>문제 수정</h2>
   <div id="questions-container"></div>
-
   <button id="add-question">문제 추가</button>
   <button id="save-region">게임 데이터 저장</button>
-  <button id="back-to-settings">돌아가기</button>
-</div>
-
-
-  <!-- 뒤로가기 버튼 -->
   <img src="assets/back-icon.webp" alt="Back" class="back-btn" id="back-to-home">
 </div>
 
