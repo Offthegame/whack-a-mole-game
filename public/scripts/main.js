@@ -634,10 +634,18 @@ document.getElementById("back-to-home").addEventListener("click", () => {
   if (passwordInput) passwordInput.value = ""; // 비밀번호 입력 필드 초기화
   if (authError) authError.style.display = "none"; // 에러 메시지 숨김
 
-  // ✅ 홈 화면으로 이동
+  // ✅ 게임 데이터 수정 화면 초기화 및 숨김
+  const editRegionScreen = document.getElementById("edit-region-screen");
+  const questionsContainer = document.getElementById("questions-container");
+
+  if (editRegionScreen) editRegionScreen.style.display = "none"; // 게임 데이터 수정 화면 숨김
+  if (questionsContainer) questionsContainer.innerHTML = ""; // 문제 수정 필드 초기화
+
+  // ✅ 홈 화면으로 이동 (설정 화면 포함 모두 숨김)
   settingsScreen.style.display = "none";
   homeScreen.style.display = "flex";
 });
+
 
 // ======================
 // 6. Game Logic & Functions
