@@ -346,34 +346,31 @@ async function initializeSettingsRegion() {
 }
 
 
-/**
- * 비밀번호 토글 (표시/숨김)
- */
-// 비밀번호 토글 (표시/숨김) - 설정 화면용
+// ✅ 비밀번호 토글 (설정 화면)
 function togglePassword() {
-  const passwordInput = document.getElementById("region-password");  // 설정 화면
-  if (!passwordInput) return; // 오류 방지
+  const passwordInput = document.getElementById("region-password");
+  if (!passwordInput) return;
   passwordInput.type = passwordInput.type === "password" ? "text" : "password";
 }
 
-// 비밀번호 토글 (표시/숨김) - 지역 수정 화면용
+// ✅ 비밀번호 토글 (게임 데이터 수정 화면)
 function toggleEditPassword() {
-  const passwordInput = document.getElementById("edit-region-password"); // 수정 화면
-  if (!passwordInput) return; // 오류 방지
+  const passwordInput = document.getElementById("edit-region-password");
+  if (!passwordInput) return;
   passwordInput.type = passwordInput.type === "password" ? "text" : "password";
 }
 
-// 비밀번호 토글 (표시/숨김) - 기본 설정 화면용
+// ✅ 비밀번호 토글 (기본 설정 화면)
 function toggleEditRegionPassword() {
   const passwordInput = document.getElementById("edit-region-password");
   if (!passwordInput) return;
   passwordInput.type = passwordInput.type === "password" ? "text" : "password";
 }
 
-// 수정 화면 비밀번호 입력 필드 토글 버튼 추가 (필요 시 적용)
-document.getElementById("edit-region-password")?.addEventListener("click", toggleEditPassword);
-
+// ✅ HTML에서 직접 호출할 수 있도록 `window` 객체에 등록
 window.togglePassword = togglePassword;
+window.toggleEditPassword = toggleEditPassword;
+window.toggleEditRegionPassword = toggleEditRegionPassword;
 
 // 지역 변경 시 로컬 저장소 업데이트
 regionDropdown.addEventListener("change", async (e) => {
