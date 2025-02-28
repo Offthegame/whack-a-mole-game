@@ -442,7 +442,7 @@ html, body {
   align-items: center;
   gap: 15px;
   width: 100%;
-  max-width: 900px;
+  max-width: 1600px;
 }
 
 /* 입력 필드 컨테이너 */
@@ -474,7 +474,7 @@ html, body {
 
 /* 공통 입력 필드 스타일 */
 .password-input, 
-#game-time {
+#game-time, #region-name, .milari-said {
   width: 100%;
   padding: 12px;
   border-radius: 20px;
@@ -506,6 +506,23 @@ html, body {
 }
 
 #auth-submit:hover, #save-settings:hover, #back-to-home:hover {
+  transform: scale(1.05);
+}
+
+#edit-region-button {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  background-color: #efefef;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#edit-region-button:hover {
   transform: scale(1.05);
 }
 
