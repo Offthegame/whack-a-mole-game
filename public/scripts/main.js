@@ -598,6 +598,19 @@ document.getElementById("save-settings").addEventListener("click", () => {
 
 document.getElementById("back-to-home").addEventListener("click", () => {
   playButtonSound();
+
+  // ✅ 관리자 인증 초기화 (비밀번호 입력 & 에러 메시지 리셋)
+  const authSection = document.getElementById("auth-section");
+  const settingsOptions = document.getElementById("settings-options");
+  const passwordInput = document.getElementById("region-password");
+  const authError = document.getElementById("auth-error");
+
+  if (authSection) authSection.style.display = "flex"; // 인증 섹션 다시 보이게
+  if (settingsOptions) settingsOptions.style.display = "none"; // 설정 옵션 숨김
+  if (passwordInput) passwordInput.value = ""; // 비밀번호 입력 필드 초기화
+  if (authError) authError.style.display = "none"; // 에러 메시지 숨김
+
+  // ✅ 홈 화면으로 이동
   settingsScreen.style.display = "none";
   homeScreen.style.display = "flex";
 });
@@ -855,8 +868,6 @@ document.addEventListener("click", (event) => {
     handleGoHome();
   } else if (id === "linktree-button") { 
     showScreen("linktree-screen");
-  } else if (id === "back-to-home") { 
-    showScreen("home-screen");
   }
 });
 
