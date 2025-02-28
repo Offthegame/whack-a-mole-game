@@ -837,16 +837,16 @@ html, body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-20%, -50%);
+  transform: translate(-50%, -20%);
   z-index: 5;
 }
 /* 밀아리 캐릭터 */
 .character {
   position: absolute; /* ✅ 왼쪽 아래 고정 */
-  bottom: 0;
+  bottom: 5%;
   left: 5%;
   width: 100px;
-  transform: scale(6);
+  transform: scale(4);
 }
 /* ==========================================================================
    모바일 전용 스타일 (max-width: 768px)
