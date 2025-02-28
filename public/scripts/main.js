@@ -193,7 +193,7 @@ async function loadRegionData(regionId) {
     };
 
     // 새 지역 데이터 저장 요청
-    await fetch(`${API_BASE}/save-region`, {
+    await fetch(`${API_BASE}/api/update-region`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newRegionData),
