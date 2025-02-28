@@ -423,7 +423,6 @@ html, body {
   height: min(50vh, 900px);
   max-width: 100%;
   max-height: 100%;
-  background: url("/assets/home-bg.webp") no-repeat center center;
   background-size: contain;
   overflow: hidden;
   padding-top: 60px;
@@ -446,10 +445,7 @@ html, body {
   max-width: 400px;
 }
 
-/* 지역 선택 드롭다운 */
-#region-selection {
-  width: 100%;
-}
+
 
 /* 드롭다운 스타일 */
 #settings-region {
@@ -485,7 +481,7 @@ html, body {
 }
 
 /* 버튼 스타일 */
-#auth-submit, #save-settings, #back-to-home {
+#auth-submit, #save-settings {
   width: 100%;
   max-width: 300px;
   padding: 12px;
