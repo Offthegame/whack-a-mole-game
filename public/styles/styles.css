@@ -416,16 +416,16 @@ html, body {
 #settings-screen {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* ✅ 세로 정렬 유지 */
   align-items: center;
-  justify-content: center; /* 추가: 세로 중앙 정렬 */
-  width: min(90vw, 1600px);
-  height: min(90vh, 2700px);
+  justify-content: center; /* ✅ 세로 중앙 정렬 */
+  width: min(90vw, 800px); /* ✅ 가로폭 축소 (너무 넓어지는 것 방지) */
   max-width: 100%;
+  height: min(90vh, 2700px);
   max-height: 100%;
   background-size: contain;
-  overflow-y: auto; /* ✅ 세로 스크롤 활성화 */
-  overflow-x: hidden; /* 가로 스크롤은 막기 */
+  overflow-y: auto; /* ✅ 세로 스크롤 유지 */
+  overflow-x: hidden; /* ✅ 가로 스크롤 방지 */
   padding-top: 60px;
 }
 /* 설정 화면 타이틀 */
@@ -438,10 +438,13 @@ html, body {
 /* 설정 컨텐츠 레이아웃 */
 #auth-section, #settings-options {
   width: 100%;
-  max-width: 100%;
-  flex-grow: 1;
-  align-self: stretch;
-  box-sizing: border-box; /* 패딩과 너비가 겹치지 않도록 설정 */
+  max-width: 600px; /* ✅ 내부 요소가 가로로 확장되지 않도록 제한 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ✅ 중앙 정렬 유지 */
+  justify-content: center;
+  gap: 15px;
+  box-sizing: border-box; /* ✅ 패딩과 너비가 겹치지 않도록 설정 */
 }
 
 /* 입력 필드 컨테이너 */
