@@ -358,13 +358,13 @@ function togglePassword() {
 
 // 비밀번호 토글 (표시/숨김) - 지역 수정 화면용
 function toggleEditPassword() {
-  const passwordInput = document.getElementById("region-edit-password"); // 수정 화면
+  const passwordInput = document.getElementById("edit-region-password"); // 수정 화면
   if (!passwordInput) return; // 오류 방지
   passwordInput.type = passwordInput.type === "password" ? "text" : "password";
 }
 
 // 수정 화면 비밀번호 입력 필드 토글 버튼 추가 (필요 시 적용)
-document.getElementById("region-edit-password")?.addEventListener("click", toggleEditPassword);
+document.getElementById("edit-region-password")?.addEventListener("click", toggleEditPassword);
 
 window.togglePassword = togglePassword;
 
