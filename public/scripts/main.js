@@ -349,17 +349,23 @@ async function initializeSettingsRegion() {
 /**
  * 비밀번호 토글 (표시/숨김)
  */
+// 비밀번호 토글 (표시/숨김) - 설정 화면용
 function togglePassword() {
-  const passwordInput = document.getElementById("region-password");
-  const toggleIcon = document.querySelector(".toggle-password");
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    toggleIcon.textContent = "🙈";
-  } else {
-    passwordInput.type = "password";
-    toggleIcon.textContent = "👁️";
-  }
+  const passwordInput = document.getElementById("region-password");  // 설정 화면
+  if (!passwordInput) return; // 오류 방지
+  passwordInput.type = passwordInput.type === "password" ? "text" : "password";
 }
+
+// 비밀번호 토글 (표시/숨김) - 지역 수정 화면용
+function toggleEditPassword() {
+  const passwordInput = document.getElementById("region-edit-password"); // 수정 화면
+  if (!passwordInput) return; // 오류 방지
+  passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+}
+
+// 수정 화면 비밀번호 입력 필드 토글 버튼 추가 (필요 시 적용)
+document.getElementById("region-edit-password")?.addEventListener("click", toggleEditPassword);
+
 window.togglePassword = togglePassword;
 
 // 지역 변경 시 로컬 저장소 업데이트
