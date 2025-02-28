@@ -817,7 +817,7 @@ html, body {
 /* 말풍선 및 캐릭터 */
 .bottom-section {
   position: absolute; /* ✅ 화면 내에서 고정 배치 */
-  bottom: 10%;
+  bottom: 9%;
   left: 50%;
   transform: translateX(-50%); /* ✅ 중앙 정렬 */
   display: flex;
