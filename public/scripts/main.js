@@ -358,6 +358,7 @@ document.getElementById("auth-submit").addEventListener("click", () => {
   playButtonSound();
   const region = currentRegion;
   const enteredPassword = document.getElementById("region-password").value;
+  console.log(region);
   if (region && enteredPassword === region.password) {
     authSection.style.display = "none";
     settingsOptions.style.display = "flex";
@@ -622,9 +623,10 @@ function handleGoHome() {
 // ======================
 // ✅ 기존 전역 이벤트 리스너에서 video-button 관련 코드 삭제
 document.addEventListener("click", (event) => {
-  playButtonSound();
   const button = event.target.closest("button");
   if (!button) return;
+
+  playButtonSound();  // ✅ 버튼 클릭 시에만 실행
 
   const { id } = button;
   if (id === "start-button") {
@@ -639,6 +641,7 @@ document.addEventListener("click", (event) => {
     showScreen("home-screen");
   }
 });
+
 
 
 // ✅ video-button 클릭 이벤트를 별도로 관리하여 모달 열기
