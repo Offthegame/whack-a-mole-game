@@ -586,11 +586,11 @@ document.getElementById("save-region").addEventListener("click", async () => {
 });
 
 // 뒤로 가기 버튼 (설정 화면으로 이동 & 데이터 초기화)
-document.getElementById("back-to-settings").addEventListener("click", () => {
-  playButtonSound();
-
-  // ✅ 설정 화면으로 이동
-  showScreen("settings-screen");
+document.querySelectorAll(".back-to-settings").forEach(button => {
+  button.addEventListener("click", () => {
+    playButtonSound();
+    showScreen("settings-screen");
+  });
 });
 
 
