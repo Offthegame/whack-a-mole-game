@@ -592,12 +592,31 @@ document.getElementById("back-to-settings").addEventListener("click", () => {
 });
 
 
-document.getElementById("save-settings").addEventListener("click", () => {
+document.getElementById("save-settings").addEventListener("click", async () => {
   playButtonSound();
-  if (currentRegion) {
-    currentRegion.gameTime = parseInt(document.getElementById("game-time").value, 10);
-    currentRegion.randomizeQuestions = document.getElementById("random-toggle").checked;
-    alert("Settings saved successfully!");
+
+  if (!currentRegion) {
+    console.error("🚨 지역 데이터가 로드되지 않음.");
+    alert("지역 데이터를 먼저 불러와 주세요.");
+    return;
+  }
+
+  // ✅ 사용자가 입력한 값으로 `currentRegion` 업데이트
+  currentRegion.name = document.getElementById("region-name").value;
+  currentRegion.password = document.getElementById("edit-region-password").value;
+  currentRegion.milariSaid = document.getElementById("milari-said").value;
+
+  // ✅ API를 통해 데이터 업데이트 요청
+  const response = await fetch("https://your-server.com/api/update-region", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(currentRegion),
+  });
+
+  if (response.ok) {
+    alert("✅ 지역 데이터가 성공적으로 업데이트되었습니다!");
+  } else {
+    alert("🚨 저장 중 오류가 발생했습니다.");
   }
 });
 

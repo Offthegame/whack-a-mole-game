@@ -8,14 +8,13 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000; // Render에서 자동 할당된 포트 사용
+const PORT = process.env.PORT || 3000;
+console.log(process.env.NODE_ENV);
 
-console.log(process.env.NODE_ENV); // Render(서버관리)에서 "development"으로 설정하는 게 중요!
-
-// ✅ 허용할 Origin 목록 (배포 + 개발 환경)
+// ✅ CORS 설정
 const allowedOrigins = [
-  "http://localhost:3000",  // 개발 환경 (로컬에서 테스트)
-  "https://wincross-whackamole.netlify.app",  // 배포된 프론트엔드
+  "http://localhost:3000",
+  "https://wincross-whackamole.netlify.app",
 ];
 
 const corsOptions = {
@@ -28,7 +27,8 @@ const corsOptions = {
   },
 };
 
-app.use(cors(corsOptions));  // ✅ 수정된 CORS 설정 적용
+app.use(cors(corsOptions));
+app.use(express.json());
 
 // ✅ ES 모듈에서 __dirname 설정
 const __filename = fileURLToPath(import.meta.url);
@@ -43,18 +43,16 @@ mongoose.connect(process.env.MONGO_URI)
 // ✅ 지역 데이터 Schema
 const regionSchema = new mongoose.Schema({
   id: String,
-  name: String,               // 지역 이름
-  password: String,           // 지역 비밀번호
+  name: String,
+  password: String,
   gameTime: Number,
   randomizeQuestions: Boolean,
-  questions: Array            // 질문 배열 추가
+  milariSaid: String,
+  questions: Array
 });
 
 const Region = mongoose.model("Region", regionSchema);
 
-app.use(express.json());
-
-// ✅ 기본 페이지 라우팅
 app.use(express.static("public"));
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
@@ -76,17 +74,16 @@ const initializeRegions = async () => {
       console.log(`📂 파일 확인됨: ${file} -> ${regionId}`);
 
       try {
-        // ✅ `import()`를 사용하여 파일 동적 로드
-        const filePath = `file://${path.join(regionsPath, file)}`;
-        const module = await import(filePath);
+        const filePath = path.join(regionsPath, file);
+        const module = await import(`file://${filePath.replace(/\\/g, "/")}`);
         const regionData = module.default || module[regionId];
-      
+
         if (regionData) {
-          // 기존 데이터를 완전히 덮어쓰도록 overwrite: true 옵션 추가
-          await Region.findOneAndUpdate(
+          // ✅ 기존 데이터를 완전히 덮어쓰기
+          await Region.replaceOne(
             { id: regionId },
             regionData,
-            { upsert: true, new: true, overwrite: true }
+            { upsert: true }
           );
           console.log(`✅ ${regionId} 데이터 MongoDB에 저장 완료.`);
         } else {
@@ -94,23 +91,18 @@ const initializeRegions = async () => {
         }
       } catch (error) {
         console.error(`❌ ${regionId} 데이터 변환 실패:`, error);
-      }      
+      }
     }
   }
 };
 
 initializeRegions();
 
-// ✅ 특정 지역 데이터를 가져오기 (프론트엔드에서 호출)
+// ✅ 특정 지역 데이터 가져오기
 app.get("/api/regions/:regionId", async (req, res) => {
   try {
-    console.log(`📥 API 요청: ${req.params.regionId}`);
     const region = await Region.findOne({ id: req.params.regionId });
-    if (!region) {
-      console.log(`❌ ${req.params.regionId} 데이터 없음`);
-      return res.status(404).json({ error: "Region not found" });
-    }
-    console.log(`✅ 데이터 응답: ${region.id}`);
+    if (!region) return res.status(404).json({ error: "Region not found" });
     res.json(region);
   } catch (error) {
     console.error("🚨 지역 데이터 불러오기 실패:", error);
@@ -118,40 +110,21 @@ app.get("/api/regions/:regionId", async (req, res) => {
   }
 });
 
-// ✅ 새로운 지역 데이터를 저장하는 API
-app.post("/save-region", async (req, res) => {
+// ✅ 지역 데이터 업데이트 API
+app.post("/api/update-region", async (req, res) => {
+  const { id, name, password, gameTime, randomizeQuestions, milariSaid, questions } = req.body;
+
   try {
-    const { id, name, password, gameTime, randomizeQuestions, questions } = req.body;
-
-    // 필수 데이터 검증
-    if (!id || !name || !password || !gameTime || questions?.length === 0) {
-      return res.status(400).json({ error: "❌ 필수 필드가 부족합니다." });
-    }
-
     const updatedRegion = await Region.findOneAndUpdate(
-      { id: req.body.id },
-      req.body,
-      { new: true, upsert: true, setDefaultsOnInsert: true }
+      { id },
+      { name, password, gameTime, randomizeQuestions, milariSaid, questions },
+      { new: true, upsert: true }
     );
-
-    console.log(`✅ 지역 데이터 저장 완료: ${updatedRegion.id}`);
-    res.json({ message: "Region data saved successfully", region: updatedRegion });
+    
+    res.json({ success: true, data: updatedRegion });
   } catch (error) {
-    console.error("❌ 지역 데이터 저장 실패:", error);
-    res.status(500).json({ error: "Failed to save region data" });
-  }
-});
-
-
-// ✅ 기본 지역 데이터 가져오기 (region-001)
-app.get("/default-region", async (req, res) => {
-  try {
-    const defaultRegion = await Region.findOne({ id: "region-001" });
-    if (!defaultRegion) return res.status(404).json({ error: "Default region data not found" });
-    res.json(defaultRegion);
-  } catch (error) {
-    console.error("❌ 기본 지역 데이터 로드 실패:", error);
-    res.status(500).json({ error: "Failed to load default region data" });
+    console.error("🚨 지역 데이터 업데이트 실패:", error);
+    res.status(500).json({ success: false, message: "DB 업데이트 실패" });
   }
 });
 
