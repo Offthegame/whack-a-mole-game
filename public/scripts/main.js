@@ -900,7 +900,6 @@ function handleGoHome() {
 // ======================
 // 7. Global Event Listeners
 // ======================
-// ✅ 기존 전역 이벤트 리스너에서 video-button 관련 코드 삭제
 document.addEventListener("click", (event) => {
   const button = event.target.closest("button");
   if (!button) return;
@@ -915,10 +914,22 @@ document.addEventListener("click", (event) => {
   } else if (id === "go-home-button" || id === "home-button") {
     handleGoHome();
   } else if (id === "linktree-button") { 
-    showScreen("linktree-screen");
+    showLinktreeScreen();
   }
 });
 
+// ✅ 링크트리 화면 요청 시 말풍선 텍스트 업데이트
+function showLinktreeScreen() {
+  showScreen("linktree-screen");
+
+  // ✅ 현재 선택된 지역의 `milariSaid` 값이 있으면 적용
+  const bubbleText = document.querySelector(".bubble-text");
+  if (bubbleText && currentRegion?.milariSaid) {
+    bubbleText.textContent = currentRegion.milariSaid;
+  } else {
+    bubbleText.textContent = "DFC와 함께하세요!"; // 기본값
+  }
+}
 
 
 // ✅ video-button 클릭 이벤트를 별도로 관리하여 모달 열기

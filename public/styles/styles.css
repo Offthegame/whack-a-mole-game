@@ -560,6 +560,13 @@ html, body {
   border-radius: 5px;
 }
 
+.question-item input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
 /* ==========================================================================
    로딩 오버레이
    ========================================================================== */
@@ -826,6 +833,7 @@ html, body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 5;
 }
 .character {
   width: 100px;
