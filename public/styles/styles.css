@@ -419,7 +419,7 @@ html, body {
   flex-direction: column; /* ✅ 세로 정렬 유지 */
   align-items: center;
   justify-content: center; /* ✅ 세로 중앙 정렬 */
-  width: min(90vw, 800px); /* ✅ 가로폭 축소 (너무 넓어지는 것 방지) */
+  width: min(90vw, 1000px); /* ✅ 가로폭 축소 (너무 넓어지는 것 방지) */
   max-width: 100%;
   height: min(90vh, 2700px);
   max-height: 100%;
@@ -437,14 +437,16 @@ html, body {
 
 /* 설정 컨텐츠 레이아웃 */
 #auth-section, #settings-options {
-  width: 100%;
-  max-width: 600px; /* ✅ 내부 요소가 가로로 확장되지 않도록 제한 */
   display: flex;
   flex-direction: column;
   align-items: center; /* ✅ 중앙 정렬 유지 */
   justify-content: center;
   gap: 15px;
-  box-sizing: border-box; /* ✅ 패딩과 너비가 겹치지 않도록 설정 */
+  width: 100%;  /* ✅ 부모 너비를 전부 차지 */
+  max-width: 800px;  /* ✅ 원하는 최대 너비 제한 */
+  min-width: 400px;  /* ✅ 최소 너비 확보 */
+  flex-grow: 0;  /* 🔥 불필요한 자동 확장 방지 */
+  box-sizing: border-box;  /* ✅ 패딩과 마진 포함 */
 }
 
 /* 입력 필드 컨테이너 */
