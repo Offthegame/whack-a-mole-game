@@ -444,6 +444,31 @@ document.getElementById("auth-submit").addEventListener("click", () => {
 // 현재 편집 중인 지역 데이터
 let editingRegion = null;
 
+const editRegionButton = document.getElementById("edit-region-button");
+if (editRegionButton) {
+  editRegionButton.addEventListener("click", async () => {
+    playButtonSound();
+
+    const regionId = localStorage.getItem("selectedRegion");
+    if (!regionId) {
+      alert("선택된 지역이 없습니다.");
+      return;
+    }
+
+    // API에서 지역 데이터 불러오기
+    editingRegion = await loadRegionData(regionId);
+    if (!editingRegion) {
+      alert("지역 데이터를 불러올 수 없습니다.");
+      return;
+    }
+
+    showScreen("edit-region-screen");
+    populateRegionForm();
+  });
+} else {
+  console.warn("⚠️ 'edit-region-button' 요소를 찾을 수 없습니다!");
+}
+
 // 설정 화면에서 지역 수정 버튼 클릭 시 실행
 document.getElementById("edit-region-button").addEventListener("click", async () => {
   playButtonSound();
