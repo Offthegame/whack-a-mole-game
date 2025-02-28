@@ -535,25 +535,6 @@ document.getElementById("add-question").addEventListener("click", () => {
   populateRegionForm();
 });
 
-// 문제 삭제
-function deleteQuestion(event) {
-  const index = event.target.dataset.index;
-  editingRegion.questions.splice(index, 1);
-  populateRegionForm();
-}
-
-// 문제 추가
-document.getElementById("add-question").addEventListener("click", () => {
-  editingRegion.questions.push({
-    id: `q${editingRegion.questions.length + 1}`,
-    question: "",
-    correct: "",
-    wrong: [],
-    emptySlot: "assets/empty_1.svg"
-  });
-  populateRegionForm();
-});
-
 // 변경 사항 저장
 document.getElementById("save-region").addEventListener("click", async () => {
   editingRegion.gameTime = parseInt(document.getElementById("game-time").value, 10);
