@@ -456,15 +456,20 @@ if (editRegionButton) {
       return;
     }
 
-    // API에서 지역 데이터 불러오기
+    // ✅ 데이터 로드 확인을 위한 로그 추가
+    console.log(`🔍 ${regionId} 데이터 로드 중...`);
+
     editingRegion = await loadRegionData(regionId);
     if (!editingRegion) {
       alert("지역 데이터를 불러올 수 없습니다.");
       return;
     }
 
-    // ✅ 올바른 화면 전환
+    console.log(`✅ ${regionId} 데이터 로드 성공:`, editingRegion);
+
+    // ✅ 화면 전환 확인을 위한 로그 추가
     showScreen("edit-region-screen");
+    console.log("🎯 edit-region-screen으로 화면 전환 요청 완료");
 
     // ✅ 게임 데이터 값 채우기
     document.getElementById("game-time").value = editingRegion.gameTime || 120;
@@ -983,14 +988,20 @@ document.getElementById("back-to-end").addEventListener("click", () => {
  * 화면 전환 함수 (홈, 게임, 설정, 링크트리)
  */
 function showScreen(screenId) {
+  console.log("🔄 화면 전환 실행: ", screenId);
   document.querySelectorAll(".screen").forEach((screen) => {
     screen.style.display = "none";
   });
-  document.getElementById(screenId).style.display = "flex";
-  if (screenId === "linktree-screen") {
-    document.getElementById("end-screen").style.display = "none";
+
+  const targetScreen = document.getElementById(screenId);
+  if (targetScreen) {
+    targetScreen.style.display = "flex";
+    console.log("✅ 화면 전환 완료: ", targetScreen.style.display);
+  } else {
+    console.error(`🚨 화면 전환 실패: '${screenId}' 요소가 존재하지 않습니다.`);
   }
 }
+
 
 // 🔹 홈 화면을 클릭하면 배경음악을 재생하도록 설정
 homeScreen.addEventListener("click", function startMusicOnce() {
