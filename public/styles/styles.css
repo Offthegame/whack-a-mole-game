@@ -424,10 +424,10 @@ html, body {
   max-width: 100%;
   max-height: 100%;
   background-size: contain;
-  overflow: hidden;
+  overflow-y: auto; /* ✅ 세로 스크롤 활성화 */
+  overflow-x: hidden; /* 가로 스크롤은 막기 */
   padding-top: 60px;
 }
-
 /* 설정 화면 타이틀 */
 #settings-screen h1 {
   font-size: 28px;
