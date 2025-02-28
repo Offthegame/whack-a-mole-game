@@ -593,8 +593,6 @@ document.querySelectorAll(".back-to-settings").forEach(button => {
   });
 });
 
-
-
 document.getElementById("save-settings").addEventListener("click", async () => {
   playButtonSound();
 
@@ -612,8 +610,8 @@ document.getElementById("save-settings").addEventListener("click", async () => {
   // ✅ 서버 주소 반영
   const API_BASE = "https://whack-a-mole-game-3bqy.onrender.com";
 
-  // ✅ API를 통해 데이터 업데이트 요청
   try {
+    // ✅ API를 통해 데이터 업데이트 요청
     const response = await fetch(`${API_BASE}/api/update-region`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -621,11 +619,16 @@ document.getElementById("save-settings").addEventListener("click", async () => {
     });
 
     if (response.ok) {
+      const updatedRegion = await response.json();
+      console.log("🔄 최신 지역 데이터:", updatedRegion);
+
+      // ✅ 로컬 저장소 업데이트
+      localStorage.setItem("selectedRegionData", JSON.stringify(updatedRegion.data));
       alert("✅ 지역 데이터가 성공적으로 업데이트되었습니다!");
-      console.log("🔄 최신 지역 데이터:", await response.json());
     } else {
+      const errorResponse = await response.json();
       alert("🚨 저장 중 오류가 발생했습니다.");
-      console.error("❌ 서버 응답 오류:", await response.json());
+      console.error("❌ 서버 응답 오류:", errorResponse);
     }
   } catch (error) {
     console.error("🚨 API 요청 실패:", error);
@@ -633,7 +636,7 @@ document.getElementById("save-settings").addEventListener("click", async () => {
   }
 });
 
-document.getElementById("back-to-home").addEventListener("click", () => {
+document.getElementById("back-to-home").addEventListener("click", async () => {
   playButtonSound();
 
   // ✅ 관리자 인증 초기화 (비밀번호 입력 & 에러 메시지 리셋)
@@ -654,6 +657,9 @@ document.getElementById("back-to-home").addEventListener("click", () => {
   // ✅ 홈 화면으로 이동 (설정 화면 포함 모두 숨김)
   settingsScreen.style.display = "none";
   homeScreen.style.display = "flex";
+
+  await populateRegionDropdown(); // ✅ 설정 화면에서도 드롭다운 초기화
+  await initializeSettingsRegion(); // ✅ 선택한 지역 데이터 로드
 });
 
 

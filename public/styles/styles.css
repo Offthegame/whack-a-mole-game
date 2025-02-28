@@ -437,12 +437,11 @@ html, body {
 
 /* 설정 컨텐츠 레이아웃 */
 #auth-section, #settings-options {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
   width: 100%;
-  max-width: 1600px;
+  max-width: 100%;
+  flex-grow: 1;
+  align-self: stretch;
+  box-sizing: border-box; /* 패딩과 너비가 겹치지 않도록 설정 */
 }
 
 /* 입력 필드 컨테이너 */
