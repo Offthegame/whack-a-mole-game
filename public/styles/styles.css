@@ -829,21 +829,22 @@ html, body {
 .bubble {
   width: 350px;
   z-index: 4;
+  transform: scale(1.5);
 }
 .bubble-text {
   font-size: 16px;
   font-weight: bold;
   font-family: 'ONE-Mobile-POP', sans-serif;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
-  transform: translate(-50%, -20%);
+  transform: translate(-50%, -70%);
   z-index: 5;
 }
 /* 밀아리 캐릭터 */
 .character {
   position: absolute; /* ✅ 왼쪽 아래 고정 */
-  bottom: 5%;
+  bottom: 12%;
   left: 5%;
   width: 100px;
   transform: scale(4);
