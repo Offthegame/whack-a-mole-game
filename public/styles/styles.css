@@ -492,7 +492,7 @@ html, body {
 }
 
 /* 버튼 스타일 */
-#auth-submit, #save-settings {
+#auth-submit, #save-settings, #save-region{
   width: 100%;
   max-width: 300px;
   padding: 12px;
@@ -505,11 +505,11 @@ html, body {
   transition: background 0.3s ease;
 }
 
-#auth-submit:hover, #save-settings:hover, #back-to-home:hover {
+#auth-submit:hover, #save-settings:hover, #back-to-home:hover, save-region:hover {
   transform: scale(1.05);
 }
 
-#edit-region-button {
+#edit-region-button, #add-question {
   width: 100%;
   max-width: 300px;
   padding: 12px;
@@ -522,7 +522,7 @@ html, body {
   transition: background 0.3s ease;
 }
 
-#edit-region-button:hover {
+#edit-region-button:hover, #add-question:hover {
   transform: scale(1.05);
 }
 
