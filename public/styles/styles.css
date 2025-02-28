@@ -442,10 +442,17 @@ html, body {
   align-items: center;
   gap: 15px;
   width: 100%;
-  max-width: 700px;
+  max-width: 900px;
 }
 
-
+/* 입력 필드 컨테이너 */
+.input-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
 
 /* 드롭다운 스타일 */
 #settings-region {
@@ -454,9 +461,10 @@ html, body {
   font-size: 18px;
   border-radius: 20px;
   border: 3px solid #ccc;
+  background-color: white;
 }
 
-/* 비밀번호 입력 필드 */
+/* 비밀번호 입력 필드 스타일 */
 .password-container {
   display: flex;
   align-items: center;
@@ -464,15 +472,18 @@ html, body {
   position: relative;
 }
 
-.password-input {
+/* 공통 입력 필드 스타일 */
+.password-input, 
+#game-time {
   width: 100%;
   padding: 12px;
   border-radius: 20px;
   border: 3px solid #ccc;
   font-size: 18px;
+  background-color: white;
 }
 
-/* 눈 아이콘 (비밀번호 토글 버튼) */
+/* 눈 아이콘 (비밀번호 보기 버튼) */
 .toggle-password {
   position: absolute;
   right: 15px;
