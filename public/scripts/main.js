@@ -313,6 +313,38 @@ musicButton.addEventListener("click", toggleBackgroundMusic);
 // ======================
 // 5. Settings & Authentication
 // ======================
+async function initializeSettingsRegion() {
+  const selectedRegion = settingsDropdown.value || localStorage.getItem("selectedRegion");
+
+  if (!selectedRegion) {
+    console.warn("⚠️ 저장된 지역 없음. 기본 지역(region-001) 설정 시도.");
+    localStorage.setItem("selectedRegion", "region-001");
+  }
+
+  console.log(`🔍 설정 화면 - 지역 데이터 로드 시도: ${selectedRegion}`);
+
+  currentRegion = await loadRegionData(selectedRegion);
+
+  if (!currentRegion) {
+    console.warn(`⚠️ ${selectedRegion} 데이터 없음. region-000을 기반으로 새로 생성.`);
+    const savedRegion = await saveNewRegion(selectedRegion);
+    if (savedRegion) {
+      console.log(`✅ ${selectedRegion} 생성 완료! 다시 로드 시도.`);
+      currentRegion = await loadRegionData(selectedRegion);
+    } else {
+      console.error(`🚨 ${selectedRegion} 생성 후 로드 실패.`);
+      alert("지역 데이터를 불러올 수 없습니다.");
+    }
+  }
+
+  if (!currentRegion) {
+    console.error(`🚨 ${selectedRegion} 데이터 로드 최종 실패`);
+    alert("지역 데이터를 불러올 수 없습니다.");
+  } else {
+    console.log(`✅ ${selectedRegion} 데이터 로드 완료:`, currentRegion);
+  }
+}
+
 
 /**
  * 비밀번호 토글 (표시/숨김)
@@ -344,30 +376,40 @@ regionDropdown.addEventListener("change", async (e) => {
 });
 
 // 설정 화면 전환 및 인증
-document.getElementById("settings-button").addEventListener("click", () => {
+document.getElementById("settings-button").addEventListener("click", async () => {
   playButtonSound();
-
+  await populateRegionDropdown(); // ✅ 설정 화면에서도 드롭다운 초기화
+  await initializeSettingsRegion(); // ✅ 선택한 지역 데이터 로드
   homeScreen.style.display = "none";
   settingsScreen.style.display = "flex";
-  
-  // 📌 팝업 메시지 추가
-  // alert("아직 개발이 덜 돼서 죄송합니다. 피드백 반영을 일요일 오전 9시 전까지 모두 완료토록 하겠습니다. \n개발자 이동하 010-5104-1405");
 });
+
 
 document.getElementById("auth-submit").addEventListener("click", () => {
   playButtonSound();
-  const region = currentRegion;
+
+  if (!currentRegion) {
+    console.error("🚨 currentRegion이 정의되지 않음. 인증 실패.");
+    document.getElementById("auth-error").textContent = "🚨 지역 데이터를 불러오지 못했습니다.";
+    document.getElementById("auth-error").style.display = "flex";
+    return;
+  }
+
   const enteredPassword = document.getElementById("region-password").value;
-  console.log(region);
-  if (region && enteredPassword === region.password) {
+  console.log("🔑 입력된 비밀번호:", enteredPassword);
+  console.log("📌 지역 데이터:", currentRegion);
+
+  if (enteredPassword === currentRegion.password) {
     authSection.style.display = "none";
     settingsOptions.style.display = "flex";
-    document.getElementById("game-time").value = region.gameTime;
-    document.getElementById("random-toggle").checked = region.randomizeQuestions;
+    document.getElementById("game-time").value = currentRegion.gameTime || 120;
+    document.getElementById("random-toggle").checked = currentRegion.randomizeQuestions || false;
   } else {
+    console.warn("❌ 비밀번호 불일치");
     document.getElementById("auth-error").style.display = "flex";
   }
 });
+
 
 document.getElementById("save-settings").addEventListener("click", () => {
   playButtonSound();
