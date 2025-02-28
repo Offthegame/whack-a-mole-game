@@ -363,6 +363,13 @@ function toggleEditPassword() {
   passwordInput.type = passwordInput.type === "password" ? "text" : "password";
 }
 
+// 비밀번호 토글 (표시/숨김) - 기본 설정 화면용
+function toggleEditRegionPassword() {
+  const passwordInput = document.getElementById("edit-region-password");
+  if (!passwordInput) return;
+  passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+}
+
 // 수정 화면 비밀번호 입력 필드 토글 버튼 추가 (필요 시 적용)
 document.getElementById("edit-region-password")?.addEventListener("click", toggleEditPassword);
 

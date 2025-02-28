@@ -92,14 +92,17 @@
   <label for="region-name">지역 이름:</label>
   <input type="text" id="region-name">
 
-  <label for="region-password">비밀번호:</label>
-  <input type="text" id="edit-region-password">
+  <label for="edit-region-password">비밀번호:</label>
+  <div class="input-container password-container">
+    <input type="password" id="edit-region-password" class="password-input">
+    <span class="toggle-password" onclick="toggleEditRegionPassword()">👁️</span> <!-- ✅ 추가됨 -->
+  </div>
 
   <label for="milari-said">밀아리 대사:</label>
   <input type="text" id="milari-said">
 
   <button id="save-settings">기본 설정 저장</button>
-  <button id="edit-region-button">게임 데이터 수정</button> <!-- ✅ 추가됨 -->
+  <button id="edit-region-button">게임 데이터 수정</button>
 </div>
 
 <!-- 게임 데이터 수정 화면 -->
