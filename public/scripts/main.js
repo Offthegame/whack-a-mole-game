@@ -396,25 +396,46 @@ document.getElementById("auth-submit").addEventListener("click", () => {
 
   if (!currentRegion) {
     console.error("🚨 currentRegion이 정의되지 않음. 인증 실패.");
-    document.getElementById("auth-error").textContent = "🚨 지역 데이터를 불러오지 못했습니다.";
-    document.getElementById("auth-error").style.display = "flex";
+    const authError = document.getElementById("auth-error");
+    if (authError) {
+      authError.textContent = "🚨 지역 데이터를 불러오지 못했습니다.";
+      authError.style.display = "flex";
+    }
     return;
   }
 
-  const enteredPassword = document.getElementById("region-password").value;
+  const enteredPassword = document.getElementById("region-password")?.value;
   console.log("🔑 입력된 비밀번호:", enteredPassword);
   console.log("📌 지역 데이터:", currentRegion);
 
   if (enteredPassword === currentRegion.password) {
-    authSection.style.display = "none";
-    settingsOptions.style.display = "flex";
-    document.getElementById("game-time").value = currentRegion.gameTime || 120;
-    document.getElementById("random-toggle").checked = currentRegion.randomizeQuestions || false;
+    // ✅ 인증 성공 → 관리자 인증 화면 숨김
+    if (authSection) authSection.style.display = "none";
+
+    // ✅ 설정 옵션이 정상적으로 표시되도록 보장
+    const settingsOptions = document.getElementById("settings-options");
+    if (settingsOptions) {
+      settingsOptions.style.display = "flex";
+    } else {
+      console.error("🚨 settings-options 요소를 찾을 수 없습니다!");
+    }
+
+    // ✅ 게임 시간 & 랜덤 설정값 적용 (오류 방지 추가)
+    const gameTimeInput = document.getElementById("game-time");
+    const randomToggle = document.getElementById("random-toggle");
+
+    if (gameTimeInput) gameTimeInput.value = currentRegion.gameTime || 120;
+    if (randomToggle) randomToggle.checked = currentRegion.randomizeQuestions || false;
+    
   } else {
     console.warn("❌ 비밀번호 불일치");
-    document.getElementById("auth-error").style.display = "flex";
+    const authError = document.getElementById("auth-error");
+    if (authError) {
+      authError.style.display = "flex";
+    }
   }
 });
+
 
 // =====================
 // 지역 데이터 수정 화면 로직

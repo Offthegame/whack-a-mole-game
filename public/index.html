@@ -86,11 +86,25 @@
     </div>
   </div>
 
+<!-- 설정 옵션 섹션 (edit-region-screen에서 제거) -->
+<!-- ⚠️ 중복 제거됨 -->
+<div id="settings-options" style="display: none;">
+  <label for="game-time">게임 시간 (초):</label>
+  <input type="number" id="game-time" min="30" max="600">
+
+  <label>
+    <input type="checkbox" id="random-toggle">
+    문제 랜덤화 여부
+  </label>
+
+  <button id="save-settings">설정 저장</button>
+</div>
+
 <!-- 지역 데이터 수정 화면 -->
 <div id="edit-region-screen" class="screen" style="display: none;">
   <h1>지역 데이터 수정</h1>
 
-  <!-- 지역 기본 정보 -->
+  <!-- ✅ 중복된 설정 옵션이 사라짐 -->
   <div id="region-info">
     <label>지역 이름:</label>
     <input type="text" id="region-name">
@@ -98,16 +112,8 @@
     <label>비밀번호:</label>
     <input type="text" id="region-edit-password">
 
-    <label>게임 시간 (초):</label>
-    <input type="number" id="game-time" min="30" max="600">
-
     <label>미라리 대사:</label>
     <input type="text" id="milari-said">
-
-    <label>
-      <input type="checkbox" id="random-toggle">
-      문제 랜덤화 여부
-    </label>
   </div>
 
   <h2>문제 수정</h2>
