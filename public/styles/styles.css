@@ -816,14 +816,19 @@ html, body {
 
 /* 말풍선 및 캐릭터 */
 .bottom-section {
-  position: relative;
+  position: absolute; /* ✅ 화면 내에서 고정 배치 */
   bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%); /* ✅ 중앙 정렬 */
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
+
 .bubble {
-  width: 250px;
+  width: 350px;
+  z-index: 4;
 }
 .bubble-text {
   font-size: 18px;
@@ -835,11 +840,13 @@ html, body {
   transform: translate(-50%, -50%);
   z-index: 5;
 }
+/* 밀아리 캐릭터 */
 .character {
+  position: absolute; /* ✅ 왼쪽 아래 고정 */
+  bottom: 0;
+  left: 5%;
   width: 100px;
-  margin-top: -30px;
 }
-
 /* ==========================================================================
    모바일 전용 스타일 (max-width: 768px)
    ========================================================================== */
