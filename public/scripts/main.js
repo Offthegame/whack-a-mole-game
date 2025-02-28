@@ -241,7 +241,7 @@ async function saveNewRegion(regionId) {
       })),
     };
 
-    const response = await fetch(`${API_BASE}/save-region`, {
+    const response = await fetch(`${API_BASE}/api/update-region`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newRegionData),
@@ -526,6 +526,15 @@ document.getElementById("add-question").addEventListener("click", () => {
 
 // 변경 사항 저장
 document.getElementById("save-region").addEventListener("click", async () => {
+  playButtonSound();
+
+  if (!editingRegion) {
+    console.error("🚨 편집 중인 지역 데이터가 없음.");
+    alert("지역 데이터를 먼저 불러와 주세요.");
+    return;
+  }
+
+  // ✅ 사용자가 입력한 값으로 `editingRegion` 업데이트
   editingRegion.gameTime = parseInt(document.getElementById("game-time").value, 10);
   editingRegion.randomizeQuestions = document.getElementById("random-toggle").checked;
 
@@ -555,16 +564,27 @@ document.getElementById("save-region").addEventListener("click", async () => {
   // 오답 개수 초과 시 저장하지 않음
   if (hasTooManyWrongAnswers) return;
 
-  const response = await fetch(`${API_BASE}/save-region`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(editingRegion),
-  });
+  // ✅ 서버 주소 반영
+  const API_BASE = "https://whack-a-mole-game-3bqy.onrender.com";
 
-  if (response.ok) {
-    alert("게임 데이터가 저장되었습니다!");
-  } else {
-    alert("저장 중 오류가 발생했습니다.");
+  // ✅ API를 통해 데이터 업데이트 요청
+  try {
+    const response = await fetch(`${API_BASE}/api/update-region`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(editingRegion),
+    });
+
+    if (response.ok) {
+      alert("✅ 게임 데이터가 저장되었습니다!");
+      console.log("🔄 최신 지역 데이터:", await response.json());
+    } else {
+      alert("🚨 저장 중 오류가 발생했습니다.");
+      console.error("❌ 서버 응답 오류:", await response.json());
+    }
+  } catch (error) {
+    console.error("🚨 API 요청 실패:", error);
+    alert("🚨 서버에 연결할 수 없습니다.");
   }
 });
 
