@@ -618,6 +618,7 @@ function handleGoHome() {
 // ======================
 // ✅ 기존 전역 이벤트 리스너에서 video-button 관련 코드 삭제
 document.addEventListener("click", (event) => {
+  playButtonSound();
   const button = event.target.closest("button");
   if (!button) return;
 
@@ -638,18 +639,21 @@ document.addEventListener("click", (event) => {
 
 // ✅ video-button 클릭 이벤트를 별도로 관리하여 모달 열기
 document.getElementById("video-button").addEventListener("click", () => {
+  playButtonSound();
   videoFrame.src = "https://player.vimeo.com/video/1059278963";
   videoModal.style.display = "flex"; // 모달 보이기
 });
 
 // ✅ 닫기 버튼 클릭 시 모달 닫기
 closeVideoButton.addEventListener("click", () => {
+  playButtonSound();
   videoModal.style.display = "none";
   videoFrame.src = ""; // 비디오 정지
 });
 
 // ✅ 배경 클릭 시 모달 닫기
 videoModal.addEventListener("click", (event) => {
+  playButtonSound();
   if (event.target === videoModal) {
     videoModal.style.display = "none";
     videoFrame.src = "";
