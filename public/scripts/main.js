@@ -409,24 +409,18 @@ document.getElementById("auth-submit").addEventListener("click", () => {
   console.log("📌 지역 데이터:", currentRegion);
 
   if (enteredPassword === currentRegion.password) {
-    // ✅ 인증 성공 → 관리자 인증 화면 숨김
     if (authSection) authSection.style.display = "none";
 
-    // ✅ 설정 옵션이 정상적으로 표시되도록 보장
+    // ✅ 기본 설정 적용
     const settingsOptions = document.getElementById("settings-options");
     if (settingsOptions) {
       settingsOptions.style.display = "flex";
+      document.getElementById("region-name").value = currentRegion.name;
+      document.getElementById("region-password").value = currentRegion.password;
+      document.getElementById("milari-said").value = currentRegion.milariSaid;
     } else {
       console.error("🚨 settings-options 요소를 찾을 수 없습니다!");
     }
-
-    // ✅ 게임 시간 & 랜덤 설정값 적용 (오류 방지 추가)
-    const gameTimeInput = document.getElementById("game-time");
-    const randomToggle = document.getElementById("random-toggle");
-
-    if (gameTimeInput) gameTimeInput.value = currentRegion.gameTime || 120;
-    if (randomToggle) randomToggle.checked = currentRegion.randomizeQuestions || false;
-    
   } else {
     console.warn("❌ 비밀번호 불일치");
     const authError = document.getElementById("auth-error");
@@ -479,7 +473,6 @@ document.getElementById("edit-region-button").addEventListener("click", async ()
     return;
   }
 
-  // API에서 지역 데이터 불러오기
   editingRegion = await loadRegionData(regionId);
   if (!editingRegion) {
     alert("지역 데이터를 불러올 수 없습니다.");
@@ -487,20 +480,19 @@ document.getElementById("edit-region-button").addEventListener("click", async ()
   }
 
   showScreen("edit-region-screen");
+
+  // ✅ 게임 데이터 값 채우기
+  document.getElementById("game-time").value = editingRegion.gameTime || 120;
+  document.getElementById("random-toggle").checked = editingRegion.randomizeQuestions || false;
+
   populateRegionForm();
 });
 
 // UI에 데이터 채우기
 function populateRegionForm() {
-  document.getElementById("region-name").value = editingRegion.name;
-  document.getElementById("region-password").value = editingRegion.password;
-  document.getElementById("game-time").value = editingRegion.gameTime;
-  document.getElementById("milari-said").value = editingRegion.milariSaid;
-  document.getElementById("random-toggle").checked = editingRegion.randomizeQuestions;
-
-  // 문제 목록 표시
   const questionsContainer = document.getElementById("questions-container");
   questionsContainer.innerHTML = "";
+  
   editingRegion.questions.forEach((question, index) => {
     const questionElement = document.createElement("div");
     questionElement.classList.add("question-item");
@@ -519,7 +511,6 @@ function populateRegionForm() {
     questionsContainer.appendChild(questionElement);
   });
 
-  // 삭제 버튼 이벤트 추가
   document.querySelectorAll(".delete-question").forEach(button => {
     button.addEventListener("click", deleteQuestion);
   });
@@ -544,12 +535,28 @@ document.getElementById("add-question").addEventListener("click", () => {
   populateRegionForm();
 });
 
+// 문제 삭제
+function deleteQuestion(event) {
+  const index = event.target.dataset.index;
+  editingRegion.questions.splice(index, 1);
+  populateRegionForm();
+}
+
+// 문제 추가
+document.getElementById("add-question").addEventListener("click", () => {
+  editingRegion.questions.push({
+    id: `q${editingRegion.questions.length + 1}`,
+    question: "",
+    correct: "",
+    wrong: [],
+    emptySlot: "assets/empty_1.svg"
+  });
+  populateRegionForm();
+});
+
 // 변경 사항 저장
 document.getElementById("save-region").addEventListener("click", async () => {
-  editingRegion.name = document.getElementById("region-name").value;
-  editingRegion.password = document.getElementById("region-password").value;
   editingRegion.gameTime = parseInt(document.getElementById("game-time").value, 10);
-  editingRegion.milariSaid = document.getElementById("milari-said").value;
   editingRegion.randomizeQuestions = document.getElementById("random-toggle").checked;
 
   document.querySelectorAll(".question-input").forEach(input => {
@@ -562,12 +569,22 @@ document.getElementById("save-region").addEventListener("click", async () => {
     editingRegion.questions[index].correct = input.value;
   });
 
+  let hasTooManyWrongAnswers = false; // 오답 개수 초과 여부 확인
   document.querySelectorAll(".wrong-input").forEach(input => {
     const index = input.dataset.index;
-    editingRegion.questions[index].wrong = input.value.split(",").map(str => str.trim());
+    let wrongAnswers = input.value.split(",").map(str => str.trim());
+
+    if (wrongAnswers.length > 4) {
+      alert(`❌ 문제 ${index + 1}: 오답은 최대 4개까지 입력할 수 있습니다.`);
+      hasTooManyWrongAnswers = true;
+    } else {
+      editingRegion.questions[index].wrong = wrongAnswers;
+    }
   });
 
-  // API에 데이터 저장 요청
+  // 오답 개수 초과 시 저장하지 않음
+  if (hasTooManyWrongAnswers) return;
+
   const response = await fetch(`${API_BASE}/save-region`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -575,7 +592,7 @@ document.getElementById("save-region").addEventListener("click", async () => {
   });
 
   if (response.ok) {
-    alert("지역 데이터가 저장되었습니다!");
+    alert("게임 데이터가 저장되었습니다!");
   } else {
     alert("저장 중 오류가 발생했습니다.");
   }
