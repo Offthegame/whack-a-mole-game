@@ -510,6 +510,36 @@ html, body {
 }
 
 /* ==========================================================================
+    지역 설정 화면
+   ========================================================================== */
+#edit-region-screen {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#region-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#questions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.question-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* ==========================================================================
    로딩 오버레이
    ========================================================================== */
 #loading-screen {

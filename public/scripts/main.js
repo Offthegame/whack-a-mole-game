@@ -410,6 +410,130 @@ document.getElementById("auth-submit").addEventListener("click", () => {
   }
 });
 
+// =====================
+// 지역 데이터 수정 화면 로직
+// =====================
+
+// 현재 편집 중인 지역 데이터
+let editingRegion = null;
+
+// 설정 화면에서 지역 수정 버튼 클릭 시 실행
+document.getElementById("edit-region-button").addEventListener("click", async () => {
+  playButtonSound();
+
+  const regionId = localStorage.getItem("selectedRegion");
+  if (!regionId) {
+    alert("선택된 지역이 없습니다.");
+    return;
+  }
+
+  // API에서 지역 데이터 불러오기
+  editingRegion = await loadRegionData(regionId);
+  if (!editingRegion) {
+    alert("지역 데이터를 불러올 수 없습니다.");
+    return;
+  }
+
+  showScreen("edit-region-screen");
+  populateRegionForm();
+});
+
+// UI에 데이터 채우기
+function populateRegionForm() {
+  document.getElementById("region-name").value = editingRegion.name;
+  document.getElementById("region-password").value = editingRegion.password;
+  document.getElementById("game-time").value = editingRegion.gameTime;
+  document.getElementById("milari-said").value = editingRegion.milariSaid;
+  document.getElementById("random-toggle").checked = editingRegion.randomizeQuestions;
+
+  // 문제 목록 표시
+  const questionsContainer = document.getElementById("questions-container");
+  questionsContainer.innerHTML = "";
+  editingRegion.questions.forEach((question, index) => {
+    const questionElement = document.createElement("div");
+    questionElement.classList.add("question-item");
+    questionElement.innerHTML = `
+      <label>문제:</label>
+      <input type="text" class="question-input" data-index="${index}" value="${question.question}">
+
+      <label>정답:</label>
+      <input type="text" class="correct-input" data-index="${index}" value="${question.correct}">
+
+      <label>오답 (쉼표로 구분):</label>
+      <input type="text" class="wrong-input" data-index="${index}" value="${question.wrong.join(", ")}">
+
+      <button class="delete-question" data-index="${index}">삭제</button>
+    `;
+    questionsContainer.appendChild(questionElement);
+  });
+
+  // 삭제 버튼 이벤트 추가
+  document.querySelectorAll(".delete-question").forEach(button => {
+    button.addEventListener("click", deleteQuestion);
+  });
+}
+
+// 문제 삭제
+function deleteQuestion(event) {
+  const index = event.target.dataset.index;
+  editingRegion.questions.splice(index, 1);
+  populateRegionForm();
+}
+
+// 문제 추가
+document.getElementById("add-question").addEventListener("click", () => {
+  editingRegion.questions.push({
+    id: `q${editingRegion.questions.length + 1}`,
+    question: "",
+    correct: "",
+    wrong: [],
+    emptySlot: "assets/empty_1.svg"
+  });
+  populateRegionForm();
+});
+
+// 변경 사항 저장
+document.getElementById("save-region").addEventListener("click", async () => {
+  editingRegion.name = document.getElementById("region-name").value;
+  editingRegion.password = document.getElementById("region-password").value;
+  editingRegion.gameTime = parseInt(document.getElementById("game-time").value, 10);
+  editingRegion.milariSaid = document.getElementById("milari-said").value;
+  editingRegion.randomizeQuestions = document.getElementById("random-toggle").checked;
+
+  document.querySelectorAll(".question-input").forEach(input => {
+    const index = input.dataset.index;
+    editingRegion.questions[index].question = input.value;
+  });
+
+  document.querySelectorAll(".correct-input").forEach(input => {
+    const index = input.dataset.index;
+    editingRegion.questions[index].correct = input.value;
+  });
+
+  document.querySelectorAll(".wrong-input").forEach(input => {
+    const index = input.dataset.index;
+    editingRegion.questions[index].wrong = input.value.split(",").map(str => str.trim());
+  });
+
+  // API에 데이터 저장 요청
+  const response = await fetch(`${API_BASE}/save-region`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(editingRegion),
+  });
+
+  if (response.ok) {
+    alert("지역 데이터가 저장되었습니다!");
+  } else {
+    alert("저장 중 오류가 발생했습니다.");
+  }
+});
+
+// 뒤로 가기 버튼
+document.getElementById("back-to-settings").addEventListener("click", () => {
+  showScreen("settings-screen");
+});
+
 
 document.getElementById("save-settings").addEventListener("click", () => {
   playButtonSound();
