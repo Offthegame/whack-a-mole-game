@@ -463,37 +463,19 @@ if (editRegionButton) {
       return;
     }
 
+    // ✅ 올바른 화면 전환
     showScreen("edit-region-screen");
+
+    // ✅ 게임 데이터 값 채우기
+    document.getElementById("game-time").value = editingRegion.gameTime || 120;
+    document.getElementById("random-toggle").checked = editingRegion.randomizeQuestions || false;
+
     populateRegionForm();
   });
 } else {
   console.warn("⚠️ 'edit-region-button' 요소를 찾을 수 없습니다!");
 }
 
-// 설정 화면에서 지역 수정 버튼 클릭 시 실행
-document.getElementById("edit-region-button").addEventListener("click", async () => {
-  playButtonSound();
-
-  const regionId = localStorage.getItem("selectedRegion");
-  if (!regionId) {
-    alert("선택된 지역이 없습니다.");
-    return;
-  }
-
-  editingRegion = await loadRegionData(regionId);
-  if (!editingRegion) {
-    alert("지역 데이터를 불러올 수 없습니다.");
-    return;
-  }
-
-  showScreen("edit-region-screen");
-
-  // ✅ 게임 데이터 값 채우기
-  document.getElementById("game-time").value = editingRegion.gameTime || 120;
-  document.getElementById("random-toggle").checked = editingRegion.randomizeQuestions || false;
-
-  populateRegionForm();
-});
 
 // UI에 데이터 채우기
 function populateRegionForm() {
