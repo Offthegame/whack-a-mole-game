@@ -592,17 +592,27 @@ document.getElementById("save-settings").addEventListener("click", async () => {
   currentRegion.password = document.getElementById("edit-region-password").value;
   currentRegion.milariSaid = document.getElementById("milari-said").value;
 
-  // ✅ API를 통해 데이터 업데이트 요청
-  const response = await fetch("https://your-server.com/api/update-region", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(currentRegion),
-  });
+  // ✅ 서버 주소 반영
+  const API_BASE = "https://whack-a-mole-game-3bqy.onrender.com";
 
-  if (response.ok) {
-    alert("✅ 지역 데이터가 성공적으로 업데이트되었습니다!");
-  } else {
-    alert("🚨 저장 중 오류가 발생했습니다.");
+  // ✅ API를 통해 데이터 업데이트 요청
+  try {
+    const response = await fetch(`${API_BASE}/api/update-region`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(currentRegion),
+    });
+
+    if (response.ok) {
+      alert("✅ 지역 데이터가 성공적으로 업데이트되었습니다!");
+      console.log("🔄 최신 지역 데이터:", await response.json());
+    } else {
+      alert("🚨 저장 중 오류가 발생했습니다.");
+      console.error("❌ 서버 응답 오류:", await response.json());
+    }
+  } catch (error) {
+    console.error("🚨 API 요청 실패:", error);
+    alert("🚨 서버에 연결할 수 없습니다.");
   }
 });
 
