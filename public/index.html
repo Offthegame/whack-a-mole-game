@@ -61,44 +61,47 @@
     </div>
   </div>
 
-  <!-- 설정 화면 -->
-  <div id="settings-screen" style="display: none;">
-    <h1>관리자 인증</h1>
+<!-- 설정 화면 -->
+<div id="settings-screen" style="display: none;">
+  <h1>관리자 인증</h1>
 
-    <div id="auth-section">
-      <!-- 지역 선택 섹션 -->
-      <div id="region-selection">
-        <label for="region">지역 선택:</label>
-        <select id="settings-region">
-          <option value="">지역을 선택해주세요</option>
-          <!-- 동적으로 추가될 옵션 -->
-        </select>
-      </div>
-      <!-- 비밀번호 인증 섹션 -->
-      <div class="password-container">
-        <label for="region-password">비밀번호:</label>
-        <input type="password" id="region-password" class="password-input" placeholder="Enter password">
-        <span class="toggle-password" onclick="togglePassword()">👁️</span>
-      </div>
-      <button id="auth-submit">확인</button>
-      <p id="auth-error" style="color: red; display: none;">비밀번호가 틀립니다.</p>
+  <div id="auth-section">
+    <!-- 지역 선택 섹션 -->
+    <div id="region-selection">
+      <label for="settings-region">지역 선택:</label>
+      <select id="settings-region">
+        <option value="">지역을 선택해주세요</option>
+        <!-- 동적으로 추가될 옵션 -->
+      </select>
     </div>
-
-    <!-- 설정 옵션 섹션 -->
-    <div id="settings-options" style="display: none;">
-      <label for="game-time">Set Game Time (seconds):</label>
-      <input type="number" id="game-time" min="30" max="600" value="120">
-      <br>
-      <label>
-        <input type="checkbox" id="random-toggle" checked>
-        Randomize Questions
-      </label>
-      <br>
-      <button id="save-settings">Save Settings</button>
+    
+    <!-- 비밀번호 입력 -->
+    <div class="password-container">
+      <label for="region-password">비밀번호:</label>
+      <input type="password" id="region-password" class="password-input" placeholder="Enter password">
+      <span class="toggle-password" onclick="togglePassword()">👁️</span>
     </div>
-
-    <button id="back-to-home">Back to Home</button>
+    
+    <button id="auth-submit">확인</button>
+    <p id="auth-error" style="color: red; display: none;">비밀번호가 틀립니다.</p>
   </div>
+
+  <!-- 설정 옵션 섹션 -->
+  <div id="settings-options" style="display: none;">
+    <label for="game-time">Set Game Time (seconds):</label>
+    <input type="number" id="game-time" min="30" max="600" value="120">
+    <br>
+    <label>
+      <input type="checkbox" id="random-toggle" checked>
+      Randomize Questions
+    </label>
+    <br>
+    <button id="save-settings">Save Settings</button>
+  </div>
+
+  <button id="back-to-home" class="back-btn">Back to Home</button>
+</div>
+
 
   <!-- 게임 화면 -->
   <div id="game-screen" style="display: none;">
