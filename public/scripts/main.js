@@ -416,18 +416,13 @@ document.getElementById("auth-submit").addEventListener("click", () => {
   console.log("📌 지역 데이터:", currentRegion);
 
   if (enteredPassword === currentRegion.password) {
-    if (authSection) authSection.style.display = "none";
+    // ✅ 인증 성공 시 `settings-screen`을 `settings-options`으로 변경
+    showScreen("settings-options");
 
     // ✅ 기본 설정 적용
-    const settingsOptions = document.getElementById("settings-options");
-    if (settingsOptions) {
-      settingsOptions.style.display = "flex";
-      document.getElementById("region-name").value = currentRegion.name;
-      document.getElementById("region-password").value = currentRegion.password;
-      document.getElementById("milari-said").value = currentRegion.milariSaid;
-    } else {
-      console.error("🚨 settings-options 요소를 찾을 수 없습니다!");
-    }
+    document.getElementById("region-name").value = currentRegion.name;
+    document.getElementById("edit-region-password").value = currentRegion.password;
+    document.getElementById("milari-said").value = currentRegion.milariSaid;
   } else {
     console.warn("❌ 비밀번호 불일치");
     const authError = document.getElementById("auth-error");
