@@ -573,10 +573,14 @@ document.getElementById("save-region").addEventListener("click", async () => {
   }
 });
 
-// 뒤로 가기 버튼
+// 뒤로 가기 버튼 (설정 화면으로 이동 & 데이터 초기화)
 document.getElementById("back-to-settings").addEventListener("click", () => {
+  playButtonSound();
+
+  // ✅ 설정 화면으로 이동
   showScreen("settings-screen");
 });
+
 
 
 document.getElementById("save-settings").addEventListener("click", async () => {
@@ -621,12 +625,9 @@ document.getElementById("back-to-home").addEventListener("click", () => {
   if (passwordInput) passwordInput.value = ""; // 비밀번호 입력 필드 초기화
   if (authError) authError.style.display = "none"; // 에러 메시지 숨김
 
-  // ✅ 게임 데이터 수정 화면 초기화 및 숨김
+  // ✅ 게임 데이터 수정 화면 숨김 (하지만 문제 데이터는 초기화하지 않음)
   const editRegionScreen = document.getElementById("edit-region-screen");
-  const questionsContainer = document.getElementById("questions-container");
-
-  if (editRegionScreen) editRegionScreen.style.display = "none"; // 게임 데이터 수정 화면 숨김
-  if (questionsContainer) questionsContainer.innerHTML = ""; // 문제 수정 필드 초기화
+  if (editRegionScreen) editRegionScreen.style.display = "none"; 
 
   // ✅ 홈 화면으로 이동 (설정 화면 포함 모두 숨김)
   settingsScreen.style.display = "none";
