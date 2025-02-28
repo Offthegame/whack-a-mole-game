@@ -346,12 +346,12 @@ regionDropdown.addEventListener("change", async (e) => {
 // 설정 화면 전환 및 인증
 document.getElementById("settings-button").addEventListener("click", () => {
   playButtonSound();
-  
+
   homeScreen.style.display = "none";
   settingsScreen.style.display = "flex";
   
   // 📌 팝업 메시지 추가
-  alert("아직 개발이 덜 돼서 죄송합니다. 피드백 반영을 일요일 오전 9시 전까지 모두 완료토록 하겠습니다. \n개발자 이동하 010-5104-1405");
+  // alert("아직 개발이 덜 돼서 죄송합니다. 피드백 반영을 일요일 오전 9시 전까지 모두 완료토록 하겠습니다. \n개발자 이동하 010-5104-1405");
 });
 
 document.getElementById("auth-submit").addEventListener("click", () => {
@@ -657,7 +657,6 @@ closeVideoButton.addEventListener("click", () => {
 
 // ✅ 배경 클릭 시 모달 닫기
 videoModal.addEventListener("click", (event) => {
-  playButtonSound();
   if (event.target === videoModal) {
     videoModal.style.display = "none";
     videoFrame.src = "";
