@@ -267,14 +267,14 @@ html, body {
   background: rgba(255, 255, 255, 0.7);
   padding: 5px 10px;
   border-radius: 10px;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 /* 점수 표시 */
 #score {
   order: 3;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: normal;
   color: #ffffff;
   -webkit-text-stroke: 1.5px #603813;
   text-shadow: none;
@@ -295,7 +295,7 @@ html, body {
 /* 타이머 숫자 */
 #timer {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: normal;
   color: white;
   text-align: center;
   position: absolute;
@@ -323,7 +323,7 @@ html, body {
   padding: 20px;
   text-align: center;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: normal;
   color: white;
   display: flex;
   justify-content: center;
@@ -375,7 +375,7 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 16px;
-  font-weight: bold;
+  font-weight: normal;
   color: #ffffff;
   pointer-events: none;
   text-align: center;
@@ -493,6 +493,12 @@ html, body {
   right: 15px;
   cursor: pointer;
   font-size: 18px;
+}
+
+.question-menual {
+  font-size: 16px;
+  color: #333;
+  font-family: 'Dotum', sans-serif;
 }
 
 /* 버튼 스타일 */
