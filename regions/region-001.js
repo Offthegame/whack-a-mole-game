@@ -1,6 +1,6 @@
 export const region001 = {
   id: "region-001",             // 지역 ID
-  name: "test 1",           // 지역 이름 (향후 변경 가능)
+  name: "region 001",           // 지역 이름 (향후 변경 가능)
   password: "pass001",          // 지역 비밀번호
   gameTime: 120,                // 게임 시간 (초 단위)
   randomizeQuestions: true,     // 문제 랜덤화 여부

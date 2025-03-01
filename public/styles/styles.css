@@ -337,7 +337,7 @@ html, body {
   grid-template-columns: repeat(2, 200px);
   gap: 20px;
   justify-content: center;
-  margin: 10px 0 60px;
+  margin: 10px 0 90px;
 }
 
 /* 구멍 */
