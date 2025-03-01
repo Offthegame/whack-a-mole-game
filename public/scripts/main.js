@@ -394,6 +394,13 @@ document.getElementById("settings-button").addEventListener("click", async () =>
   settingsScreen.style.display = "flex";
 });
 
+// 엔터 키 이벤트 추가
+document.getElementById("region-password").addEventListener("keyup", function(event) {
+  if (event.key === "Enter") {  // 엔터 키 감지
+    event.preventDefault();  // 기본 동작 방지
+    document.getElementById("auth-submit").click();  // 확인 버튼 클릭
+  }
+});
 
 document.getElementById("auth-submit").addEventListener("click", () => {
   playButtonSound();
