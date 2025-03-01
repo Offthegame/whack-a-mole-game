@@ -541,12 +541,11 @@ html, body {
     지역 설정 화면
    ========================================================================== */
 #edit-region-screen {
-  width: 100%;
-  max-width: 600px;
-  min-width: 320px;       /* 최소 320px 이상 유지 */
+  width: min(100%, 600px); /* 부모 크기와 비교하여 600px을 최대값으로 */
+  min-width: 500px; /* ✅ 최소 너비를 500px 이상으로 강제 */
   min-height: 100vh;     /* 화면 높이만큼 최소 높이 설정 */
   margin: auto;
-  padding: 20px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 15px;
