@@ -4,7 +4,7 @@ export const region001 = {
   password: "pass001",          // 지역 비밀번호
   gameTime: 120,                // 게임 시간 (초 단위)
   randomizeQuestions: true,     // 문제 랜덤화 여부
-  milariSaid: "DFC에 대해 더 자세히 알아보세요!", // 미라리 대사
+  milariSaid: "DFC를 소개합니다. 새로운 삶으로 당신을 초대합니다.", // 미라리 대사
   questions: [
     {
       id: "q1",               // 고유 식별자

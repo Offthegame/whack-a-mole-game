@@ -16,6 +16,7 @@ html, body {
   padding: 0;
   display: flex;
   justify-content: center;
+  flex-direction: column;  /* 세로 방향으로 변경 */
   align-items: center;
   height: 100vh;
   background-color: #f4f4f4;
@@ -540,7 +541,9 @@ html, body {
     지역 설정 화면
    ========================================================================== */
 #edit-region-screen {
+  width: 100%;
   max-width: 600px;
+  min-width: 320px;       /* 최소 320px 이상 유지 */
   margin: auto;
   padding: 20px;
   display: flex;
