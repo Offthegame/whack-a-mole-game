@@ -657,7 +657,7 @@ html, body {
   align-items: center;
   gap: 10px;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: normal;
   color: #ffffff;
   background: none;
   border: none;
@@ -782,7 +782,7 @@ html, body {
 .profile h2 {
   margin-top: 4px;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: normal;
   font-family: 'ONE-Mobile-POP', sans-serif;
   margin-bottom: 4px;
   padding: 0;
@@ -848,7 +848,7 @@ html, body {
 }
 .bubble-text {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: normal;
   font-family: 'ONE-Mobile-POP', sans-serif;
   position: absolute;
   top: 10%;
