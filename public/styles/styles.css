@@ -976,10 +976,10 @@ p {
   }
   /* 말풍선 및 캐릭터 */
   .bottom-section {
-    height: 10%;
+    height: 20%;
     bottom: 0%;
-    left: 40%;
-    transform: translateX(-50%);
+    left: 0%;
+    transform: translateX(0%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1001,6 +1001,7 @@ p {
     font-size: 12px;
     width: 100%;
     max-width: 100%;
+    bottom: 4%;
     z-index: 4;
   }
 
