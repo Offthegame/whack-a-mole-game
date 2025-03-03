@@ -838,13 +838,14 @@ html, body {
 /* 🔹 공통 스타일 */
 .bottom-section {
   position: absolute; /* ✅ 화면 내에서 고정 배치 */
-  bottom: 9%;
+  bottom: 0%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 15%;
 }
 
 /* 🔹 말풍선 */
@@ -852,8 +853,8 @@ html, body {
   position: relative;
   background: url("/assets/bubble.webp") no-repeat center;
   background-size: contain;
-  width: 350px;
-  height: 150px; /* ✅ 적절한 높이 설정 */
+  width: 520px;
+  height: auto; /* ✅ 적절한 높이 설정 */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -864,13 +865,14 @@ html, body {
 
 /* 🔹 말풍선 텍스트 */
 .bubble-text {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   font-family: 'ONE-Mobile-POP', sans-serif;
-  width: 80%;
+  width: 90%;
   max-width: 100%;
+  position: relative;
   text-align: center;
-  line-height: 1.4;
+  bottom: 15%;
   word-wrap: break-word;
   z-index: 3;
 }
@@ -878,10 +880,16 @@ html, body {
 /* 밀아리 캐릭터 */
 .character {
   position: absolute;
-  bottom: 70%;
+  bottom: 80%;
   left: 7%;
   width: 100px;
   transform: scale(4);
+  z-index: 99;
+}
+
+p {
+  margin-block-start: 0.3em;
+  margin-block-end: 0.3em;
 }
 
 /* ==========================================================================
