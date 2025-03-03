@@ -850,7 +850,7 @@ html, body {
 /* 🔹 말풍선 */
 .bubble {
   position: relative;
-  background: url("assets/bubble.webp") no-repeat center;
+  background: url("/assets/bubble.webp") no-repeat center;
   background-size: contain;
   width: 350px;
   height: 150px; /* ✅ 적절한 높이 설정 */
@@ -936,7 +936,7 @@ html, body {
   }
 
   .bubble {
-    background: url("assets/bubble-mobile.webp") no-repeat center; /* 📲 모바일에서는 bubble-mobile.webp 사용 */
+    background: url("/assets/bubble-mobile.webp") no-repeat center; /* 📲 모바일에서는 bubble-mobile.webp 사용 */
     background-size: contain;
     width: 90%;
     max-width: 300px;
