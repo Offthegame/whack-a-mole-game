@@ -63,7 +63,7 @@ html, body {
 #music-button {
   position: absolute;
   top: 90%;
-  left: 90%;
+  left: 85%;
   width: 50px;
   height: auto;
   transition: transform 0.2s ease-in-out;
@@ -445,7 +445,7 @@ html, body {
   gap: 15px;
   width: 100%;  /* ✅ 부모 너비를 전부 차지 */
   max-width: 800px;  /* ✅ 원하는 최대 너비 제한 */
-  min-width: 400px;  /* ✅ 최소 너비 확보 */
+  min-width: 300px;  /* ✅ 최소 너비 확보 */
   flex-grow: 0;  /* 🔥 불필요한 자동 확장 방지 */
   box-sizing: border-box;  /* ✅ 패딩과 마진 포함 */
 }
@@ -848,20 +848,29 @@ html, body {
 }
 
 .bubble {
-  width: 350px;
+  position: relative; /* ✅ 말풍선 내에서 상대적인 위치 */
+  width: 80%;
+  max-width: 350px; /* ✅ 최대 크기 설정 */
   z-index: 4;
-  transform: scale(1.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* ✅ 텍스트 중앙 정렬 */
+  padding: 10px;
+  transform: scale(1.2);
 }
 .bubble-text {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: normal;
   font-family: 'ONE-Mobile-POP', sans-serif;
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -70%);
-  z-index: 5;
+  width: 90%; /* ✅ 텍스트가 말풍선 안에서만 유지 */
+  max-width: 100%; /* ✅ 최대 너비 제한 */
+  white-space: normal; /* ✅ 자동 줄바꿈 */
+  overflow-wrap: break-word; /* ✅ 긴 단어 자동 줄바꿈 */
+  word-wrap: break-word;
+  text-align: center;
 }
+
 /* 밀아리 캐릭터 */
 .character {
   position: absolute; /* ✅ 왼쪽 아래 고정 */
@@ -912,7 +921,7 @@ html, body {
   /* 말풍선 및 캐릭터 */
   .bottom-section {
     position: absolute; /* ✅ 화면 내에서 고정 배치 */
-    height: 80px;
+    height: 10%;
     bottom: 0%;
     left: 40%;
     transform: translateX(-50%); /* ✅ 중앙 정렬 */
@@ -923,22 +932,16 @@ html, body {
   }
 
   .bubble {
-    position: relative;
-    width: 70%;
-    bottom: 30%;
-    left: 10%;
-    z-index: 4;
-    transform: scale(1);
+    width: 90%;
+    max-width: 300px;
+    padding: 8px;
+    transform: scale(1.1);
   }
+
   .bubble-text {
-    font-size: 14px;
+    font-size: 12px;
     width: 100%;
-    font-weight: normal;
-    font-family: 'ONE-Mobile-POP', sans-serif;
-    position: absolute;
-    bottom: 0%;
-    left: 78%;
-    z-index: 5;
+    max-width: 100%;
   }
   /* 밀아리 캐릭터 */
   .character {
