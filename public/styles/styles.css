@@ -845,7 +845,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 15%;
+  height: 18%;
 }
 
 /* 🔹 말풍선 */
@@ -854,7 +854,7 @@ html, body {
   background: url("/assets/bubble.webp") no-repeat center;
   background-size: contain;
   width: 520px;
-  height: auto; /* ✅ 적절한 높이 설정 */
+  height: 60px; /* ✅ 적절한 높이 설정 */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -880,10 +880,10 @@ html, body {
 /* 밀아리 캐릭터 */
 .character {
   position: absolute;
-  bottom: 80%;
-  left: 7%;
+  bottom: 40%;
+  left: 10%;
   width: 100px;
-  transform: scale(4);
+  transform: scale(3);
   z-index: 99;
 }
 
