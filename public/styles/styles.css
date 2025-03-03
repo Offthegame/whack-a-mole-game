@@ -208,6 +208,49 @@ html, body {
     background: url("/assets/game-bg-vt.webp") no-repeat center center;
     background-size: cover;
   }
+    /* 구멍 컨테이너 (그리드) */
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 180px);
+    gap: 2px;
+    justify-content: center;
+    margin: 4px 0 90px;
+    position: relative;
+    left: -3%;
+  }
+  #question-container {
+    width: 80%;
+    max-width: 900px;
+    background: url("/assets/question.webp") no-repeat center center;
+    background-size: contain;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: normal;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+  }
+    /* 구멍 */
+  .hole {
+    position: relative;
+    width: 100%;
+  }
+    /* 정답/오답 텍스트 */
+  .answer-label {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    font-weight: normal;
+    color: #ffffff;
+    pointer-events: none;
+    text-align: center;
+    z-index: 2;
+  }
 }
 
 /* 태블릿 게임 화면 (max-width: 1024px) */
@@ -944,7 +987,7 @@ p {
   }
 
   .bubble {
-    background: url("/assets/bubble-mobile.webp") no-repeat center; /* 📲 모바일에서는 bubble-mobile.webp 사용 */
+    background: url("/assets/bubble-mobile2.webp") no-repeat center; /* 📲 모바일에서는 bubble-mobile.webp 사용 */
     background-size: contain;
     width: 90%;
     max-width: 300px;
