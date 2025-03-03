@@ -976,7 +976,7 @@ p {
   }
   /* 말풍선 및 캐릭터 */
   .bottom-section {
-    height: 22%;
+    height: 21%;
     bottom: 0%;
     left: 0%;
     transform: translateX(0%);
