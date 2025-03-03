@@ -906,4 +906,40 @@ html, body {
     width: 92%;
     max-width: none;
   }
+  /* 말풍선 및 캐릭터 */
+  .bottom-section {
+    position: absolute; /* ✅ 화면 내에서 고정 배치 */
+    bottom: 9%;
+    left: 50%;
+    transform: translateX(-50%); /* ✅ 중앙 정렬 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .bubble {
+    width: 70%;
+    left: 10%;
+    z-index: 4;
+    transform: scale(1);
+  }
+  .bubble-text {
+    font-size: 18px;
+    font-weight: normal;
+    font-family: 'ONE-Mobile-POP', sans-serif;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    z-index: 5;
+  }
+  /* 밀아리 캐릭터 */
+  .character {
+    position: absolute; /* ✅ 왼쪽 아래 고정 */
+    bottom: 70%;
+    left: 7%;
+    width: 100px;
+    transform: scale(1);
+  }
 }
