@@ -59,44 +59,44 @@ app.get("/", (req, res) => {
 });
 
 // ✅ 서버 시작 시 기존 `regions/` 폴더 내 파일을 MongoDB로 자동 업로드
-const initializeRegions = async () => {
-  console.log("🔍 `regions/` 폴더 내 기존 파일을 MongoDB로 업로드 중...");
+// const initializeRegions = async () => {
+//   console.log("🔍 `regions/` 폴더 내 기존 파일을 MongoDB로 업로드 중...");
 
-  if (!fs.existsSync(regionsPath)) {
-    console.warn("⚠️ `regions/` 폴더가 없음. 새로 생성 중...");
-    fs.mkdirSync(regionsPath);
-  }
+//   if (!fs.existsSync(regionsPath)) {
+//     console.warn("⚠️ `regions/` 폴더가 없음. 새로 생성 중...");
+//     fs.mkdirSync(regionsPath);
+//   }
 
-  const files = fs.readdirSync(regionsPath);
-  for (const file of files) {
-    if (file.endsWith(".js")) {
-      const regionId = file.replace(".js", "");
-      console.log(`📂 파일 확인됨: ${file} -> ${regionId}`);
+//   const files = fs.readdirSync(regionsPath);
+//   for (const file of files) {
+//     if (file.endsWith(".js")) {
+//       const regionId = file.replace(".js", "");
+//       console.log(`📂 파일 확인됨: ${file} -> ${regionId}`);
 
-      try {
-        const filePath = path.join(regionsPath, file);
-        const module = await import(`file://${filePath.replace(/\\/g, "/")}`);
-        const regionData = module.default || module[regionId];
+//       try {
+//         const filePath = path.join(regionsPath, file);
+//         const module = await import(`file://${filePath.replace(/\\/g, "/")}`);
+//         const regionData = module.default || module[regionId];
 
-        if (regionData) {
-          // ✅ 기존 데이터를 완전히 덮어쓰기
-          await Region.replaceOne(
-            { id: regionId },
-            regionData,
-            { upsert: true }
-          );
-          console.log(`✅ ${regionId} 데이터 MongoDB에 저장 완료.`);
-        } else {
-          console.warn(`⚠️ ${regionId} 데이터가 유효하지 않음.`);
-        }
-      } catch (error) {
-        console.error(`❌ ${regionId} 데이터 변환 실패:`, error);
-      }
-    }
-  }
-};
+//         if (regionData) {
+//           // ✅ 기존 데이터를 완전히 덮어쓰기
+//           await Region.replaceOne(
+//             { id: regionId },
+//             regionData,
+//             { upsert: true }
+//           );
+//           console.log(`✅ ${regionId} 데이터 MongoDB에 저장 완료.`);
+//         } else {
+//           console.warn(`⚠️ ${regionId} 데이터가 유효하지 않음.`);
+//         }
+//       } catch (error) {
+//         console.error(`❌ ${regionId} 데이터 변환 실패:`, error);
+//       }
+//     }
+//   }
+// };
 
-initializeRegions();
+// initializeRegions();
 
 // ✅ 특정 지역 데이터 가져오기
 app.get("/api/regions/:regionId", async (req, res) => {

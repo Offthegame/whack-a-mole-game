@@ -1,6 +1,6 @@
 [build]
-  command = "mkdir -p /opt/build/repo/persistent/regions/ && cp -r regions/* /opt/build/repo/persistent/regions/ && npm start && cp -r /opt/build/repo/persistent/regions/* regions/"
-  publish = "public"  # Netlify에서 제공할 정적 파일 폴더
+  command = "npm run build"
+  publish = "public"  # 정적 파일 제공 폴더
 
 [context.production]
   environment = { NODE_VERSION = "18" }  # Node.js 버전 설정
