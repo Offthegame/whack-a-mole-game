@@ -1,4 +1,11 @@
-[[headers]]
-for = "/assets/*"
-[headers.values]
-Cache-Control = "no-cache, no-store, must-revalidate"
+[build]
+  command = "mkdir -p /opt/build/repo/persistent/regions/ && cp -r regions/* /opt/build/repo/persistent/regions/ && npm run build && cp -r /opt/build/repo/persistent/regions/* regions/"
+  publish = "public"  # Netlify에서 제공할 정적 파일 폴더
+
+[context.production]
+  environment = { NODE_VERSION = "18" }  # Node.js 버전 설정
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
