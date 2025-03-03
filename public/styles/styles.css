@@ -859,6 +859,7 @@ html, body {
   align-items: center;
   text-align: center;
   padding: 10px;
+  z-index: 2;
 }
 
 /* 🔹 말풍선 텍스트 */
@@ -871,6 +872,7 @@ html, body {
   text-align: center;
   line-height: 1.4;
   word-wrap: break-word;
+  z-index: 3;
 }
 
 /* 밀아리 캐릭터 */
@@ -941,12 +943,14 @@ html, body {
     height: 120px; /* ✅ 모바일에서 적절한 높이 */
     padding: 8px;
     transform: scale(1.1);
+    z-index: 3;
   }
 
   .bubble-text {
     font-size: 12px;
     width: 100%;
     max-width: 100%;
+    z-index: 4;
   }
 
   /* 밀아리 캐릭터 */
