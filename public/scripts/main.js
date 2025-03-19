@@ -942,7 +942,7 @@ function showLinktreeScreen() {
 // ✅ video-button 클릭 이벤트를 별도로 관리하여 모달 열기
 document.getElementById("video-button").addEventListener("click", () => {
   playButtonSound();
-  videoFrame.src = "https://player.vimeo.com/video/1061920162";
+  videoFrame.src = "https://player.vimeo.com/video/1067182318";
   videoModal.style.display = "flex"; // 모달 보이기
 });
 
